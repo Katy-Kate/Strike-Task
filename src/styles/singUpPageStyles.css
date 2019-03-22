@@ -1,0 +1,40 @@
+.sing-up-page {
+  height: 100vh;
+  background: #1d364c;
+  color: rgba(255, 255, 255, 0.9);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 20px;
+}
+.sing-up-form {
+  width: 60%;
+  max-width: 500px;
+}
+.sing-up-group {
+  position: relative;
+  margin: 20px 0;
+}
+.sing-up-field {
+  display: block;
+  width: 100%;
+  box-sizing: border-box;
+}
+.form-btn {
+  width: 45%;
+  margin: 0 auto;
+  display: inherit;
+  min-width: 160px;
+}
+
+.form-title {
+  text-align: center;
+}
+.invalid-feedback {
+  font-size: 12px;
+  color: #e74444;
+  left: 13px;
+  top: 28px;
+  position: absolute;
+}

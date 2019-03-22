@@ -1,18 +1,30 @@
 import React, { Component } from "react";
-import { Switch, Route } from "react-router-dom";
 import AppOfAuthPage from "./pages/AppOfAuthPage";
 import SingUpPage from "./pages/SingUpPage";
-import "./App.css";
+import "./styles/styles.css";
 
 class App extends Component {
+  constructor() {
+    super();
+    this.state = {
+      isSingUp: false
+    };
+  }
+
+  toggleIsSingUp = () => {
+    this.setState(prevState => ({
+      isSingUp: !prevState.isSingUp
+    }));
+  };
   render() {
     return (
-      <React.Fragment>
-        <Switch>
-          <Route exact path="/" component={SingUpPage} />
-          <Route exact path="/app-of-auth" component={AppOfAuthPage} />
-        </Switch>
-      </React.Fragment>
+      <div>
+        {this.state.isSingUp ? (
+          <AppOfAuthPage />
+        ) : (
+          <SingUpPage toggleIsSingUp={this.toggleIsSingUp} />
+        )}
+      </div>
     );
   }
 }
