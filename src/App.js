@@ -1,14 +1,17 @@
 import React, { Component } from "react";
-import AppOfAuthPage from "./pages/AppOfAuthPage";
+import MainContent from "./pages/MainContent";
 import SingUpPage from "./pages/SingUpPage";
-import Header from "./components/Header/Header";
-import "./styles/styles.css";
+import Logo from "././components/Logo";
+import HeaderWSpase from "./components/HeaderWSpase/HeaderWSpase";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faBars } from "@fortawesome/free-solid-svg-icons";
 
 class App extends Component {
   constructor() {
     super();
     this.state = {
-      isSingUp: false
+      isSingUp: true,
+      isOpenLeftPanel: false
     };
   }
 
@@ -17,16 +20,41 @@ class App extends Component {
       isSingUp: !prevState.isSingUp
     }));
   };
+  toggleLeftPanel = () => {
+    this.setState(prevState => ({
+      isOpenLeftPanel: !prevState.isOpenLeftPanel
+    }));
+  };
   render() {
     return (
-      <div>
-        <Header />
-        {this.state.isSingUp ? (
-          <AppOfAuthPage />
-        ) : (
-          <SingUpPage toggleIsSingUp={this.toggleIsSingUp} />
-        )}
-      </div>
+      <React.Fragment>
+        <header className="header">
+          {this.state.isSingUp && (
+            <FontAwesomeIcon
+              icon={faBars}
+              className="header_icon-hamburger"
+              onClick={this.toggleLeftPanel}
+            />
+          )}
+          <Logo />
+          {this.state.isSingUp && <HeaderWSpase />}
+        </header>
+        <main>
+          {this.state.isSingUp ? (
+            <MainContent />
+          ) : (
+            <SingUpPage toggleIsSingUp={this.toggleIsSingUp} />
+          )}
+          <div
+            className={
+              this.state.isOpenLeftPanel
+                ? "open left-panel"
+                : "close left-panel"
+            }
+          />
+        </main>
+        <footer>footer</footer>
+      </React.Fragment>
     );
   }
 }

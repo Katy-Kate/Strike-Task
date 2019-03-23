@@ -8,13 +8,13 @@ class SingUpPage extends Component {
     super();
     this.state = {
       values: {
-        firstname: "",
-        lastname: "",
-        password: "",
-        repeatPassword: "",
+        firstname: "Kate",
+        lastname: "Turalnikova",
+        password: "password",
+        repeatPassword: "password",
         gender: "муж",
-        email: "",
-        mobile: ""
+        email: "Turalnikova@gmail.com",
+        mobile: "0931527094"
       },
       errors: {
         firstname: false,
