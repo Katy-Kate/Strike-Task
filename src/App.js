@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import AppOfAuthPage from "./pages/AppOfAuthPage";
 import SingUpPage from "./pages/SingUpPage";
+import Header from "./components/Header/Header";
 import "./styles/styles.css";
 
 class App extends Component {
@@ -19,6 +20,7 @@ class App extends Component {
   render() {
     return (
       <div>
+        <Header />
         {this.state.isSingUp ? (
           <AppOfAuthPage />
         ) : (
