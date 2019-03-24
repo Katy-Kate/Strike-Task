@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import MainContent from "./pages/MainContent";
 import SingUpPage from "./pages/SingUpPage";
 import Logo from "././components/Logo";
+import Slider from "./components/Slider";
 import HeaderWSpase from "./components/HeaderWSpase/HeaderWSpase";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faBars } from "@fortawesome/free-solid-svg-icons";
@@ -40,6 +41,7 @@ class App extends Component {
           {this.state.isSingUp && <HeaderWSpase />}
         </header>
         <main>
+          <Slider />
           {this.state.isSingUp ? (
             <MainContent />
           ) : (
