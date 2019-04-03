@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faSquareFull } from "@fortawesome/free-solid-svg-icons";
 
@@ -46,13 +47,13 @@ const logo_iconThird = {
 class Logo extends React.Component {
   render() {
     return (
-      <a href="#" style={logo}>
+      <Link to="/" style={logo}>
         <FontAwesomeIcon icon={faSquareFull} style={logo_iconFirst} />
         <FontAwesomeIcon icon={faSquareFull} style={logo_iconSec} />
         <FontAwesomeIcon icon={faSquareFull} style={logo_iconThird} />
         <span style={logo_strike}>Strike</span>
         <span style={logo_task}> Task</span>
-      </a>
+      </Link>
     );
   }
 }

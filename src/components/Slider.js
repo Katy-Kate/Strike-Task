@@ -5,7 +5,8 @@ import img1 from "../images/slider1.jpg";
 import img2 from "../images/slider2.jpeg";
 import img3 from "../images/slider3.jpg";
 
-const arrayOfSlider = [img1, img2, img3];
+const imagesForSlider = [img1, img2, img3];
+
 class Slider extends React.Component {
   constructor() {
     super();
@@ -14,7 +15,7 @@ class Slider extends React.Component {
     };
   }
   onChangeSlider = data => {
-    if (this.state.indexOfSliderImage < arrayOfSlider.length - 1) {
+    if (this.state.indexOfSliderImage < imagesForSlider.length - 1) {
       this.setState(prevState => ({
         indexOfSliderImage: prevState.indexOfSliderImage + data
       }));
@@ -35,7 +36,7 @@ class Slider extends React.Component {
           <FontAwesomeIcon icon={faAngleLeft} />
         </button>
         <div className="slider_wraper">
-          {arrayOfSlider
+          {imagesForSlider
             .map((item, i) => {
               return (
                 <div

@@ -1,8 +1,9 @@
 import React, { Component } from "react";
 import MainContent from "./pages/MainContent";
 import SingUpPage from "./pages/SingUpPage";
-import Logo from "././components/Logo";
+import Logo from "./components/Logo";
 import Slider from "./components/Slider";
+import LeftPanel from "./components/HeaderWSpase/LeftPanel";
 import HeaderWSpase from "./components/HeaderWSpase/HeaderWSpase";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faBars } from "@fortawesome/free-solid-svg-icons";
@@ -26,6 +27,26 @@ class App extends Component {
       isOpenLeftPanel: !prevState.isOpenLeftPanel
     }));
   };
+  // onCloseNavMenu = event => {
+  //   console.log("hi");
+  //   let elemOnclick = event.target.classList();
+  //   console.log(elemOnclick);
+
+  //   if (
+  //     elemOnclick.some(item => {
+  //       return item === "open";
+  //     })
+  //   ) {
+  //     let element = document.getElementsByClassName("left-nav_item__btn");
+  //     console.log(element, "   yyyy");
+  //     element && element.classList.remove("open");
+  //   }
+  // };
+
+  // componentDidMount() {
+  //   window.addEventListener("click", this.onCloseNavMenu);
+  // }
+
   render() {
     return (
       <React.Fragment>
@@ -41,13 +62,16 @@ class App extends Component {
           {this.state.isSingUp && <HeaderWSpase />}
         </header>
         <main>
-          <Slider />
           {this.state.isSingUp ? (
-            <MainContent />
+            <React.Fragment>
+              <Slider />
+              <MainContent />
+            </React.Fragment>
           ) : (
             <SingUpPage toggleIsSingUp={this.toggleIsSingUp} />
           )}
-          <div
+
+          <LeftPanel
             className={
               this.state.isOpenLeftPanel
                 ? "open left-panel"
