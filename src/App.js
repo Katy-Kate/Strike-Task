@@ -12,8 +12,7 @@ class App extends Component {
   constructor() {
     super();
     this.state = {
-      isSingUp: true,
-      isOpenLeftPanel: false
+      isSingUp: true
     };
   }
 
@@ -22,41 +21,37 @@ class App extends Component {
       isSingUp: !prevState.isSingUp
     }));
   };
-  toggleLeftPanel = () => {
-    this.setState(prevState => ({
-      isOpenLeftPanel: !prevState.isOpenLeftPanel
-    }));
+
+  toggleMenu = element => {
+    element.classList.toggle("open");
   };
-  // onCloseNavMenu = event => {
-  //   console.log("hi");
-  //   let elemOnclick = event.target.classList();
-  //   console.log(elemOnclick);
 
-  //   if (
-  //     elemOnclick.some(item => {
-  //       return item === "open";
-  //     })
-  //   ) {
-  //     let element = document.getElementsByClassName("left-nav_item__btn");
-  //     console.log(element, "   yyyy");
-  //     element && element.classList.remove("open");
-  //   }
-  // };
+  componentDidMount() {
+    let hamburger = document.querySelector(".header_icon-hamburger");
+    let leftPanel = document.querySelector(".left-panel");
 
-  // componentDidMount() {
-  //   window.addEventListener("click", this.onCloseNavMenu);
-  // }
+    hamburger.addEventListener("click", e => {
+      e.stopPropagation();
+      this.toggleMenu(leftPanel);
+    });
+    document.addEventListener("click", e => {
+      let target = e.target;
+      let its_leftPanel = target === leftPanel || leftPanel.contains(target);
+      let its_hamburger = target === hamburger;
+      let leftPanel_is_open = leftPanel.classList.contains("open");
+
+      if (!its_leftPanel && !its_hamburger && leftPanel_is_open) {
+        this.toggleMenu(leftPanel);
+      }
+    });
+  }
 
   render() {
     return (
       <React.Fragment>
         <header className="header">
           {this.state.isSingUp && (
-            <FontAwesomeIcon
-              icon={faBars}
-              className="header_icon-hamburger"
-              onClick={this.toggleLeftPanel}
-            />
+            <FontAwesomeIcon icon={faBars} className="header_icon-hamburger" />
           )}
           <Logo />
           {this.state.isSingUp && <HeaderWSpase />}
@@ -71,13 +66,7 @@ class App extends Component {
             <SingUpPage toggleIsSingUp={this.toggleIsSingUp} />
           )}
 
-          <LeftPanel
-            className={
-              this.state.isOpenLeftPanel
-                ? "open left-panel"
-                : "close left-panel"
-            }
-          />
+          <LeftPanel className="left-panel" />
         </main>
         <footer>footer</footer>
       </React.Fragment>

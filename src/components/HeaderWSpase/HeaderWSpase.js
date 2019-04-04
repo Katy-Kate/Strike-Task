@@ -3,17 +3,35 @@ import { Link } from "react-router-dom";
 import defaultAvatar from "../../images/default-avatar.png";
 
 class HeaderWSpase extends Component {
-  constructor() {
-    super();
-    this.state = {
-      isDropdownMenuOpen: false
-    };
-  }
-  toogleDropdownMenu = () => {
-    this.setState(prevState => ({
-      isDropdownMenuOpen: !prevState.isDropdownMenuOpen
-    }));
+  toggleMenu = element => {
+    element.classList.toggle("open");
   };
+
+  componentDidMount() {
+    let userIcon = document.querySelector(".user-profile_avatar");
+    let userDropdownMenu = document.querySelector(
+      ".user-profile_dropdown-menu "
+    );
+
+    userIcon.addEventListener("click", e => {
+      e.stopPropagation();
+      this.toggleMenu(userDropdownMenu);
+    });
+    document.addEventListener("click", e => {
+      let target = e.target;
+      let its_userDropdownMenu =
+        target === userDropdownMenu || userDropdownMenu.contains(target);
+      let its_userIcon = target === userIcon;
+      let userDropdownMenu_is_open = userDropdownMenu.classList.contains(
+        "open"
+      );
+
+      if (!its_userDropdownMenu && !its_userIcon && userDropdownMenu_is_open) {
+        this.toggleMenu(userDropdownMenu);
+      }
+    });
+  }
+
   render() {
     return (
       <div className="header_wspase">
@@ -43,13 +61,7 @@ class HeaderWSpase extends Component {
               className="user-profile_avatar__image"
             />
           </div>
-          <div
-            className={
-              this.state.isDropdownMenuOpen
-                ? "user-profile_dropdown-menu user-profile_dropdown-menu--open"
-                : "user-profile_dropdown-menu"
-            }
-          >
+          <div className="user-profile_dropdown-menu">
             <Link to="" className="user-profile_dropdown-menu__item">
               Выйти
             </Link>
