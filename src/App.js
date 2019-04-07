@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import MainContent from "./pages/MainContent";
 import SingUpPage from "./pages/SingUpPage";
+import SingInPage from "./pages/SingInPage";
 import Logo from "./components/Logo";
 import Slider from "./components/Slider";
 import LeftPanel from "./components/HeaderWSpase/LeftPanel";
@@ -12,21 +13,26 @@ class App extends Component {
   constructor() {
     super();
     this.state = {
-      isSingUp: true
+      isSingUp: false
     };
   }
 
   toggleIsSingUp = () => {
-    this.setState(prevState => ({
-      isSingUp: !prevState.isSingUp
-    }));
+    this.setState(
+      prevState => ({
+        isSingUp: !prevState.isSingUp
+      }),
+      () => {
+        this.state.isSingUp && this.onAddEventListenerOnMenu();
+      }
+    );
   };
 
   toggleMenu = element => {
     element.classList.toggle("open");
   };
 
-  componentDidMount() {
+  onAddEventListenerOnMenu() {
     let hamburger = document.querySelector(".header_icon-hamburger");
     let leftPanel = document.querySelector(".left-panel");
 
@@ -39,11 +45,16 @@ class App extends Component {
       let its_leftPanel = target === leftPanel || leftPanel.contains(target);
       let its_hamburger = target === hamburger;
       let leftPanel_is_open = leftPanel.classList.contains("open");
-
       if (!its_leftPanel && !its_hamburger && leftPanel_is_open) {
         this.toggleMenu(leftPanel);
       }
     });
+  }
+
+  componentDidMount() {
+    if (localStorage.getItem("user")) {
+      this.toggleIsSingUp();
+    }
   }
 
   render() {
@@ -63,7 +74,10 @@ class App extends Component {
               <MainContent />
             </React.Fragment>
           ) : (
-            <SingUpPage toggleIsSingUp={this.toggleIsSingUp} />
+            <React.Fragment>
+              <SingUpPage toggleIsSingUp={this.toggleIsSingUp} />
+              <SingInPage toggleIsSingUp={this.toggleIsSingUp} />
+            </React.Fragment>
           )}
 
           <LeftPanel className="left-panel" />

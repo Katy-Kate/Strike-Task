@@ -1,6 +1,11 @@
 import React, { Component } from "react";
 import UIField from "../components/UiComponents/UIField";
 import UIRadioBtn from "../components/UiComponents/UIRadioBtn";
+import {
+  addNewUserToLocalStorage,
+  createNewUser,
+  inputErrors
+} from "../data/UserRepository";
 import "../styles/singUpPageStyles.css";
 
 class SingUpPage extends Component {
@@ -28,31 +33,6 @@ class SingUpPage extends Component {
     };
   }
 
-  validateFields = () => {
-    const regExpMail = new RegExp("^.+@[^.].*.[a-z]{2,}$");
-    const regExpMobile = new RegExp("[0-9]{9,}");
-    const errors = {};
-    const { values } = this.state;
-
-    values.firstname.length < 5 &&
-      (errors.firstname = "Must be more then 4 charecters");
-    values.lastname.length < 5 &&
-      (errors.lastname = "Must be more then 4 charecters")(
-        values.password.length < 6
-      ) &&
-      (errors.password = "Must be more then 5 charecters")(
-        values.repeatPassword !== values.password ||
-          values.password.length === 0
-      ) &&
-      (errors.repeatPassword = "Password must be the same");
-
-    !regExpMail.test(values.email) && (errors.email = "Invalid email address");
-    !regExpMobile.test(values.mobile) &&
-      (errors.mobile = "Invalid mobile number");
-
-    return errors;
-  };
-
   onChange = e => {
     const name = e.target.name;
     const value = e.target.value;
@@ -67,50 +47,69 @@ class SingUpPage extends Component {
 
   handleBlur = input => {
     const inputName = input.target.id;
-
+    let self = this;
     if (this.state.values[inputName] === "") {
-      this.setState(prevState => ({
-        errors: { ...prevState.errors, [inputName]: "Not empty" }
-      }));
+      inputErrors(self, inputName, "Not empty");
       return false;
     } else {
+      // when we are changing email input
+      if (inputName === "email") {
+        const regExpMail = new RegExp("^.+@[^.].*.[a-z]{2,}$");
+        let emailErr = "";
+        if (this.state.values[inputName].length <= 4) {
+          emailErr = "Must be more then 4 charecters";
+        } else if (!regExpMail.test(this.state.values.email)) {
+          emailErr = "Invalid email address";
+        }
+        inputErrors(self, inputName, emailErr);
+        return false;
+      }
+
+      // when we are changing mobile input
+      else if (inputName === "mobile") {
+        const regExpMobile = new RegExp("[0-9]{9,}");
+        let mobileErr = "";
+        if (this.state.values[inputName].length <= 4) {
+          mobileErr = "Must be more then 4 charecters";
+        } else if (!regExpMobile.test(this.state.values.mobile)) {
+          mobileErr = "Invalid mobile";
+        }
+        inputErrors(self, inputName, mobileErr);
+        return false;
+      }
+
+      // when we are changing name input
       if (
-        (inputName === "firstname" ||
-          inputName === "lastname" ||
-          inputName === "mobile" ||
-          inputName === "email") &&
+        (inputName === "firstname" || inputName === "lastname") &&
         this.state.values[inputName].length <= 4
       ) {
-        this.setState(prevState => ({
-          errors: {
-            ...prevState.errors,
-            [inputName]: "Must be more then 4 charecters"
-          }
-        }));
+        inputErrors(self, inputName, "Must be more then 4 charecters");
         return false;
-      } else if (
+      }
+
+      // when we are changing password input
+      else if (
         inputName === "password" &&
         this.state.values[inputName].length <= 4
       ) {
-        this.setState(prevState => ({
-          errors: {
-            ...prevState.errors,
-            [inputName]: "Must be more then 4 charecters"
-          }
-        }));
+        inputErrors(inputName, "Must be more then 4 charecters");
+        // this.setState(prevState => ({
+        //   errors: {
+        //     ...prevState.errors,
+        //     [inputName]: "Must be more then 4 charecters"
+        //   }
+        // }));
         return false;
       } else if (
         inputName === "repeatPassword" &&
         this.state.values.repeatPassword !== this.state.values.password
       ) {
-        this.setState(prevState => ({
-          errors: {
-            ...prevState.errors,
-            [inputName]: "Password must be the same"
-          }
-        }));
+        inputErrors(self, inputName, "Password must be the same");
         return false;
-      } else {
+      }
+
+      // if everything correct
+      else {
         this.setState({
           submitting: true
         });
@@ -119,31 +118,29 @@ class SingUpPage extends Component {
   };
 
   onSubmit = () => {
-    const errors = this.validateFields();
-    if (Object.keys(errors).length > 0) {
-      this.setState(prevState => ({
-        errors: {
-          ...prevState.errors,
-          ...errors
-        }
-      }));
-    } else {
-      this.props.toggleIsSingUp();
-    }
+    // if (Object.keys(this.state.errors).length > 0) {
+    //   console.log("err");
+
+    this.props.toggleIsSingUp();
   };
   onLogin = e => {
     e.preventDefault();
-    const errors = this.validateFields();
-    if (Object.keys(errors).length > 0) {
-      this.setState(prevState => ({
-        errors: {
-          ...prevState.errors,
-          ...errors
-        }
-      }));
-    } else {
-      this.onSubmit();
-    }
+    let user = createNewUser(this.state.values);
+    addNewUserToLocalStorage(user);
+    this.onSubmit();
+    // const errors = this.validateFields();
+    // if (Object.keys(this.state.errors).length !== 0) {
+    //   this.setState(prevState => ({
+    //     errors: {
+    //       ...prevState.errors,
+    //       ...errors
+    //     }
+    //   }));
+    // } else {
+    //   let user = createNewUser(this.state.values);
+    //   addNewUserToLocalStorage(user);
+    //   this.onSubmit();
+    // }
   };
 
   render() {

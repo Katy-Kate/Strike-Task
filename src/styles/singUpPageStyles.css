@@ -1,4 +1,7 @@
-.sing-up-page {
+.sing-up-page,
+.sing-in-page {
+  width: 50%;
+  box-sizing: border-box;
   height: 100vh;
   background: #1d364c;
   color: rgba(255, 255, 255, 0.9);
@@ -8,7 +11,11 @@
   align-items: center;
   padding: 20px;
 }
-.sing-up-form {
+.sing-up-page {
+  float: right;
+}
+.sing-up-form,
+.sing-in-form {
   width: 60%;
   max-width: 500px;
 }
