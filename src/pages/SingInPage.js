@@ -1,6 +1,8 @@
 import React, { Component } from "react";
 import UIField from "../components/UiComponents/UIField";
+import { validateFuield, getUser } from "../data/UserRepository";
 import "../styles/singUpPageStyles.css";
+import data from "../data/data.json";
 
 class SingInPage extends Component {
   constructor() {
@@ -14,6 +16,7 @@ class SingInPage extends Component {
         password: false,
         email: false
       },
+      userErr: false,
       submitting: false
     };
   }
@@ -21,7 +24,6 @@ class SingInPage extends Component {
   onChange = e => {
     const name = e.target.name;
     const value = e.target.value;
-    console.log(value);
     this.setState(prevState => ({
       values: { ...prevState.values, [name]: value },
       errors: {
@@ -33,60 +35,38 @@ class SingInPage extends Component {
 
   handleBlur = input => {
     const inputName = input.target.id;
-
-    if (this.state.values[inputName] === "") {
-      this.setState(prevState => ({
-        errors: { ...prevState.errors, [inputName]: "Not empty" }
-      }));
-      return false;
-    } else {
-      if (inputName === "email") {
-        const regExpMail = new RegExp("^.+@[^.].*.[a-z]{2,}$");
-        let emailErr = "";
-        if (this.state.values[inputName].length <= 4) {
-          emailErr = "Must be more then 4 charecters";
-        } else if (!regExpMail.test(this.state.values.email)) {
-          emailErr = "Invalid email address";
-        }
-        this.setState(prevState => ({
-          errors: {
-            ...prevState.errors,
-            [inputName]: emailErr
-          }
-        }));
-
-        return false;
-      } else if (
-        inputName === "password" &&
-        this.state.values[inputName].length <= 4
-      ) {
-        this.setState(prevState => ({
-          errors: {
-            ...prevState.errors,
-            [inputName]: "Must be more then 4 charecters"
-          }
-        }));
-        return false;
-      } else {
-        this.setState({
-          submitting: true
-        });
-      }
+    let self = this;
+    // if everything correct
+    if (validateFuield(self, inputName)) {
+      this.setState({
+        submitting: true
+      });
     }
   };
 
   onSubmit = () => {
-    // if (Object.keys(this.state.errors).length > 0) {
-    //   console.log("err");
-    // } else {
-    //   let users = JSON.parse(localStorage.getItem("users"));
-    //   this.props.toggleIsSingUp();
-    // }
+    this.props.toggleIsSingIn();
   };
 
   onLogin = e => {
     e.preventDefault();
-    if (Object.keys(this.state.errors).length === 0) {
+    let arrOfErrors = Object.values(this.state.errors);
+    if (
+      arrOfErrors.some(item => {
+        return item;
+      })
+    ) {
+      alert("err");
+    } else {
+      //  ?????????????????????????????????????????
+      // getUser(this.state.values.password, this.state.values.email)
+      //   .then(user => {
+      //     //this.onSubmit();
+      //   })
+      //   .catch(err => {
+      //     console.log("err", err);
+      //   });
+      this.props.safeUser(data);
       this.onSubmit();
     }
   };
@@ -128,6 +108,9 @@ class SingInPage extends Component {
           >
             Войти
           </button>
+          {this.state.userErr && (
+            <div className="invalid-feedback">{this.state.userErr}</div>
+          )}
         </div>
       </div>
     );

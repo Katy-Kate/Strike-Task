@@ -8,25 +8,26 @@ import LeftPanel from "./components/HeaderWSpase/LeftPanel";
 import HeaderWSpase from "./components/HeaderWSpase/HeaderWSpase";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faBars } from "@fortawesome/free-solid-svg-icons";
+import data from "./data/data.json";
 
 class App extends Component {
   constructor() {
     super();
     this.state = {
-      isSingUp: false
+      isSingUp: false,
+      isSingIn: false,
+      user: data
     };
   }
-
-  toggleIsSingUp = () => {
-    this.setState(
-      prevState => ({
-        isSingUp: !prevState.isSingUp
-      }),
-      () => {
-        this.state.isSingUp && this.onAddEventListenerOnMenu();
-      }
-    );
-  };
+  componentDidMount() {
+    if (this.state.user) {
+      this.toggleIsSingIn();
+    }
+    // add data if localstorage is ampty
+    else if (!JSON.parse(localStorage.getItem("users"))) {
+      localStorage.setItem("users", JSON.stringify([data]));
+    }
+  }
 
   toggleMenu = element => {
     element.classList.toggle("open");
@@ -50,33 +51,60 @@ class App extends Component {
       }
     });
   }
+  toggleIsSingIn = () => {
+    this.setState(
+      prevState => ({
+        isSingIn: !prevState.isSingIn
+      }),
+      () => {
+        this.state.isSingIn && this.onAddEventListenerOnMenu();
+      }
+    );
+  };
+  toggleIsSingUp = () => {
+    this.setState(prevState => ({
+      isSingUp: !prevState.isSingUp
+    }));
+  };
 
-  componentDidMount() {
-    if (localStorage.getItem("user")) {
-      this.toggleIsSingUp();
-    }
-  }
-
+  safeUser = user => {
+    this.setState({
+      user
+    });
+  };
+  onLogOut = () => {
+    this.setState({
+      user: null,
+      isSingUp: false,
+      isSingIn: false
+    });
+  };
   render() {
     return (
       <React.Fragment>
         <header className="header">
-          {this.state.isSingUp && (
+          {this.state.isSingIn && (
             <FontAwesomeIcon icon={faBars} className="header_icon-hamburger" />
           )}
           <Logo />
-          {this.state.isSingUp && <HeaderWSpase />}
+          {this.state.isSingIn && <HeaderWSpase onLogOut={this.onLogOut} />}
         </header>
         <main>
-          {this.state.isSingUp ? (
+          {this.state.isSingIn ? (
             <React.Fragment>
               <Slider />
               <MainContent />
             </React.Fragment>
           ) : (
             <React.Fragment>
-              <SingUpPage toggleIsSingUp={this.toggleIsSingUp} />
-              <SingInPage toggleIsSingUp={this.toggleIsSingUp} />
+              <SingUpPage
+                toggleIsSingUp={this.toggleIsSingUp}
+                isSingUp={this.state.isSingUp}
+              />
+              <SingInPage
+                toggleIsSingIn={this.toggleIsSingIn}
+                safeUser={this.safeUser}
+              />
             </React.Fragment>
           )}
 

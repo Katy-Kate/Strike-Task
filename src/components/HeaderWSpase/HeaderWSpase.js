@@ -6,8 +6,7 @@ class HeaderWSpase extends Component {
   toggleMenu = element => {
     element.classList.toggle("open");
   };
-
-  componentDidMount() {
+  onAddEventListenerOnUserMenu = () => {
     let userIcon = document.querySelector(".user-profile_avatar");
     let userDropdownMenu = document.querySelector(
       ".user-profile_dropdown-menu "
@@ -30,6 +29,9 @@ class HeaderWSpase extends Component {
         this.toggleMenu(userDropdownMenu);
       }
     });
+  };
+  componentDidMount() {
+    this.onAddEventListenerOnUserMenu();
   }
 
   render() {
@@ -62,9 +64,12 @@ class HeaderWSpase extends Component {
             />
           </div>
           <div className="user-profile_dropdown-menu">
-            <Link to="" className="user-profile_dropdown-menu__item">
+            <p
+              className="user-profile_dropdown-menu__item"
+              onClick={this.props.onLogOut}
+            >
               Выйти
-            </Link>
+            </p>
           </div>
         </div>
       </div>
