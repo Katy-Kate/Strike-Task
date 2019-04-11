@@ -2,7 +2,8 @@
 .sing-in-page {
   width: 50%;
   box-sizing: border-box;
-  height: 100vh;
+  height: 100%;
+  min-height: 635px;
   background: #1d364c;
   color: rgba(255, 255, 255, 0.9);
   display: flex;

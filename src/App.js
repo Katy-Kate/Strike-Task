@@ -16,11 +16,13 @@ class App extends Component {
     this.state = {
       isSingUp: false,
       isSingIn: false,
-      user: data
+      user: false
     };
   }
   componentDidMount() {
-    if (this.state.user) {
+    let user = JSON.parse(localStorage.getItem("user"));
+    if (user) {
+      this.saveUser(user);
       this.toggleIsSingIn();
     }
     // add data if localstorage is ampty
@@ -67,7 +69,7 @@ class App extends Component {
     }));
   };
 
-  safeUser = user => {
+  saveUser = user => {
     this.setState({
       user
     });
@@ -103,7 +105,7 @@ class App extends Component {
               />
               <SingInPage
                 toggleIsSingIn={this.toggleIsSingIn}
-                safeUser={this.safeUser}
+                saveUser={this.saveUser}
               />
             </React.Fragment>
           )}

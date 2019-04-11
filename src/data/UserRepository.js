@@ -57,7 +57,7 @@ export const validateFuield = (context, inputName) => {
       inputName === "password" &&
       context.state.values[inputName].length <= 4
     ) {
-      inputErrors(inputName, "Must be more then 4 charecters");
+      inputErrors(context, inputName, "Must be more then 4 charecters");
       return false;
     } else if (
       inputName === "repeatPassword" &&
@@ -79,20 +79,21 @@ export const inputErrors = (context, inputName, err) => {
   }));
 };
 
-export const foundUser = async (arrOfUsers, password, mail) => {
-  return arrOfUsers.forEach(element => {
-    console.log(element.email, element.password);
-    console.log(mail, password);
+export const foundUser = (arrOfUsers, password, mail) => {
+  let user;
+  arrOfUsers.forEach(element => {
     if (element.email === mail && element.password === password) {
-      return element;
-    } else {
-      return;
+      console.log(
+        "element = ",
+        element.email === mail && element.password === password,
+        element
+      );
+      user = element;
     }
   });
+  return user;
 };
 export const getUser = async (userPas, userMail) => {
-  let users = await JSON.parse(localStorage.getItem("users"));
-  let user = await foundUser(users, userPas, userMail);
-  console.log("async", user);
-  return user;
+  const users = await JSON.parse(localStorage.getItem("users"));
+  return await foundUser(users, userPas, userMail);
 };

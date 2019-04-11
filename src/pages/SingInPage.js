@@ -2,7 +2,6 @@ import React, { Component } from "react";
 import UIField from "../components/UiComponents/UIField";
 import { validateFuield, getUser } from "../data/UserRepository";
 import "../styles/singUpPageStyles.css";
-import data from "../data/data.json";
 
 class SingInPage extends Component {
   constructor() {
@@ -28,7 +27,7 @@ class SingInPage extends Component {
       values: { ...prevState.values, [name]: value },
       errors: {
         ...prevState.errors,
-        [name]: ""
+        [name]: false
       }
     }));
   };
@@ -56,18 +55,21 @@ class SingInPage extends Component {
         return item;
       })
     ) {
-      alert("err");
+      alert(" onLogin err ");
     } else {
-      //  ?????????????????????????????????????????
-      // getUser(this.state.values.password, this.state.values.email)
-      //   .then(user => {
-      //     //this.onSubmit();
-      //   })
-      //   .catch(err => {
-      //     console.log("err", err);
-      //   });
-      this.props.safeUser(data);
-      this.onSubmit();
+      getUser(this.state.values.password, this.state.values.email)
+        .then(user => {
+          if (user) {
+            this.props.saveUser(user);
+            console.log("user", user);
+            this.onSubmit();
+          } else {
+            alert("неправильный пароль");
+          }
+        })
+        .catch(err => {
+          console.log("onLogin err", err);
+        });
     }
   };
 
