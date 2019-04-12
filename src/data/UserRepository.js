@@ -93,6 +93,7 @@ export const foundUser = (arrOfUsers, password, mail) => {
   });
   return user;
 };
+
 export const getUser = async (userPas, userMail) => {
   const users = await JSON.parse(localStorage.getItem("users"));
   return await foundUser(users, userPas, userMail);

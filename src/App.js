@@ -73,6 +73,7 @@ class App extends Component {
     this.setState({
       user
     });
+    localStorage.setItem("user", JSON.stringify(user));
   };
   onLogOut = () => {
     this.setState({
@@ -80,6 +81,7 @@ class App extends Component {
       isSingUp: false,
       isSingIn: false
     });
+    localStorage.removeItem("user");
   };
   render() {
     return (

@@ -64,7 +64,11 @@ class SingInPage extends Component {
             console.log("user", user);
             this.onSubmit();
           } else {
-            alert("неправильный пароль");
+            this.onChangeuserErr(
+              "пользоваьеля с такой почтой или паролем не существует"
+            );
+
+            alert("пользоваьеля с такой почтой или паролем не существует");
           }
         })
         .catch(err => {
@@ -73,6 +77,11 @@ class SingInPage extends Component {
     }
   };
 
+  onChangeuserErr = err => {
+    this.setState({
+      userErr: err
+    });
+  };
   render() {
     const { values, errors, submitting } = this.state;
     return (
@@ -111,7 +120,9 @@ class SingInPage extends Component {
             Войти
           </button>
           {this.state.userErr && (
-            <div className="invalid-feedback">{this.state.userErr}</div>
+            <div className="sing-in-form_invalid-feedback">
+              {this.state.userErr}
+            </div>
           )}
         </div>
       </div>
