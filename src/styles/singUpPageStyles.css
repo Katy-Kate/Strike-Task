@@ -20,11 +20,13 @@
   width: 60%;
   max-width: 500px;
 }
-.sing-up-group {
+.sing-up-group,
+.sing-in-group {
   position: relative;
   margin: 20px 0;
 }
-.sing-up-field {
+.sing-up-field,
+.sing-in-field {
   display: block;
   width: 100%;
   box-sizing: border-box;

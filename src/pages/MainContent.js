@@ -8,11 +8,12 @@ import TasksDone from "../components/MainContent/Tasks/TasksDone";
 import TasksInWorking from "../components/MainContent/Tasks/TasksInWorking";
 import TasksCancel from "../components/MainContent/Tasks/TasksCancel";
 import TasksPanding from "../components/MainContent/Tasks/TasksPanding";
+import "../styles/tasks.css";
 
 class MainContent extends Component {
   render() {
     return (
-      <div className="MainContent">
+      <div className="main-content">
         <Switch>
           <Route path="/" exact component={Tasks} />
           <Route path="/tasks-new" exact component={NewTasks} />

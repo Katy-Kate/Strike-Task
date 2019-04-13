@@ -86,7 +86,7 @@ class SingInPage extends Component {
     const { values, errors, submitting } = this.state;
     return (
       <div className="sing-in-page">
-        <div className="sing-in-form">
+        <form className="sing-in-form">
           <h3 className="form-title">Войти</h3>
           <UIField
             id="email"
@@ -97,6 +97,8 @@ class SingInPage extends Component {
             onChange={this.onChange}
             handleBlur={this.handleBlur}
             error={errors.email}
+            classNameWrap="sing-in-group"
+            classNameInput="sing-in-field"
           />
 
           <UIField
@@ -108,6 +110,8 @@ class SingInPage extends Component {
             onChange={this.onChange}
             handleBlur={this.handleBlur}
             error={errors.password}
+            classNameWrap="sing-in-group"
+            classNameInput="sing-in-field"
           />
 
           <button
@@ -124,7 +128,7 @@ class SingInPage extends Component {
               {this.state.userErr}
             </div>
           )}
-        </div>
+        </form>
       </div>
     );
   }

@@ -1,6 +1,6 @@
 import React from "react";
 
-export default class UIField extends React.PureComponent {
+export default class UITextarea extends React.PureComponent {
   render() {
     const {
       id,
@@ -10,14 +10,14 @@ export default class UIField extends React.PureComponent {
       onChange,
       handleBlur,
       value,
-      error,
+
       classNameWrap,
       classNameInput
     } = this.props;
 
     return (
       <div className={classNameWrap}>
-        <input
+        <textarea
           type={type}
           className={classNameInput}
           id={id}
@@ -27,7 +27,6 @@ export default class UIField extends React.PureComponent {
           onChange={onChange}
           onBlur={handleBlur}
         />
-        {error && <div className="invalid-feedback">{error}</div>}
       </div>
     );
   }

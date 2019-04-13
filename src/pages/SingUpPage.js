@@ -87,7 +87,7 @@ class SingUpPage extends Component {
     } else {
       return (
         <div className="sing-up-page">
-          <div className="sing-up-form">
+          <form className="sing-up-form">
             <h3 className="form-title">Создать аккаунт</h3>
             <UIField
               id="firstname"
@@ -98,6 +98,8 @@ class SingUpPage extends Component {
               onChange={this.onChange}
               handleBlur={this.handleBlur}
               error={errors.firstname}
+              classNameWrap="sing-up-group"
+              classNameInput="sing-up-field"
             />
             <UIField
               id="lastname"
@@ -108,6 +110,8 @@ class SingUpPage extends Component {
               onChange={this.onChange}
               handleBlur={this.handleBlur}
               error={errors.lastname}
+              classNameWrap="sing-up-group"
+              classNameInput="sing-up-field"
             />
 
             <fieldset className="form-group">
@@ -138,6 +142,8 @@ class SingUpPage extends Component {
               onChange={this.onChange}
               handleBlur={this.handleBlur}
               error={errors.email}
+              classNameWrap="sing-up-group"
+              classNameInput="sing-up-field"
             />
             <UIField
               id="mobile"
@@ -148,6 +154,8 @@ class SingUpPage extends Component {
               onChange={this.onChange}
               handleBlur={this.handleBlur}
               error={errors.mobile}
+              classNameWrap="sing-up-group"
+              classNameInput="sing-up-field"
             />
 
             <UIField
@@ -159,6 +167,8 @@ class SingUpPage extends Component {
               onChange={this.onChange}
               handleBlur={this.handleBlur}
               error={errors.password}
+              classNameWrap="sing-up-group"
+              classNameInput="sing-up-field"
             />
             <UIField
               id="repeatPassword"
@@ -169,6 +179,8 @@ class SingUpPage extends Component {
               onChange={this.onChange}
               handleBlur={this.handleBlur}
               error={errors.repeatPassword}
+              classNameWrap="sing-up-group"
+              classNameInput="sing-up-field"
             />
 
             <button
@@ -180,7 +192,7 @@ class SingUpPage extends Component {
             >
               Зарегестрироваться
             </button>
-          </div>
+          </form>
         </div>
       );
     }

@@ -70,7 +70,7 @@ button.arrowBtn svg {
   display: flex;
   flex-direction: column;
   justify-content: stretch;
-  height: 100vh;
+  min-height: 100vh;
 }
 
 /* header */
@@ -149,8 +149,14 @@ button.arrowBtn svg {
 main {
   position: relative;
   flex: 1;
+  display: flex;
 }
-
+.loginPage {
+  flex-direction: row-reverse;
+}
+.appPage {
+  flex-direction: column;
+}
 /* left-panel */
 .left-panel {
   display: flex;
@@ -262,7 +268,7 @@ svg {
 }
 .slider_wraper {
   position: relative;
-  height: 30vw;
+  height: 20vw;
   overflow: hidden;
 }
 .slider_bgImage {
@@ -279,4 +285,8 @@ svg {
   right: 0;
   opacity: 1;
   transform: translateX(0);
+}
+/* MainContent */
+.main-content {
+  background: #1c364c;
 }

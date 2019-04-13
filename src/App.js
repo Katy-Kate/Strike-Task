@@ -17,11 +17,12 @@ class App extends Component {
       isSingUp: false,
       isSingIn: false,
       user: false
+      //user: data
     };
   }
   componentDidMount() {
     let user = JSON.parse(localStorage.getItem("user"));
-    if (user) {
+    if (user || this.state.user) {
       this.saveUser(user);
       this.toggleIsSingIn();
     }
@@ -93,27 +94,27 @@ class App extends Component {
           <Logo />
           {this.state.isSingIn && <HeaderWSpase onLogOut={this.onLogOut} />}
         </header>
-        <main>
-          {this.state.isSingIn ? (
-            <React.Fragment>
-              <Slider />
-              <MainContent />
-            </React.Fragment>
-          ) : (
-            <React.Fragment>
-              <SingUpPage
-                toggleIsSingUp={this.toggleIsSingUp}
-                isSingUp={this.state.isSingUp}
-              />
-              <SingInPage
-                toggleIsSingIn={this.toggleIsSingIn}
-                saveUser={this.saveUser}
-              />
-            </React.Fragment>
-          )}
 
-          <LeftPanel className="left-panel" />
-        </main>
+        {this.state.isSingIn ? (
+          <main className="appPage">
+            <Slider />
+            <MainContent />
+          </main>
+        ) : (
+          <main className="loginPage">
+            <SingUpPage
+              toggleIsSingUp={this.toggleIsSingUp}
+              isSingUp={this.state.isSingUp}
+            />
+            <SingInPage
+              toggleIsSingIn={this.toggleIsSingIn}
+              saveUser={this.saveUser}
+            />
+          </main>
+        )}
+
+        <LeftPanel className="left-panel" />
+
         <footer>footer</footer>
       </React.Fragment>
     );

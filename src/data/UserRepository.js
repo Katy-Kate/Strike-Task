@@ -79,16 +79,11 @@ export const inputErrors = (context, inputName, err) => {
   }));
 };
 
-export const foundUser = (arrOfUsers, password, mail) => {
+export const foundUser = (arrOfUsers, password, mail, getIndex) => {
   let user;
-  arrOfUsers.forEach(element => {
+  arrOfUsers.forEach((element, index) => {
     if (element.email === mail && element.password === password) {
-      console.log(
-        "element = ",
-        element.email === mail && element.password === password,
-        element
-      );
-      user = element;
+      user = getIndex ? index : element;
     }
   });
   return user;
@@ -97,4 +92,26 @@ export const foundUser = (arrOfUsers, password, mail) => {
 export const getUser = async (userPas, userMail) => {
   const users = await JSON.parse(localStorage.getItem("users"));
   return await foundUser(users, userPas, userMail);
+};
+export const replaceUserInLocalStorage = user => {
+  localStorage.setItem("user", JSON.stringify(user));
+  let users = JSON.parse(localStorage.getItem("users"));
+  let indexOfUser = foundUser(users, user.password, user.email, true);
+  users[indexOfUser] = user;
+  localStorage.setItem("users", JSON.stringify(users));
+};
+
+export const setDataToLocalStorage = async (dataObj, path) => {
+  let user = await JSON.parse(localStorage.getItem("user"));
+  let data = await user[path];
+  if (typeof data === "object") {
+    data.push(dataObj);
+  } else if (typeof data === "number" && typeof data === "string") {
+    data = dataObj;
+  } else if (data === undefined) {
+    data = [dataObj];
+  } else alert("setDataToLocalStorage typeof data wrong");
+  user[path] = data;
+
+  replaceUserInLocalStorage(user);
 };
