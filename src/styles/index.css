@@ -151,6 +151,12 @@ main {
   flex: 1;
   display: flex;
 }
+.main-content {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: row;
+}
 .loginPage {
   flex-direction: row-reverse;
 }
@@ -203,7 +209,7 @@ main {
   display: flex;
   flex-direction: column;
   padding: 10px;
-  background: rgb(28, 54, 76);
+  background: rgb(12, 31, 46);
   position: absolute;
   right: -177px;
   top: 0;
@@ -288,5 +294,6 @@ svg {
 }
 /* MainContent */
 .main-content {
+  flex: 1;
   background: #1c364c;
 }

@@ -1,9 +1,11 @@
 import React from "react";
-import UIField from "../../UiComponents/UIField";
-import UITextarea from "../../UiComponents/UITextarea";
+import UIField from "../../../UiComponents/UIField";
+import UITextarea from "../../../UiComponents/UITextarea";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faTimesCircle, faPlus } from "@fortawesome/free-solid-svg-icons";
-import { setDataToLocalStorage } from "../../../data/UserRepository";
+import { setDataToLocalStorage } from "../../../../data/UserRepository";
+import { priority_options } from "../../../../data/app_data";
+import UISelect from "../../../UiComponents/UISelect";
 
 class CreateNewTask extends React.PureComponent {
   constructor() {
@@ -54,7 +56,7 @@ class CreateNewTask extends React.PureComponent {
     if (this.state.title) {
       let isStateEmpty = this.checkIsStateEmpty();
       if (isStateEmpty) {
-        setDataToLocalStorage(this.state, "ticets");
+        setDataToLocalStorage(this.state, "tickets");
         this.resetState();
       } else {
         alert("вы не заполнили ни одного поля ");
@@ -99,22 +101,14 @@ class CreateNewTask extends React.PureComponent {
           classNameWrap="task-groupnew-task-block_group-field"
           classNameInput="ew-task-block_field"
         />
-        <div className="priority-group">
-          <label htmlFor="priority" className="priority-group_label">
-            важность
-          </label>
-          <select
-            className="priority-group_options"
-            id="priority"
-            name="priority"
-            onChange={this.onChange}
-          >
-            <option value="1">низкий</option>
-            <option value="2">средний</option>
-            <option value="3">высокий</option>
-            <option value="4">срочный</option>
-          </select>
-        </div>
+        <UISelect
+          wraper="priority-group"
+          id="priority"
+          labelText="важность"
+          onChange={this.onChange}
+          options={priority_options}
+        />
+
         <div className="custom-file--wrap">
           {this.state.file && (
             <div className="custom-file_image">
@@ -159,3 +153,21 @@ class CreateNewTask extends React.PureComponent {
   }
 }
 export default CreateNewTask;
+
+// <div className="priority-group">
+//   priority
+//   <label htmlFor="" className="priority-group_label">
+//     важность
+//   </label>
+//   <select
+//     className="priority-group_options"
+//     id="priority"
+//     name="priority"
+//     onChange={this.onChange}
+//   >
+//     <option value="1">низкий</option>
+//     <option value="2">средний</option>
+//     <option value="3">высокий</option>
+//     <option value="4">срочный</option>
+//   </select>
+// </div>

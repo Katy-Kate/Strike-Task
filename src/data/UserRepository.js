@@ -110,8 +110,20 @@ export const setDataToLocalStorage = async (dataObj, path) => {
     data = dataObj;
   } else if (data === undefined) {
     data = [dataObj];
-  } else alert("setDataToLocalStorage typeof data wrong");
+  } else alert("setDataToLocalStorage err, typeof data wrong");
   user[path] = data;
+
+  replaceUserInLocalStorage(user);
+};
+
+export const getTickets = () => {
+  let user = JSON.parse(localStorage.getItem("user"));
+  return user.tickets;
+};
+
+export const updateDataWithLocalStorage = async (dataObj, path) => {
+  let user = await JSON.parse(localStorage.getItem("user"));
+  user[path] = dataObj;
 
   replaceUserInLocalStorage(user);
 };

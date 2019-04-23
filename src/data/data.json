@@ -32,11 +32,12 @@
   ],
   "range": [0, 1, 2, 3, 4, 5, 6, 7, 8, 9],
   "greeting": "Hello, Freida! You have 2 unread messages.",
-  "ticets": [
+  "tickets": [
     {
       "id": 0,
+      "title": "Sint commodo incididunt ut sint.",
       "name": "Dixon Everett",
-      "status": ["status_working"],
+      "status": "1",
       "priority": 1,
       "desc": "Sint commodo incididunt ut sint. Anim laboris culpa officia aliqua voluptate non id occaecat sit in labore. Pariatur ea irure esse anim culpa aliquip fugiat tempor nostrud id.",
       "image": "http://placehold.it/32x32",
@@ -45,8 +46,9 @@
     },
     {
       "id": 1,
+      "title": "Sint commodo incididunt ut sint.",
       "name": "Allison Wolfe",
-      "status": ["status_done"],
+      "status": "2",
       "priority": 3,
       "desc": "Nulla sint eu occaecat reprehenderit ad officia mollit incididunt est voluptate esse pariatur laborum quis. Dolor cupidatat est deserunt nostrud mollit deserunt sint. Et magna exercitation voluptate anim aliquip sit ullamco amet nulla anim.",
       "image": "http://placehold.it/32x32",
@@ -55,8 +57,9 @@
     },
     {
       "id": 2,
+      "title": "Sint commodo incididunt ut sint.",
       "name": "Flossie Walker",
-      "status": ["status_working"],
+      "status": "3",
       "priority": 4,
       "desc": "Incididunt sint deserunt excepteur ea sint tempor consequat ea. Nisi culpa magna anim incididunt reprehenderit eu. Fugiat sunt excepteur tempor deserunt enim est ipsum. Mollit officia fugiat et ullamco velit sunt duis excepteur nostrud.",
       "image": "http://placehold.it/32x32",
@@ -65,8 +68,9 @@
     },
     {
       "id": 3,
+      "title": "Sint commodo incididunt ut sint.",
       "name": "Marcie Larson",
-      "status": ["status_new", "status_pending"],
+      "status": "4",
       "priority": 2,
       "desc": "Do ipsum occaecat incididunt nulla dolor aliqua proident. Officia occaecat veniam sit do deserunt. Eu non amet velit sunt dolore Lorem exercitation tempor laboris nulla dolore nisi. Dolor deserunt laborum ex commodo id ad cupidatat ex incididunt Lorem elit.",
       "image": "http://placehold.it/32x32",
@@ -75,8 +79,9 @@
     },
     {
       "id": 4,
+      "title": "Sint commodo incididunt ut sint.",
       "name": "Taylor Contreras",
-      "status": ["status_pending"],
+      "status": "2",
       "priority": 1,
       "desc": "Qui mollit culpa id incididunt proident anim id nisi quis occaecat aliqua cillum sint. Ipsum nisi ea ipsum nostrud. Voluptate ea cillum excepteur et commodo. Pariatur ad nisi non fugiat quis anim consectetur. Cupidatat laborum elit Lorem occaecat. Duis aliquip occaecat dolor laborum veniam.",
       "image": "http://placehold.it/32x32",
@@ -85,8 +90,9 @@
     },
     {
       "id": 5,
+      "title": "Sint commodo incididunt ut sint.",
       "name": "Salazar Hyde",
-      "status": ["status_new"],
+      "status": "3",
       "priority": 2,
       "desc": "Dolor et exercitation aute elit enim ullamco ullamco tempor. Lorem cillum in excepteur ut ipsum quis commodo commodo fugiat. Officia sint reprehenderit minim qui non amet consequat occaecat cillum ullamco irure ad do.",
       "image": "http://placehold.it/32x32",
@@ -95,8 +101,9 @@
     },
     {
       "id": 6,
+      "title": "Sint commodo incididunt ut sint.",
       "name": "Dina Holloway",
-      "status": ["status_done"],
+      "status": "4",
       "priority": 1,
       "desc": "Id quis consectetur voluptate anim aliquip amet. Aliqua mollit occaecat enim minim cupidatat quis exercitation esse qui voluptate irure excepteur deserunt. Occaecat qui ad quis aliqua reprehenderit nisi nulla proident mollit deserunt sit. Nostrud aute proident elit elit laboris cupidatat incididunt nulla aute laborum aute adipisicing. Consequat tempor aliquip labore dolore ea excepteur. Non veniam nisi veniam tempor dolor aliquip eu non ut pariatur.",
       "image": "http://placehold.it/32x32",

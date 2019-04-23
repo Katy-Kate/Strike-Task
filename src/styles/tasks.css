@@ -1,3 +1,23 @@
+/* SVG */
+.priority-1 {
+  color: #4caf50;
+}
+.priority-2 {
+  color: #ffeb3b;
+}
+.priority-3 {
+  color: #ff9800;
+}
+.priority-4 {
+  color: #f44336;
+}
+.priority-4,
+.priority-3,
+.priority-2,
+.priority-1 {
+  font-size: 25px;
+  margin-right: 15px;
+}
 /* CREATE NEW TASK */
 .new-task-block {
   width: 500px;
@@ -94,11 +114,39 @@
 .new-tasks--wraper {
   display: flex;
   flex-direction: row;
+  width: 100%;
+  align-self: flex-start;
 }
 .new-tasks {
   width: 100%;
-  background: #fff;
+  background: #f5f5f5;
   margin: 20px;
   border-radius: 5px;
   padding: 20px;
+}
+
+/* TASK_CONTAINER */
+.task-container {
+  padding: 20px;
+  margin: 4px 0;
+  background: #fff;
+}
+.task-container_header {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+.task-container_header__title {
+  flex: 1;
+  margin-top: 21px;
+}
+.task-container_header__caret {
+  padding: 20px;
+  color: #1c364c;
+  cursor: pointer;
+  font-size: 20px;
+  transition: all 0.2s ease-out;
+}
+.task-container_header__caret.open {
+  transform: rotate(180deg);
 }
