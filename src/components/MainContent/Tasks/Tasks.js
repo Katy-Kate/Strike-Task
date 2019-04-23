@@ -1,25 +1,39 @@
 import React from "react";
+import TaskConteiner from "./components/TaskConteiner";
+import TasksHOC from "../../HOC/TasksHOC";
+import PropTypes from "prop-types";
+import { EmptyFolderIcon } from "../../../images/iconsSVG";
 
 class Tasks extends React.Component {
   render() {
-    return (
-      <div>
-        задача
-        {/* <div className=" wspace-left">
-          <div className="tasklist">
-            <div>новая задача</div>
-            <div>прошедшие</div>
-            <div>на эту неделю</div>
-            <div>на след. неделю</div>
-            <div>позже</div>
-            <div>все задачи</div>
+    const { tickets, updateTicket } = this.props;
+
+    if (!tickets.length) {
+      return <EmptyFolderIcon />;
+    } else {
+      return (
+        <div className="new-tasks--wraper">
+          <div className="new-tasks">
+            {tickets.map(item => {
+              return (
+                <TaskConteiner
+                  key={item.id}
+                  item={item}
+                  updateTicket={updateTicket}
+                />
+              );
+            })}
           </div>
         </div>
-        <div className=" wspace-right" >
-        
-        </div> */}
-      </div>
-    );
+      );
+    }
   }
 }
-export default Tasks;
+Tasks.defaultProps = {
+  tickets: []
+};
+Tasks.propTypes = {
+  tickets: PropTypes.array.isRequired,
+  updateTicket: PropTypes.func.isRequired
+};
+export default TasksHOC(Tasks);

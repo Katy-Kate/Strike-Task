@@ -16,6 +16,7 @@ class MainContent extends Component {
       <div className="main-content">
         <Switch>
           <Route path="/" exact component={Tasks} />
+
           <Route path="/tasks-new" exact component={NewTasks} />
           <Route path="/tasks-done" exact component={TasksDone} />
           <Route path="/tasks-inworking" exact component={TasksInWorking} />

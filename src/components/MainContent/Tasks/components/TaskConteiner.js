@@ -3,10 +3,7 @@ import UISelect from "../../../UiComponents/UISelect";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faBookmark, faCaretDown } from "@fortawesome/free-solid-svg-icons";
 import { status_options } from "../../../../data/app_data";
-import {
-  setDataToLocalStorage,
-  getTickets
-} from "../../../../data/UserRepository";
+
 class TaskConteiner extends React.Component {
   constructor(props) {
     super(props);
@@ -14,7 +11,6 @@ class TaskConteiner extends React.Component {
       isOpenMinBlock: false,
       saveStatus: false,
       ticket: { ...props.item }
-      //status: Number(props.item.status)
     };
   }
   toggleMainBlock = () => {
@@ -24,7 +20,6 @@ class TaskConteiner extends React.Component {
   };
   onChangeTicketStaus = event => {
     let value = event.target.value;
-    console.log("PrevState status", this.state.ticket.status);
     this.setState(
       PrevState => ({
         ticket: {
@@ -45,11 +40,13 @@ class TaskConteiner extends React.Component {
 
   saveStatus = () => {
     this.props.updateTicket(this.state.ticket.id, this.state.ticket);
+    this.toggleStatus();
   };
-  resetStatus = () => {};
+  resetStatus = () => {
+    this.toggleStatus();
+  };
   render() {
     const { priority, title, desc, image, status } = this.state.ticket;
-    console.log("ticket", this.state.ticket);
     return (
       <div className="task-container">
         <div className="task-container_header">

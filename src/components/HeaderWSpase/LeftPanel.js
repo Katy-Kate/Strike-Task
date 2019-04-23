@@ -34,7 +34,7 @@ class LeftPanel extends Component {
       <div className={this.props.className}>
         <div className="left-nav">
           <div className="left-nav_item left-nav_item--with-dropdown">
-            <Link to="1">Задания</Link>
+            <Link to="">Задания</Link>
             <div className="left-nav_item__btn">
               <FontAwesomeIcon icon={faCaretRight} />
             </div>
@@ -57,7 +57,7 @@ class LeftPanel extends Component {
               </Link>
             </div>
           </div>
-          <Link to="" className="left-nav_item">
+          <Link to="urgent" className="left-nav_item">
             Срочные
           </Link>
           <Link to="/" className="left-nav_item">
