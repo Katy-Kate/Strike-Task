@@ -42,18 +42,14 @@ class LeftPanel extends Component {
               <Link to="/tasks-new" className="left-nav-2_item">
                 Новые
               </Link>
-              <Link to="/tasks-pandin" className="left-nav-2_item">
+              <Link to="/tasks-panding" className="left-nav-2_item">
                 В ожидании
               </Link>
               <Link to="/tasks-done" className="left-nav-2_item">
                 Выполненные
               </Link>
-              <Link to="/tasks-inworkin" className="left-nav-2_item">
+              <Link to="/tasks-inworking" className="left-nav-2_item">
                 В работе
-              </Link>
-
-              <Link to="/tasks-cancel" className="left-nav-2_item">
-                Отмененные
               </Link>
             </div>
           </div>

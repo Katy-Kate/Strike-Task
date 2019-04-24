@@ -1,15 +1,21 @@
 import React from "react";
-import TaskConteiner from "./components/TaskConteiner";
-import TasksHOC from "../../HOC/TasksHOC";
+import TaskConteiner from "../components/TaskConteiner";
+import TasksHOC from "../../../HOC/TasksHOC";
 import PropTypes from "prop-types";
-import { EmptyFolderIcon } from "../../../images/iconsSVG";
+import { EmptyFolderIcon } from "../../../../images/iconsSVG";
 
-class NewTasks extends React.Component {
+class RenderTaskByStatus extends React.Component {
   render() {
     const { tickets, updateTicket } = this.props;
-    let renderTickets = tickets.filter(item => {
-      return Number(item.status) === 1;
-    });
+    let renderTickets;
+    if (this.props.idStatus) {
+      renderTickets = tickets.filter(item => {
+        return Number(item.status) === this.props.idStatus;
+      });
+    } else {
+      renderTickets = tickets;
+    }
+
     if (!renderTickets.length) {
       return <EmptyFolderIcon />;
     } else {
@@ -31,11 +37,12 @@ class NewTasks extends React.Component {
     }
   }
 }
-NewTasks.defaultProps = {
+RenderTaskByStatus.defaultProps = {
   tickets: []
 };
-NewTasks.propTypes = {
+RenderTaskByStatus.propTypes = {
   tickets: PropTypes.array.isRequired,
-  updateTicket: PropTypes.func.isRequired
+  updateTicket: PropTypes.func.isRequired,
+  idStatus: PropTypes.number
 };
-export default TasksHOC(NewTasks);
+export default TasksHOC(RenderTaskByStatus);

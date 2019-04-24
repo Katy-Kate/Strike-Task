@@ -2,12 +2,8 @@ import React, { Component } from "react";
 import { Route, Switch } from "react-router-dom";
 import Team from "../components/MainContent/Team";
 import Contacts from "../components/MainContent/Contacts";
-import Tasks from "../components/MainContent/Tasks/Tasks";
-import NewTasks from "../components/MainContent/Tasks/NewTasks";
-import TasksDone from "../components/MainContent/Tasks/TasksDone";
-import TasksInWorking from "../components/MainContent/Tasks/TasksInWorking";
-import TasksCancel from "../components/MainContent/Tasks/TasksCancel";
-import TasksPanding from "../components/MainContent/Tasks/TasksPanding";
+import RenderTaskByStatus from "../components/MainContent/Tasks/components/RenderTaskByStatus";
+
 import "../styles/tasks.css";
 
 class MainContent extends Component {
@@ -15,13 +11,33 @@ class MainContent extends Component {
     return (
       <div className="main-content">
         <Switch>
-          <Route path="/" exact component={Tasks} />
+          <Route
+            path="/"
+            exact
+            render={props => <RenderTaskByStatus {...props} />}
+          />
 
-          <Route path="/tasks-new" exact component={NewTasks} />
-          <Route path="/tasks-done" exact component={TasksDone} />
-          <Route path="/tasks-inworking" exact component={TasksInWorking} />
-          <Route path="/tasks-cancel" exact component={TasksCancel} />
-          <Route path="/tasks-panding" exact component={TasksPanding} />
+          <Route
+            path="/tasks-new"
+            exact
+            render={props => <RenderTaskByStatus {...props} idStatus={1} />}
+          />
+          <Route
+            path="/tasks-done"
+            exact
+            render={props => <RenderTaskByStatus {...props} idStatus={3} />}
+          />
+          <Route
+            path="/tasks-inworking"
+            exact
+            render={props => <RenderTaskByStatus {...props} idStatus={4} />}
+          />
+
+          <Route
+            path="/tasks-panding"
+            exact
+            render={props => <RenderTaskByStatus {...props} idStatus={2} />}
+          />
           <Route path="/contacts/" component={Contacts} />
           <Route path="/team/" component={Team} />
         </Switch>

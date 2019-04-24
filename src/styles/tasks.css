@@ -150,3 +150,20 @@
 .task-container_header__caret.open {
   transform: rotate(180deg);
 }
+.saveStatus_btn {
+  margin-right: 5px;
+}
+.ticketStatus-group {
+  margin-top: 15px;
+}
+.ticketStatus-group_label {
+  margin-right: 20px;
+  padding: 5px 0;
+  text-transform: capitalize;
+  font-size: 18px;
+  color: #494949;
+  display: block;
+}
+.saveStatus_title {
+  margin: 17px 0 7px;
+}

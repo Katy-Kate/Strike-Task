@@ -26,6 +26,13 @@ fieldset {
 
   box-sizing: border-box;
 }
+select {
+  font-size: 16px;
+  color: #ffffff;
+  background: #1c364c;
+  border-radius: 5px;
+  padding: 5px;
+}
 ::placeholder {
   /* Firefox, Chrome, Opera */
   color: rgba(255, 255, 255, 0.9);
@@ -47,7 +54,16 @@ button {
   border-color: #ffffff45;
   border-width: 1px;
   color: rgba(255, 255, 255, 0.9);
+  min-width: 50px;
+  cursor: pointer;
 }
+button:hover {
+  background: rgb(51, 187, 17);
+}
+.btn--dark {
+  background: #1c364c;
+}
+
 .arrowBtn {
   border-radius: 50%;
   background: #ffffff45;

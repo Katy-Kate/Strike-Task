@@ -86,11 +86,17 @@ class TaskConteiner extends React.Component {
               />
               {this.state.saveStatus && (
                 <div className="saveStatus">
-                  <p className="saveStatus_title">охранить изменнения?</p>
-                  <button className="saveStatus_btn" onClick={this.saveStatus}>
+                  <p className="saveStatus_title">Cохранить изменнения?</p>
+                  <button
+                    className="saveStatus_btn btn--dark "
+                    onClick={this.saveStatus}
+                  >
                     Да
                   </button>
-                  <button className="saveStatus_btn" onClick={this.resetStatus}>
+                  <button
+                    className="saveStatus_btn btn--dark "
+                    onClick={this.resetStatus}
+                  >
                     Нет
                   </button>
                 </div>
