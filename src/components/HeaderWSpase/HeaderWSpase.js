@@ -1,6 +1,8 @@
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
+import Search from "../Search/Search";
 import defaultAvatar from "../../images/default-avatar.png";
+import PropTypes from "prop-types";
 
 class HeaderWSpase extends Component {
   toggleMenu = element => {
@@ -38,8 +40,8 @@ class HeaderWSpase extends Component {
     return (
       <div className="header_wspase">
         <div className="nav">
-          <Link to="" className="nav_item">
-            Входящие
+          <Link to="/dashboard/urgent" className="nav_item">
+            Срочные
           </Link>
           <Link to="" className="nav_item">
             Моя работа
@@ -54,7 +56,7 @@ class HeaderWSpase extends Component {
             Лента новостей
           </Link>
         </div>
-
+        <Search />
         <div className="user-profile" onClick={this.toogleDropdownMenu}>
           <div className="user-profile_avatar">
             <img
@@ -77,3 +79,7 @@ class HeaderWSpase extends Component {
   }
 }
 export default HeaderWSpase;
+
+HeaderWSpase.propTypes = {
+  onLogOut: PropTypes.func.isRequired
+};

@@ -3,14 +3,7 @@ import PropTypes from "prop-types";
 
 export default class UISelect extends React.PureComponent {
   render() {
-    const {
-      wraper,
-      id,
-      labelText,
-      onChange,
-      options,
-      defaultStatus
-    } = this.props;
+    const { wraper, id, labelText, onChange, options, value } = this.props;
 
     return (
       <div className={wraper}>
@@ -22,7 +15,7 @@ export default class UISelect extends React.PureComponent {
           id={id}
           name={id}
           onChange={onChange}
-          value={Number(defaultStatus)}
+          value={value}
         >
           {options.map(item => {
             return (
@@ -46,5 +39,6 @@ UISelect.propTypes = {
   id: PropTypes.string,
   labelText: PropTypes.string,
   onChange: PropTypes.func,
-  options: PropTypes.array
+  options: PropTypes.array,
+  value: PropTypes.oneOfType([PropTypes.string, PropTypes.number])
 };

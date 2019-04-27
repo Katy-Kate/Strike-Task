@@ -2,7 +2,9 @@ import React, { Component } from "react";
 import { Route, Switch } from "react-router-dom";
 import Team from "../components/MainContent/Team";
 import Contacts from "../components/MainContent/Contacts";
-import RenderTaskByStatus from "../components/MainContent/Tasks/components/RenderTaskByStatus";
+import RenderTasks from "../components/MainContent/Tasks/components/RenderTasks";
+import Dashboard from "../components/MainContent/Tasks/Dashboard";
+import ResultOfSearch from "../components/Search/ResultOfSearch";
 
 import "../styles/tasks.css";
 
@@ -14,32 +16,52 @@ class MainContent extends Component {
           <Route
             path="/"
             exact
-            render={props => <RenderTaskByStatus {...props} />}
+            render={props => <RenderTasks tickets={this.props.user.tickets} />}
+          />
+          <Route
+            path="/dashboard"
+            exact
+            render={props => <Dashboard tickets={this.props.user.tickets} />}
+          />
+          <Route
+            path="/dashboard/tasks-new"
+            exact
+            render={props => (
+              <RenderTasks idStatus={1} tickets={this.props.user.tickets} />
+            )}
+          />
+          <Route
+            path="/dashboard/tasks-done"
+            exact
+            render={props => (
+              <RenderTasks tickets={this.props.user.tickets} idStatus={3} />
+            )}
+          />
+          <Route
+            path="/dashboard/tasks-inworking"
+            exact
+            render={props => (
+              <RenderTasks tickets={this.props.user.tickets} idStatus={4} />
+            )}
+          />
+          <Route
+            path="/dashboard/tasks-panding"
+            exact
+            render={props => (
+              <RenderTasks tickets={this.props.user.tickets} idStatus={2} />
+            )}
+          />
+          <Route
+            path="/dashboard/urgent"
+            exact
+            render={props => (
+              <RenderTasks tickets={this.props.user.tickets} priorityId={4} />
+            )}
           />
 
-          <Route
-            path="/tasks-new"
-            exact
-            render={props => <RenderTaskByStatus {...props} idStatus={1} />}
-          />
-          <Route
-            path="/tasks-done"
-            exact
-            render={props => <RenderTaskByStatus {...props} idStatus={3} />}
-          />
-          <Route
-            path="/tasks-inworking"
-            exact
-            render={props => <RenderTaskByStatus {...props} idStatus={4} />}
-          />
-
-          <Route
-            path="/tasks-panding"
-            exact
-            render={props => <RenderTaskByStatus {...props} idStatus={2} />}
-          />
-          <Route path="/contacts/" component={Contacts} />
-          <Route path="/team/" component={Team} />
+          <Route path="/contacts" component={Contacts} />
+          <Route path="/team" component={Team} />
+          <Route path="/search" component={ResultOfSearch} />
         </Switch>
       </div>
     );

@@ -4,26 +4,32 @@ import SingUpPage from "./pages/SingUpPage";
 import SingInPage from "./pages/SingInPage";
 import Logo from "./components/Logo";
 import Slider from "./components/Slider";
+import CreateNewTask from "./components/MainContent/Tasks/components/CreateNewTask";
 import LeftPanel from "./components/HeaderWSpase/LeftPanel";
 import HeaderWSpase from "./components/HeaderWSpase/HeaderWSpase";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faBars } from "@fortawesome/free-solid-svg-icons";
+import { faBars, faPlus } from "@fortawesome/free-solid-svg-icons";
 import data from "./data/data.json";
-
+import { saveUserInLocalStorage } from "./data/UserRepository";
 class App extends Component {
   constructor() {
     super();
     this.state = {
       isSingUp: false,
       isSingIn: false,
-      user: false
-      //user: data
+      user: false,
+      IsOpenTaskModule: false,
+      search: {
+        error: null,
+        query: ""
+      }
     };
   }
   componentDidMount() {
     let user = JSON.parse(localStorage.getItem("user"));
     if (user || this.state.user) {
-      this.saveUser(user);
+      this.saveUser(user || this.state.user);
+      saveUserInLocalStorage(user);
       this.toggleIsSingIn();
     }
     // add data if localstorage is ampty
@@ -31,11 +37,26 @@ class App extends Component {
       localStorage.setItem("users", JSON.stringify([data]));
     }
   }
-
+  // componentDidUpdate = (prevProps, prevState) => {
+  //   if (
+  //     this.state.user !== prevState.user &&
+  //     prevState.user !== (null || false)
+  //   ) {
+  //     console.log(
+  //       "will mount---------",
+  //       this.state.user.tickets,
+  //       prevState.user
+  //     );
+  //   }
+  // };
   toggleMenu = element => {
     element.classList.toggle("open");
   };
-
+  toogleTaskModul = () => {
+    this.setState({
+      IsOpenTaskModule: !this.state.IsOpenTaskModule
+    });
+  };
   onAddEventListenerOnMenu() {
     let hamburger = document.querySelector(".header_icon-hamburger");
     let leftPanel = document.querySelector(".left-panel");
@@ -74,8 +95,8 @@ class App extends Component {
     this.setState({
       user
     });
-    localStorage.setItem("user", JSON.stringify(user));
   };
+
   onLogOut = () => {
     this.setState({
       user: null,
@@ -87,18 +108,29 @@ class App extends Component {
   render() {
     return (
       <React.Fragment>
-        <header className="header">
-          {this.state.isSingIn && (
-            <FontAwesomeIcon icon={faBars} className="header_icon-hamburger" />
-          )}
-          <Logo />
-          {this.state.isSingIn && <HeaderWSpase onLogOut={this.onLogOut} />}
+        <header>
+          <div className="header">
+            {this.state.isSingIn && (
+              <FontAwesomeIcon
+                icon={faBars}
+                className="header_icon-hamburger"
+              />
+            )}
+            <Logo />
+            {this.state.isSingIn && (
+              <FontAwesomeIcon
+                icon={faPlus}
+                className="nav_item nav_item--btn"
+                onClick={this.toogleTaskModul}
+              />
+            )}
+            {this.state.isSingIn && <HeaderWSpase onLogOut={this.onLogOut} />}
+          </div>
+          <Slider />
         </header>
-
         {this.state.isSingIn ? (
           <main className="appPage">
-            <Slider />
-            <MainContent />
+            <MainContent user={this.state.user} search={this.state.search} />
           </main>
         ) : (
           <main className="loginPage">
@@ -113,9 +145,15 @@ class App extends Component {
           </main>
         )}
 
-        <LeftPanel className="left-panel" />
-
         <footer>footer</footer>
+        <LeftPanel className="left-panel" />
+        {this.state.IsOpenTaskModule && (
+          <CreateNewTask
+            toogleTaskModul={this.toogleTaskModul}
+            saveUser={this.saveUser}
+            user={this.state.user}
+          />
+        )}
       </React.Fragment>
     );
   }

@@ -17,6 +17,7 @@ class Contacts extends Component {
 
         <a href="tel:+38065445678">+380(654)-456-78</a>
         <p>ПОЧТОВЫЙ АДРЕС</p>
+        <div id="map" />
       </div>
     );
   }

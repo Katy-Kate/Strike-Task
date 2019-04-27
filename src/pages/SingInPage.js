@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import UIField from "../components/UiComponents/UIField";
 import { validateFuield, getUser } from "../data/UserRepository";
 import "../styles/singUpPageStyles.css";
+import PropTypes from "prop-types";
 
 class SingInPage extends Component {
   constructor() {
@@ -134,3 +135,7 @@ class SingInPage extends Component {
   }
 }
 export default SingInPage;
+SingInPage.propTypes = {
+  toggleIsSingIn: PropTypes.func.isRequired,
+  saveUser: PropTypes.func.isRequired
+};

@@ -34,31 +34,25 @@ class LeftPanel extends Component {
       <div className={this.props.className}>
         <div className="left-nav">
           <div className="left-nav_item left-nav_item--with-dropdown">
-            <Link to="">Задания</Link>
+            <Link to="/dashboard"> Панели задач</Link>
             <div className="left-nav_item__btn">
               <FontAwesomeIcon icon={faCaretRight} />
             </div>
             <div className="dropdown-menu left-nav-2">
-              <Link to="/tasks-new" className="left-nav-2_item">
+              <Link to="/dashboard/tasks-new" className="left-nav-2_item">
                 Новые
               </Link>
-              <Link to="/tasks-panding" className="left-nav-2_item">
+              <Link to="/dashboard/tasks-panding" className="left-nav-2_item">
                 В ожидании
               </Link>
-              <Link to="/tasks-done" className="left-nav-2_item">
+              <Link to="/dashboard/tasks-done" className="left-nav-2_item">
                 Выполненные
               </Link>
-              <Link to="/tasks-inworking" className="left-nav-2_item">
+              <Link to="/dashboard/tasks-inworking" className="left-nav-2_item">
                 В работе
               </Link>
             </div>
           </div>
-          <Link to="urgent" className="left-nav_item">
-            Срочные
-          </Link>
-          <Link to="/" className="left-nav_item">
-            Панели задач
-          </Link>
           <Link to="/contacts/" className="left-nav_item">
             Контакты
           </Link>

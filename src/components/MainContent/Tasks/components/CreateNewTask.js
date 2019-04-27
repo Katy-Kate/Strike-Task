@@ -6,6 +6,7 @@ import { faTimesCircle, faPlus } from "@fortawesome/free-solid-svg-icons";
 import { setDataToLocalStorage } from "../../../../data/UserRepository";
 import { priority_options } from "../../../../data/app_data";
 import UISelect from "../../../UiComponents/UISelect";
+import PropTypes from "prop-types";
 
 class CreateNewTask extends React.PureComponent {
   constructor() {
@@ -14,8 +15,9 @@ class CreateNewTask extends React.PureComponent {
       title: "",
       desc: "",
       file: null,
-      status: [],
-      priority: ""
+      status: "1", //----new !
+      priority: "1",
+      id: Math.floor(Math.random(0, 1) * 100000000)
     };
   }
   onChange = e => {
@@ -56,8 +58,15 @@ class CreateNewTask extends React.PureComponent {
     if (this.state.title) {
       let isStateEmpty = this.checkIsStateEmpty();
       if (isStateEmpty) {
-        setDataToLocalStorage(this.state, "tickets");
+        let user = JSON.parse(localStorage.getItem("user"));
+        user.tickets.push(this.state);
+        //let newUser = this.props.user;
+        console.log(user);
+        this.props.saveUser(user);
+        //setDataToLocalStorage(this.state, "tickets");
+
         this.resetState();
+        this.props.toogleTaskModul();
       } else {
         alert("вы не заполнили ни одного поля ");
       }
@@ -67,107 +76,103 @@ class CreateNewTask extends React.PureComponent {
   };
   resetState = () => {
     this.setState({
-      title: "",
-      desc: "",
+      title: null,
+      desc: null,
       file: null,
       status: [],
-      priority: "1"
+      priority: "1",
+      id: Math.floor(Math.random(0, 1) * 100000000)
     });
   };
 
   render() {
     const { title, desc } = this.state;
     return (
-      <div className="new-task-block">
-        <h3>Создать новое задание</h3>
-        <UIField
-          id="title"
-          type="text"
-          placeholderText="ваше заглавие *"
-          name="title"
-          value={title}
-          onChange={this.onChange}
-          //error={!this.state.title && "Введите заголовок"}
-          classNameWrap="new-task-block_group-field"
-          classNameInput="new-task-block_field"
-        />
-        <UITextarea
-          id="desc"
-          type="text"
-          placeholderText="Описание"
-          name="desc"
-          value={desc}
-          onChange={this.onChange}
-          classNameWrap="task-groupnew-task-block_group-field"
-          classNameInput="ew-task-block_field"
-        />
-        <UISelect
-          wraper="priority-group"
-          id="priority"
-          labelText="важность"
-          onChange={this.onChange}
-          options={priority_options}
-        />
+      <div className="modalWrapper">
+        <div className="new-task-block">
+          <FontAwesomeIcon
+            className="new-task-block_closeModale"
+            icon={faTimesCircle}
+            onClick={this.props.toogleTaskModul}
+          />
+          <h3>Создать новое задание</h3>
+          <UIField
+            id="title"
+            type="text"
+            placeholderText="ваше заглавие *"
+            name="title"
+            value={title}
+            onChange={this.onChange}
+            classNameWrap="new-task-block_group-field"
+            classNameInput="new-task-block_field"
+          />
+          <UITextarea
+            id="desc"
+            type="text"
+            placeholderText="Описание"
+            name="desc"
+            value={desc}
+            onChange={this.onChange}
+            classNameWrap="task-groupnew-task-block_group-field"
+            classNameInput="ew-task-block_field"
+          />
+          <UISelect
+            wraper="priority-group"
+            id="priority"
+            labelText="важность"
+            onChange={this.onChange}
+            options={priority_options}
+            value={this.priority}
+          />
 
-        <div className="custom-file--wrap">
-          {this.state.file && (
-            <div className="custom-file_image">
-              <img
-                alt="custom-file"
-                src={this.state.file}
-                title="custom-file"
+          <div className="custom-file--wrap">
+            {this.state.file && (
+              <div className="custom-file_image">
+                <img
+                  alt="custom-file"
+                  src={this.state.file}
+                  title="custom-file"
+                />
+                <FontAwesomeIcon
+                  icon={faTimesCircle}
+                  className="custom-file_icon-remove"
+                  onClick={this.removeCustomFile}
+                  title="удалить"
+                />
+              </div>
+            )}
+
+            <div className="custom-file">
+              <input
+                type="file"
+                className="custom-file-input"
+                id="customfile"
+                onChange={this.onChangeCustomFile}
               />
-              <FontAwesomeIcon
-                icon={faTimesCircle}
-                className="custom-file_icon-remove"
-                onClick={this.removeCustomFile}
-                title="удалить"
-              />
+              <label className="custom-file-label" htmlFor="customfile">
+                {this.state.file ? "выбрать новый файл" : "добавить файл"}
+              </label>
             </div>
-          )}
-
-          <div className="custom-file">
-            <input
-              type="file"
-              className="custom-file-input"
-              id="customfile"
-              onChange={this.onChangeCustomFile}
-            />
-            <label className="custom-file-label" htmlFor="customfile">
-              {this.state.file ? "выбрать новый файл" : "добавить файл"}
-            </label>
           </div>
+          <FontAwesomeIcon
+            icon={faPlus}
+            className={
+              this.state.title
+                ? "new-task-block_btn"
+                : "new-task-block_btn new-task-block_btn--disabled"
+            }
+            onClick={this.saveNewTask}
+            title="cохранить"
+          />
         </div>
-        <FontAwesomeIcon
-          icon={faPlus}
-          className={
-            this.state.title
-              ? "new-task-block_btn"
-              : "new-task-block_btn new-task-block_btn--disabled"
-          }
-          onClick={this.saveNewTask}
-          title="cохранить"
-        />
       </div>
     );
   }
 }
 export default CreateNewTask;
 
-// <div className="priority-group">
-//   priority
-//   <label htmlFor="" className="priority-group_label">
-//     важность
-//   </label>
-//   <select
-//     className="priority-group_options"
-//     id="priority"
-//     name="priority"
-//     onChange={this.onChange}
-//   >
-//     <option value="1">низкий</option>
-//     <option value="2">средний</option>
-//     <option value="3">высокий</option>
-//     <option value="4">срочный</option>
-//   </select>
-// </div>
+CreateNewTask.propTypes = {
+  toogleTaskModul: PropTypes.func.isRequired,
+  saveUser: PropTypes.func.isRequired,
+  user: PropTypes.object.isRequired
+};

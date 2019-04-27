@@ -7,6 +7,7 @@ import {
   validateFuield
 } from "../data/UserRepository";
 import "../styles/singUpPageStyles.css";
+import PropTypes from "prop-types";
 
 class SingUpPage extends Component {
   constructor() {
@@ -199,3 +200,8 @@ class SingUpPage extends Component {
   }
 }
 export default SingUpPage;
+
+SingUpPage.propTypes = {
+  toggleIsSingUp: PropTypes.func.isRequired,
+  isSingUp: PropTypes.bool.isRequired
+};

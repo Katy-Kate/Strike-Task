@@ -88,6 +88,9 @@ export const foundUser = (arrOfUsers, password, mail, getIndex) => {
   });
   return user;
 };
+export const saveUserInLocalStorage = (user) => {
+  localStorage.setItem("user", JSON.stringify(user));
+}
 
 export const getUser = async (userPas, userMail) => {
   const users = await JSON.parse(localStorage.getItem("users"));

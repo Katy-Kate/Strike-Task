@@ -20,11 +20,22 @@
 }
 /* CREATE NEW TASK */
 .new-task-block {
+  position: relative;
   width: 500px;
   background: white;
   margin: 20px;
   border-radius: 5px;
   padding: 20px;
+}
+.new-task-block_closeModale {
+  position: absolute;
+  right: -7px;
+  top: -7px;
+  background: #ffffff;
+  font-size: 23px;
+  color: #fd7e5c;
+  border-radius: 50%;
+  cursor: pointer;
 }
 .new-task-block h3 {
   color: #8b8f92;
@@ -67,6 +78,7 @@
   border: none;
   outline: none;
   border-left: 4px solid #1e364c;
+  color: #1c364c;
 }
 .custom-file--wrap img {
   max-width: 295px;
@@ -123,6 +135,7 @@
   margin: 20px;
   border-radius: 5px;
   padding: 20px;
+  box-shadow: 0px -6px 6px 0px #0c18231c;
 }
 
 /* TASK_CONTAINER */

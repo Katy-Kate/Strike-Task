@@ -4,11 +4,12 @@ import { updateDataWithLocalStorage } from "../../data/UserRepository";
 
 const TasksHOC = (Container, data) => {
   return class extends React.Component {
-    constructor() {
-      super();
+    constructor(props) {
+      super(props);
       this.state = {
         tickets: []
       };
+      console.log("gfnhftghftgh", this.props);
     }
     updateTickets = tickets => {
       this.setState({
@@ -24,7 +25,6 @@ const TasksHOC = (Container, data) => {
         this.state.tickets !== prevState.tickets &&
         prevState.tickets.length !== 0
       ) {
-        console.log("updaye");
         updateDataWithLocalStorage(this.state.tickets, "tickets");
       }
     }
