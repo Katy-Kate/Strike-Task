@@ -3,7 +3,7 @@ import UIField from "../../../UiComponents/UIField";
 import UITextarea from "../../../UiComponents/UITextarea";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faTimesCircle, faPlus } from "@fortawesome/free-solid-svg-icons";
-import { setDataToLocalStorage } from "../../../../data/UserRepository";
+import { saveUserInLocalStorage } from "../../../../data/UserRepository";
 import { priority_options } from "../../../../data/app_data";
 import UISelect from "../../../UiComponents/UISelect";
 import PropTypes from "prop-types";
@@ -60,11 +60,8 @@ class CreateNewTask extends React.PureComponent {
       if (isStateEmpty) {
         let user = JSON.parse(localStorage.getItem("user"));
         user.tickets.push(this.state);
-        //let newUser = this.props.user;
-        console.log(user);
         this.props.saveUser(user);
-        //setDataToLocalStorage(this.state, "tickets");
-
+        saveUserInLocalStorage(user);
         this.resetState();
         this.props.toogleTaskModul();
       } else {

@@ -1,6 +1,10 @@
 import React, { Component } from "react";
 import UIField from "../components/UiComponents/UIField";
-import { validateFuield, getUser } from "../data/UserRepository";
+import {
+  validateFuield,
+  getUser,
+  saveUserInLocalStorage
+} from "../data/UserRepository";
 import "../styles/singUpPageStyles.css";
 import PropTypes from "prop-types";
 
@@ -62,6 +66,7 @@ class SingInPage extends Component {
         .then(user => {
           if (user) {
             this.props.saveUser(user);
+            saveUserInLocalStorage(user);
             console.log("user", user);
             this.onSubmit();
           } else {

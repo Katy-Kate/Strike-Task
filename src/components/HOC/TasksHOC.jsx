@@ -1,50 +1,56 @@
 import React from "react";
-import { getTickets } from "../../data/UserRepository";
-import { updateDataWithLocalStorage } from "../../data/UserRepository";
+import PropTypes from "prop-types";
+import { EmptyFolderIcon } from "../../images/iconsSVG";
+import ZeroResultOfSearch from "../Search/ZeroResultOfSearch";
+import { paginationTickets } from "../../data/TicketsRepository";
 
 const TasksHOC = (Container, data) => {
   return class extends React.Component {
-    constructor(props) {
-      super(props);
-      this.state = {
-        tickets: []
-      };
-      console.log("gfnhftghftgh", this.props);
-    }
-    updateTickets = tickets => {
-      this.setState({
-        tickets
-      });
-    };
-    componentDidMount() {
-      let tickets = getTickets();
-      this.updateTickets(tickets);
-    }
-    componentDidUpdate(prevProps, prevState) {
-      if (
-        this.state.tickets !== prevState.tickets &&
-        prevState.tickets.length !== 0
-      ) {
-        updateDataWithLocalStorage(this.state.tickets, "tickets");
+    render() {
+      const { tickets, idStatus, priorityId } = this.props;
+      let renderTickets; //it is array of tickets was filtered
+      let renderTicketsBySearch = [];
+      let renderBy; //name of filter
+
+      let search = this.props.search.query;
+      priorityId && (renderBy = "priority");
+      idStatus && (renderBy = "status");
+
+      if (renderBy) {
+        renderTickets = tickets.filter(item => {
+          return Number(item[renderBy]) === (idStatus || priorityId);
+        });
+      } else {
+        renderTickets = tickets;
+      }
+      if (search) {
+        let regExp = new RegExp(search);
+        renderTicketsBySearch = renderTickets.filter(item => {
+          return regExp.test(item.title) || regExp.test(item.desc);
+        });
+      }
+
+      renderTickets = renderTicketsBySearch.length
+        ? renderTicketsBySearch
+        : renderTickets;
+
+      if (!renderTickets.length && !renderTicketsBySearch.length) {
+        return <EmptyFolderIcon />;
+      } else if (search && !renderTicketsBySearch.length) {
+        return <ZeroResultOfSearch />;
+      } else {
+        return <Container renderTickets={renderTickets} />;
       }
     }
-    updateTicket = (ticketId, newData) => {
-      let tickets = [];
-      this.state.tickets.forEach(item => {
-        item.id === ticketId ? tickets.push(newData) : tickets.push(item);
-      });
-      this.updateTickets(tickets);
-    };
-    render() {
-      const { tickets } = this.state;
-      return (
-        <Container
-          {...this.props}
-          tickets={tickets}
-          updateTicket={this.updateTicket}
-        />
-      );
-    }
   };
+};
+TasksHOC.defaultProps = {
+  tickets: [],
+  search: { query: [] }
+};
+TasksHOC.propTypes = {
+  tickets: PropTypes.array.isRequired,
+  idStatus: PropTypes.number,
+  priorityId: PropTypes.number
 };
 export default TasksHOC;

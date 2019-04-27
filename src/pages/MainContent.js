@@ -4,13 +4,12 @@ import Team from "../components/MainContent/Team";
 import Contacts from "../components/MainContent/Contacts";
 import RenderTasks from "../components/MainContent/Tasks/components/RenderTasks";
 import Dashboard from "../components/MainContent/Tasks/Dashboard";
-import ResultOfSearch from "../components/Search/ResultOfSearch";
+import ResultOfSearch from "../components/Search/ZeroResultOfSearch";
 
 import "../styles/tasks.css";
 
 class MainContent extends Component {
   render() {
-    console.log(")))", this.props);
     return (
       <div className="main-content">
         <Switch>

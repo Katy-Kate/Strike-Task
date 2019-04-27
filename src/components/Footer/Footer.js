@@ -1,0 +1,58 @@
+import React from "react";
+import { paginationTickets } from "../../data/TicketsRepository";
+class Footer extends React.Component {
+  //   vkontakte = (purl, ptitle, pimg, text) => {
+  //     let url = "http://vkontakte.ru/share.php?";
+  //     url += "url=" + encodeURIComponent(purl);
+  //     url += "&title=" + encodeURIComponent(ptitle);
+  //     url += "&description=" + encodeURIComponent(text);
+  //     url += "&image=" + encodeURIComponent(pimg);
+  //     url += "&noparse=true";
+  //     this.popup(url);
+  //   };
+  //   odnoklassniki = (purl, text) => {
+  //     let url = "http://www.odnoklassniki.ru/dk?st.cmd=addShare&st.s=1";
+  //     url += "&st.comments=" + encodeURIComponent(text);
+  //     url += "&st._surl=" + encodeURIComponent(purl);
+  //     this.popup(url);
+  //   };
+  //   facebook = (purl, ptitle, pimg, text) => {
+  //     let url = "http://www.facebook.com/sharer.php?s=100";
+  //     url += "&p[title]=" + encodeURIComponent(ptitle);
+  //     url += "&p[summary]=" + encodeURIComponent(text);
+  //     url += "&p[url]=" + encodeURIComponent(purl);
+  //     url += "&p[images][0]=" + encodeURIComponent(pimg);
+  //     this.popup(url);
+  //   };
+  //   twitter = (purl, ptitle) => {
+  //     let url = "http://twitter.com/share?";
+  //     url += "text=" + encodeURIComponent(ptitle);
+  //     url += "&url=" + encodeURIComponent(purl);
+  //     url += "&counturl=" + encodeURIComponent(purl);
+  //     this.popup(url);
+  //   };
+  //   mailru = (purl, ptitle, pimg, text) => {
+  //     let url = "http://connect.mail.ru/share?";
+  //     url += "url=" + encodeURIComponent(purl);
+  //     url += "&title=" + encodeURIComponent(ptitle);
+  //     url += "&description=" + encodeURIComponent(text);
+  //     url += "&imageurl=" + encodeURIComponent(pimg);
+  //     this.popup(url);
+  //   };
+
+  //   popup = url => {
+  //     window.open(url, "", "toolbar=0,status=0,width=626,height=436");
+  //   };
+  render() {
+    paginationTickets();
+    return <footer>footer</footer>;
+  }
+}
+export default Footer;
+// <a onClick={this.vkontakte("URL", "TITLE", "IMG_PATH", "DESC")}>
+//   vk
+// </a>
+// <a onClick={this.facebook("URL", "TITLE", "IMG_PATH", "DESC")}> fb</a>
+// <a onClick={this.mailru("URL", "TITLE", "IMG_PATH", "DESC")}> mailru</a>
+// <a onClick={this.odnoklassniki("URL", "DESC")}> ok</a>
+// <a onClick={this.twitter("URL", "TITLE")}> twitter</a>

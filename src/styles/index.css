@@ -200,6 +200,16 @@ header {
   top: 40px;
   position: absolute;
 }
+.search-zero {
+  max-width: 500px;
+  color: #59697a;
+  text-align: center;
+  padding: 20px;
+  margin: 20px;
+}
+.search-zero_title {
+  font-size: 30px;
+}
 /* user-profile */
 .user-profile {
   position: relative;
@@ -267,12 +277,13 @@ main {
 .dashboard_item {
   width: 25%;
   min-width: 475px;
+  padding: 20px;
 }
 .dashboard_item__head {
   margin-bottom: -53px;
   border-radius: 5px 5px 0 0;
   padding: 20px;
-  margin: 10px 20px -24px;
+  margin: 0px 20px -24px;
   text-transform: uppercase;
   color: #03121f;
   font-weight: 900;

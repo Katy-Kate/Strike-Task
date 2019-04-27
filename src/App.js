@@ -7,10 +7,12 @@ import Slider from "./components/Slider";
 import CreateNewTask from "./components/MainContent/Tasks/components/CreateNewTask";
 import LeftPanel from "./components/HeaderWSpase/LeftPanel";
 import HeaderWSpase from "./components/HeaderWSpase/HeaderWSpase";
+import Footer from "./components/Footer/Footer";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faBars, faPlus } from "@fortawesome/free-solid-svg-icons";
 import data from "./data/data.json";
 import { saveUserInLocalStorage } from "./data/UserRepository";
+
 class App extends Component {
   constructor() {
     super();
@@ -55,18 +57,6 @@ class App extends Component {
       }
     });
   };
-  // componentDidUpdate = (prevProps, prevState) => {
-  //   if (
-  //     this.state.user !== prevState.user &&
-  //     prevState.user !== (null || false)
-  //   ) {
-  //     console.log(
-  //       "will mount---------",
-  //       this.state.user.tickets,
-  //       prevState.user
-  //     );
-  //   }
-  // };
   toggleMenu = element => {
     element.classList.toggle("open");
   };
@@ -169,8 +159,8 @@ class App extends Component {
             />
           </main>
         )}
+        <Footer />
 
-        <footer>footer</footer>
         <LeftPanel className="left-panel" />
         {this.state.IsOpenTaskModule && (
           <CreateNewTask

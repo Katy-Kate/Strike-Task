@@ -4,12 +4,15 @@ import RenderTasks from "../Tasks/components/RenderTasks";
 
 class Dashboard extends React.Component {
   render() {
-    const { tickets } = this.props;
+    const { tickets, search } = this.props;
+    if (search) {
+      console.log("yyyy");
+    }
     return (
       <div className="dashboard--wrap">
         <h2 className="dashboard_title">Приоритет</h2>
         <div className="dashboard">
-          {priority_options.map((item, index) => {
+          {priority_options.map(item => {
             return (
               <div className="dashboard_item" key={item.id}>
                 <div
@@ -20,7 +23,11 @@ class Dashboard extends React.Component {
                   {item.name}
                 </div>
                 <div className="dashboard_item__content">
-                  <RenderTasks priorityId={item.id} tickets={tickets} />
+                  <RenderTasks
+                    priorityId={item.id}
+                    tickets={tickets}
+                    {...this.props}
+                  />
                 </div>
               </div>
             );

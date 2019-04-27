@@ -88,9 +88,9 @@ export const foundUser = (arrOfUsers, password, mail, getIndex) => {
   });
   return user;
 };
-export const saveUserInLocalStorage = (user) => {
+export const saveUserInLocalStorage = user => {
   localStorage.setItem("user", JSON.stringify(user));
-}
+};
 
 export const getUser = async (userPas, userMail) => {
   const users = await JSON.parse(localStorage.getItem("users"));
@@ -117,11 +117,6 @@ export const setDataToLocalStorage = async (dataObj, path) => {
   user[path] = data;
 
   replaceUserInLocalStorage(user);
-};
-
-export const getTickets = () => {
-  let user = JSON.parse(localStorage.getItem("user"));
-  return user.tickets;
 };
 
 export const updateDataWithLocalStorage = async (dataObj, path) => {
