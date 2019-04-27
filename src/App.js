@@ -37,6 +37,24 @@ class App extends Component {
       localStorage.setItem("users", JSON.stringify([data]));
     }
   }
+  onSearch = () => {
+    if (this.state.search.query) {
+      //searching
+    } else {
+      this.setState(prevState => ({
+        search: { ...prevState, error: "Вы ничего не ввели" }
+      }));
+    }
+  };
+  onChangeSearch = event => {
+    let value = event.target.value;
+    this.setState({
+      search: {
+        query: value,
+        error: null
+      }
+    });
+  };
   // componentDidUpdate = (prevProps, prevState) => {
   //   if (
   //     this.state.user !== prevState.user &&
@@ -124,7 +142,14 @@ class App extends Component {
                 onClick={this.toogleTaskModul}
               />
             )}
-            {this.state.isSingIn && <HeaderWSpase onLogOut={this.onLogOut} />}
+            {this.state.isSingIn && (
+              <HeaderWSpase
+                onLogOut={this.onLogOut}
+                onSearch={this.onSearch}
+                onChangeSearch={this.onChangeSearch}
+                search={this.state.search}
+              />
+            )}
           </div>
           <Slider />
         </header>

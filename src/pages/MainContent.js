@@ -10,52 +10,90 @@ import "../styles/tasks.css";
 
 class MainContent extends Component {
   render() {
+    console.log(")))", this.props);
     return (
       <div className="main-content">
         <Switch>
           <Route
             path="/"
             exact
-            render={props => <RenderTasks tickets={this.props.user.tickets} />}
+            render={props => (
+              <RenderTasks
+                tickets={this.props.user.tickets}
+                {...props} //props of route
+                {...this.props} //other props
+              />
+            )}
           />
           <Route
             path="/dashboard"
             exact
-            render={props => <Dashboard tickets={this.props.user.tickets} />}
+            render={props => (
+              <Dashboard
+                tickets={this.props.user.tickets}
+                {...props}
+                {...this.props}
+              />
+            )}
           />
           <Route
             path="/dashboard/tasks-new"
             exact
             render={props => (
-              <RenderTasks idStatus={1} tickets={this.props.user.tickets} />
+              <RenderTasks
+                idStatus={1}
+                tickets={this.props.user.tickets}
+                {...props}
+                {...this.props}
+              />
             )}
           />
           <Route
             path="/dashboard/tasks-done"
             exact
             render={props => (
-              <RenderTasks tickets={this.props.user.tickets} idStatus={3} />
+              <RenderTasks
+                tickets={this.props.user.tickets}
+                idStatus={3}
+                {...props}
+                {...this.props}
+              />
             )}
           />
           <Route
             path="/dashboard/tasks-inworking"
             exact
             render={props => (
-              <RenderTasks tickets={this.props.user.tickets} idStatus={4} />
+              <RenderTasks
+                tickets={this.props.user.tickets}
+                idStatus={4}
+                {...props}
+                {...this.props}
+              />
             )}
           />
           <Route
             path="/dashboard/tasks-panding"
             exact
             render={props => (
-              <RenderTasks tickets={this.props.user.tickets} idStatus={2} />
+              <RenderTasks
+                tickets={this.props.user.tickets}
+                idStatus={2}
+                {...props}
+                {...this.props}
+              />
             )}
           />
           <Route
             path="/dashboard/urgent"
             exact
             render={props => (
-              <RenderTasks tickets={this.props.user.tickets} priorityId={4} />
+              <RenderTasks
+                tickets={this.props.user.tickets}
+                priorityId={4}
+                {...props}
+                {...this.props}
+              />
             )}
           />
 

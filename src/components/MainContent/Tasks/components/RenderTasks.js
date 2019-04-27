@@ -6,8 +6,11 @@ import { EmptyFolderIcon } from "../../../../images/iconsSVG";
 class RenderTasks extends React.Component {
   render() {
     const { tickets, idStatus, priorityId } = this.props;
-    let renderTickets;
-    let renderBy;
+    let renderTickets; //it is array of tickets was filtered
+    let renderTicketsBySearch = [];
+    let renderBy; //name of filter
+
+    let search = this.props.search.query;
     priorityId && (renderBy = "priority");
     idStatus && (renderBy = "status");
 
@@ -18,8 +21,18 @@ class RenderTasks extends React.Component {
     } else {
       renderTickets = tickets;
     }
+    if (search) {
+      let regExp = new RegExp(search);
+      renderTicketsBySearch = renderTickets.filter(item => {
+        return regExp.test(item.title) || regExp.test(item.desc);
+      });
+    }
 
-    if (!renderTickets.length) {
+    renderTickets = renderTicketsBySearch.length
+      ? renderTicketsBySearch
+      : renderTickets;
+
+    if (!renderTickets.length && !renderTicketsBySearch.length) {
       return <EmptyFolderIcon />;
     } else {
       return (

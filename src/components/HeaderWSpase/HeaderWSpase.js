@@ -56,7 +56,11 @@ class HeaderWSpase extends Component {
             Лента новостей
           </Link>
         </div>
-        <Search />
+        <Search
+          onSearch={this.props.onSearch}
+          onChangeSearch={this.props.onChangeSearch}
+          search={this.props.search}
+        />
         <div className="user-profile" onClick={this.toogleDropdownMenu}>
           <div className="user-profile_avatar">
             <img
