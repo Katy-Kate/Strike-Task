@@ -1,15 +1,19 @@
+const TAKE_TICKETS = 10;
+
 export const getTickets = () => {
   let user = JSON.parse(localStorage.getItem("user"));
-  return user.tickets;
+  console.log("---------", user);
+  let tickets = user ? user.tickets : [];
+  return tickets;
 };
 
-export const paginationTickets = (offset, take) => {
+export const paginationTickets = offset => {
   let tickets = getTickets();
   let totalCount = tickets.length;
   tickets.sort((a, b) => {
     return a.id - b.id;
   });
-
-  console.log(tickets);
-  return { totalCount, tickets };
+  let renderTickets = tickets.slice(offset, TAKE_TICKETS);
+  console.log(renderTickets);
+  return { totalCount, renderTickets };
 };

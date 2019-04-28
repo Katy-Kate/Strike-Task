@@ -60,7 +60,7 @@ class CreateNewTask extends React.PureComponent {
       if (isStateEmpty) {
         let user = JSON.parse(localStorage.getItem("user"));
         user.tickets.push(this.state);
-        this.props.saveUser(user);
+        this.props.addTicket(this.state);
         saveUserInLocalStorage(user);
         this.resetState();
         this.props.toogleTaskModul();
@@ -170,6 +170,6 @@ export default CreateNewTask;
 
 CreateNewTask.propTypes = {
   toogleTaskModul: PropTypes.func.isRequired,
-  saveUser: PropTypes.func.isRequired,
+  addTicket: PropTypes.func.isRequired,
   user: PropTypes.object.isRequired
 };

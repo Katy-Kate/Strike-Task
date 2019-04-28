@@ -15,6 +15,7 @@ class RenderTasks extends React.Component {
     );
   }
 }
+
 RenderTasks.defaultProps = {
   renderTickets: []
 };

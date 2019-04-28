@@ -11,7 +11,6 @@ import Footer from "./components/Footer/Footer";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faBars, faPlus } from "@fortawesome/free-solid-svg-icons";
 import data from "./data/data.json";
-import { saveUserInLocalStorage } from "./data/UserRepository";
 
 class App extends Component {
   constructor() {
@@ -20,6 +19,7 @@ class App extends Component {
       isSingUp: false,
       isSingIn: false,
       user: false,
+      tickets: [],
       IsOpenTaskModule: false,
       search: {
         error: null,
@@ -29,16 +29,25 @@ class App extends Component {
   }
   componentDidMount() {
     let user = JSON.parse(localStorage.getItem("user"));
-    if (user || this.state.user) {
-      this.saveUser(user || this.state.user);
-      saveUserInLocalStorage(user);
+    if (user) {
+      this.saveUser(user);
       this.toggleIsSingIn();
     }
     // add data if localstorage is ampty
     else if (!JSON.parse(localStorage.getItem("users"))) {
-      localStorage.setItem("users", JSON.stringify([data]));
+      localStorage.setItem("users", JSON.stringify(data));
     }
   }
+  updateTickets = tickets => {
+    this.setState({
+      tickets
+    });
+  };
+  addTicket = ticket => {
+    this.setState(prevState => ({
+      tickets: [...prevState.tickets, ticket]
+    }));
+  };
   onSearch = () => {
     if (this.state.search.query) {
       //searching
@@ -100,9 +109,14 @@ class App extends Component {
   };
 
   saveUser = user => {
-    this.setState({
-      user
-    });
+    this.setState(
+      {
+        user
+      },
+      () => {
+        this.updateTickets(this.state.user.tickets);
+      }
+    );
   };
 
   onLogOut = () => {
@@ -145,7 +159,10 @@ class App extends Component {
         </header>
         {this.state.isSingIn ? (
           <main className="appPage">
-            <MainContent user={this.state.user} search={this.state.search} />
+            <MainContent
+              search={this.state.search}
+              tickets={this.state.tickets}
+            />
           </main>
         ) : (
           <main className="loginPage">
@@ -165,7 +182,7 @@ class App extends Component {
         {this.state.IsOpenTaskModule && (
           <CreateNewTask
             toogleTaskModul={this.toogleTaskModul}
-            saveUser={this.saveUser}
+            addTicket={this.addTicket}
             user={this.state.user}
           />
         )}

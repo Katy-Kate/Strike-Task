@@ -2,7 +2,6 @@ import React from "react";
 import PropTypes from "prop-types";
 import { EmptyFolderIcon } from "../../images/iconsSVG";
 import ZeroResultOfSearch from "../Search/ZeroResultOfSearch";
-import { paginationTickets } from "../../data/TicketsRepository";
 
 const TasksHOC = (Container, data) => {
   return class extends React.Component {

@@ -18,7 +18,7 @@ class MainContent extends Component {
             exact
             render={props => (
               <RenderTasks
-                tickets={this.props.user.tickets}
+                tickets={this.props.tickets}
                 {...props} //props of route
                 {...this.props} //other props
               />
@@ -29,7 +29,7 @@ class MainContent extends Component {
             exact
             render={props => (
               <Dashboard
-                tickets={this.props.user.tickets}
+                tickets={this.props.tickets}
                 {...props}
                 {...this.props}
               />
@@ -41,7 +41,7 @@ class MainContent extends Component {
             render={props => (
               <RenderTasks
                 idStatus={1}
-                tickets={this.props.user.tickets}
+                tickets={this.props.tickets}
                 {...props}
                 {...this.props}
               />
@@ -52,7 +52,7 @@ class MainContent extends Component {
             exact
             render={props => (
               <RenderTasks
-                tickets={this.props.user.tickets}
+                tickets={this.props.tickets}
                 idStatus={3}
                 {...props}
                 {...this.props}
@@ -64,7 +64,7 @@ class MainContent extends Component {
             exact
             render={props => (
               <RenderTasks
-                tickets={this.props.user.tickets}
+                tickets={this.props.tickets}
                 idStatus={4}
                 {...props}
                 {...this.props}
@@ -76,7 +76,7 @@ class MainContent extends Component {
             exact
             render={props => (
               <RenderTasks
-                tickets={this.props.user.tickets}
+                tickets={this.props.tickets}
                 idStatus={2}
                 {...props}
                 {...this.props}
@@ -88,7 +88,7 @@ class MainContent extends Component {
             exact
             render={props => (
               <RenderTasks
-                tickets={this.props.user.tickets}
+                tickets={this.props.tickets}
                 priorityId={4}
                 {...props}
                 {...this.props}
