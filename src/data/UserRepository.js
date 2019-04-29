@@ -1,3 +1,16 @@
+export const getUsersFromLocalStorage = () => {
+  const users = JSON.parse(localStorage.getItem("users"));
+  return users;
+};
+export const getUserFromLocalStorage = () => {
+  const user = JSON.parse(localStorage.getItem("user"));
+  return user || {};
+};
+export const loginUser = async (userPas, userMail) => {
+  const users = await JSON.parse(localStorage.getItem("users"));
+  return await foundUser(users, userPas, userMail);
+};
+
 export const addNewUserToLocalStorage = user => {
   let users = JSON.parse(localStorage.getItem("users"));
   if (users) {
@@ -8,12 +21,9 @@ export const addNewUserToLocalStorage = user => {
   }
 };
 
-export const createNewUser = values => {
-  return { ...values, _id: Math.floor(Math.random(0, 1) * 100000000) };
-};
-
 export const validateFuield = (context, inputName) => {
   if (context.state.values[inputName] === "") {
+    console.log("empty", context.state.values[inputName]);
     inputErrors(context, inputName, "Not empty");
     return false;
   } else {
@@ -71,31 +81,43 @@ export const validateFuield = (context, inputName) => {
 };
 
 export const inputErrors = (context, inputName, err) => {
-  context.setState(prevState => ({
-    errors: {
-      ...prevState.errors,
-      [inputName]: err
+  console.log("before", context, inputName, err);
+  context.setState(
+    prevState => ({
+      errors: {
+        ...prevState.errors,
+        [inputName]: err
+      }
+    }),
+    () => {
+      console.log("after", context, inputName, err);
     }
-  }));
+  );
 };
 
-export const foundUser = (arrOfUsers, password, mail, getIndex) => {
+export const foundUser = (
+  arrOfUsers,
+  password,
+  mail,
+  getIndex = false,
+  getItemId = false
+) => {
   let user;
   arrOfUsers.forEach((element, index) => {
     if (element.email === mail && element.password === password) {
-      user = getIndex ? index : element;
+      user = element;
+      getIndex && (user = index);
+      getItemId && (user = element["_id"]);
     }
   });
+
   return user;
 };
+
 export const saveUserInLocalStorage = user => {
   localStorage.setItem("user", JSON.stringify(user));
 };
 
-export const getUser = async (userPas, userMail) => {
-  const users = await JSON.parse(localStorage.getItem("users"));
-  return await foundUser(users, userPas, userMail);
-};
 export const replaceUserInLocalStorage = user => {
   localStorage.setItem("user", JSON.stringify(user));
   let users = JSON.parse(localStorage.getItem("users"));

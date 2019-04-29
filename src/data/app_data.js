@@ -10,3 +10,4 @@ export const priority_options = [
   { id: 3, name: "высокий" },
   { id: 4, name: "срочный" }
 ];
+export const TAKE_TICKETS = 10;

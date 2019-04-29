@@ -2,13 +2,14 @@ import React, { Component } from "react";
 import UIField from "../components/UiComponents/UIField";
 import {
   validateFuield,
-  getUser,
+  loginUser,
   saveUserInLocalStorage
 } from "../data/UserRepository";
-import "../styles/singUpPageStyles.css";
+import { paginationTickets } from "../data/TicketsRepository";
+import "../styles/signUpPageStyles.css";
 import PropTypes from "prop-types";
 
-class SingInPage extends Component {
+class SignInPage extends Component {
   constructor() {
     super();
     this.state = {
@@ -20,8 +21,7 @@ class SingInPage extends Component {
         password: false,
         email: false
       },
-      userErr: false,
-      submitting: false
+      userErr: false
     };
   }
 
@@ -40,41 +40,53 @@ class SingInPage extends Component {
   handleBlur = input => {
     const inputName = input.target.id;
     let self = this;
-    // if everything correct
-    if (validateFuield(self, inputName)) {
-      this.setState({
-        submitting: true
-      });
-    }
+    validateFuield(self, inputName);
   };
 
+  validateAllFields = () => {
+    const errors = {};
+    if (this.state.username <= 4) {
+      errors.username = "Must be more then 4 charecters";
+    }
+    if (this.state.password <= 5) {
+      errors.password = "Must be more then 5 charecters";
+    }
+    if (this.state.repeatPassword !== this.state.password) {
+      errors.repeatPassword = "Password must be the same";
+    }
+
+    return errors;
+  };
   onSubmit = () => {
-    this.props.toggleIsSingIn();
+    this.props.toggleIsSignIn();
   };
 
   onLogin = e => {
     e.preventDefault();
-    let arrOfErrors = Object.values(this.state.errors);
-    if (
-      arrOfErrors.some(item => {
-        return item;
-      })
-    ) {
-      alert(" onLogin err ");
+    const errors = this.validateAllFields();
+    if (Object.keys(errors).length > 0) {
+      this.setState(prevState => ({
+        errors: {
+          ...prevState.errors,
+          ...errors
+        }
+      }));
     } else {
-      getUser(this.state.values.password, this.state.values.email)
+      loginUser(this.state.values.password, this.state.values.email)
         .then(user => {
           if (user) {
             this.props.saveUser(user);
             saveUserInLocalStorage(user);
-            console.log("user", user);
+            let ticketsResult = paginationTickets(0, user["_id"]);
+            console.log("loginUser ticketsResult = ", ticketsResult);
+            this.props.updateTickets(ticketsResult);
+            // console.log("loginUser tickets = ", userTickets);
+            // console.log("loginUser totalCount = ", totalCount);
             this.onSubmit();
           } else {
             this.onChangeuserErr(
               "пользоваьеля с такой почтой или паролем не существует"
             );
-
-            alert("пользоваьеля с такой почтой или паролем не существует");
           }
         })
         .catch(err => {
@@ -89,10 +101,10 @@ class SingInPage extends Component {
     });
   };
   render() {
-    const { values, errors, submitting } = this.state;
+    const { values, errors } = this.state;
     return (
-      <div className="sing-in-page">
-        <form className="sing-in-form">
+      <div className="sign-in-page">
+        <form className="sign-in-form">
           <h3 className="form-title">Войти</h3>
           <UIField
             id="email"
@@ -103,8 +115,8 @@ class SingInPage extends Component {
             onChange={this.onChange}
             handleBlur={this.handleBlur}
             error={errors.email}
-            classNameWrap="sing-in-group"
-            classNameInput="sing-in-field"
+            classNameWrap="sign-in-group"
+            classNameInput="sign-in-field"
           />
 
           <UIField
@@ -116,12 +128,11 @@ class SingInPage extends Component {
             onChange={this.onChange}
             handleBlur={this.handleBlur}
             error={errors.password}
-            classNameWrap="sing-in-group"
-            classNameInput="sing-in-field"
+            classNameWrap="sign-in-group"
+            classNameInput="sign-in-field"
           />
 
           <button
-            disabled={!submitting}
             type="submit"
             name="Reset"
             className="form-btn"
@@ -130,7 +141,7 @@ class SingInPage extends Component {
             Войти
           </button>
           {this.state.userErr && (
-            <div className="sing-in-form_invalid-feedback">
+            <div className="sign-in-form_invalid-feedback">
               {this.state.userErr}
             </div>
           )}
@@ -139,8 +150,8 @@ class SingInPage extends Component {
     );
   }
 }
-export default SingInPage;
-SingInPage.propTypes = {
-  toggleIsSingIn: PropTypes.func.isRequired,
+export default SignInPage;
+SignInPage.propTypes = {
+  toggleIsSignIn: PropTypes.func.isRequired,
   saveUser: PropTypes.func.isRequired
 };

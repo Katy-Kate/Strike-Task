@@ -1,5 +1,5 @@
-.sing-up-page,
-.sing-in-page {
+.sign-up-page,
+.sign-in-page {
   width: 50%;
   box-sizing: border-box;
   min-height: 635px;
@@ -11,21 +11,21 @@
   align-items: center;
   padding: 20px;
 }
-.sing-up-page {
+.sign-up-page {
   float: right;
 }
-.sing-up-form,
-.sing-in-form {
+.sign-up-form,
+.sign-in-form {
   width: 60%;
   max-width: 500px;
 }
-.sing-up-group,
-.sing-in-group {
+.sign-up-group,
+.sign-in-group {
   position: relative;
   margin: 20px 0;
 }
-.sing-up-field,
-.sing-in-field {
+.sign-up-field,
+.sign-in-field {
   display: block;
   width: 100%;
   box-sizing: border-box;
@@ -47,7 +47,7 @@
   top: 28px;
   position: absolute;
 }
-.sing-in-form_invalid-feedback {
+.sign-in-form_invalid-feedback {
   font-size: 12px;
   color: #e74444;
   text-align: center;

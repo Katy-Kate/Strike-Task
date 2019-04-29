@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import MainContent from "./pages/MainContent";
-import SingUpPage from "./pages/SingUpPage";
-import SingInPage from "./pages/SingInPage";
+import SignUpPage from "./pages/SignUpPage";
+import SignInPage from "./pages/SignInPage";
 import Logo from "./components/Logo";
 import Slider from "./components/Slider";
 import CreateNewTask from "./components/MainContent/Tasks/components/CreateNewTask";
@@ -10,16 +10,21 @@ import HeaderWSpase from "./components/HeaderWSpase/HeaderWSpase";
 import Footer from "./components/Footer/Footer";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faBars, faPlus } from "@fortawesome/free-solid-svg-icons";
-import data from "./data/data.json";
+import users_data from "./data/users_data.json";
+import tickets_data from "./data/tickets_data.json";
+import { paginationTickets } from "./data/TicketsRepository";
+import { getUserFromLocalStorage } from "./data/UserRepository";
 
 class App extends Component {
   constructor() {
     super();
     this.state = {
-      isSingUp: false,
-      isSingIn: false,
+      isSignUp: false,
+      offset: 0,
+      isSignIn: false,
       user: false,
       tickets: [],
+      totalTickets: 0,
       IsOpenTaskModule: false,
       search: {
         error: null,
@@ -28,17 +33,70 @@ class App extends Component {
     };
   }
   componentDidMount() {
-    let user = JSON.parse(localStorage.getItem("user"));
-    if (user) {
-      this.saveUser(user);
-      this.toggleIsSingIn();
+    // add data if localstorage is empty
+    if (!JSON.parse(localStorage.getItem("users"))) {
+      localStorage.setItem("users", JSON.stringify(users_data));
+      localStorage.setItem("tickets", JSON.stringify(tickets_data));
     }
-    // add data if localstorage is ampty
-    else if (!JSON.parse(localStorage.getItem("users"))) {
-      localStorage.setItem("users", JSON.stringify(data));
+    let user = getUserFromLocalStorage();
+    //if user was alredy signed in app
+    if (Object.keys(user).length) {
+      this.saveUser(user);
+      let ticketsResult = paginationTickets(this.state.offset, user["_id"]);
+      this.updateTickets(ticketsResult);
+      this.toggleIsSignIn();
     }
   }
-  updateTickets = tickets => {
+  // componentDidUpdate(prevState) {
+  //   if (this.state.tickets.length != prevState.ticket.length) {
+
+  //   }
+  // }
+  updateTickets = data => {
+    const { userTickets, totalCount } = data;
+    this.updateCountOfTotalTickets(totalCount);
+    this.updateUserTickets(userTickets);
+  };
+  changePagination = event => {
+    let count = event.target.value === "next" ? 1 : -1;
+    let res = this.state.offset + count;
+    this.updateOffset(res);
+  };
+  updateOffset = offset => {
+    this.setState(
+      {
+        offset
+      },
+      () => {
+        let resultUserTickets = paginationTickets(
+          this.state.offset,
+          this.state.user["_id"]
+        );
+
+        const { userTickets, totalCount } = resultUserTickets;
+        console.log("totalCount", totalCount);
+        this.updateUserTickets(userTickets);
+        this.updateCountOfTotalTickets(totalCount);
+      }
+    );
+  };
+  replaceTicket = (ticketId, newData) => {
+    let tickets = [];
+    this.state.tickets.forEach((item, i) => {
+      Number(item.id) === Number(ticketId)
+        ? tickets.push(newData)
+        : tickets.push(item);
+    });
+    this.updateUserTickets(tickets);
+  };
+
+  updateCountOfTotalTickets = totalTickets => {
+    this.setState({
+      totalTickets
+    });
+  };
+
+  updateUserTickets = tickets => {
     this.setState({
       tickets
     });
@@ -47,6 +105,13 @@ class App extends Component {
     this.setState(prevState => ({
       tickets: [...prevState.tickets, ticket]
     }));
+    let userTickets = paginationTickets(
+      this.state.offset,
+      this.state.user["_id"]
+    );
+    const { totalCount } = userTickets;
+    console.log("totalCount", totalCount);
+    this.updateCountOfTotalTickets(totalCount);
   };
   onSearch = () => {
     if (this.state.search.query) {
@@ -92,38 +157,38 @@ class App extends Component {
       }
     });
   }
-  toggleIsSingIn = () => {
+  toggleIsSignIn = () => {
     this.setState(
       prevState => ({
-        isSingIn: !prevState.isSingIn
+        isSignIn: !prevState.isSignIn
       }),
       () => {
-        this.state.isSingIn && this.onAddEventListenerOnMenu();
+        this.state.isSignIn && this.onAddEventListenerOnMenu();
       }
     );
   };
-  toggleIsSingUp = () => {
+  toggleIsSignUp = () => {
     this.setState(prevState => ({
-      isSingUp: !prevState.isSingUp
+      isSignUp: !prevState.isSignUp
     }));
   };
-
   saveUser = user => {
     this.setState(
       {
         user
-      },
-      () => {
-        this.updateTickets(this.state.user.tickets);
       }
+      // () => {
+      //   let ticketsResult = paginationTickets(this.state.offset, user["_id"]);
+      //   console.log("loginUser ticketsResult = ", ticketsResult);
+      //   this.updateTickets(ticketsResult);
+      // }
     );
   };
-
   onLogOut = () => {
     this.setState({
       user: null,
-      isSingUp: false,
-      isSingIn: false
+      isSignUp: false,
+      isSignIn: false
     });
     localStorage.removeItem("user");
   };
@@ -132,21 +197,21 @@ class App extends Component {
       <React.Fragment>
         <header>
           <div className="header">
-            {this.state.isSingIn && (
+            {this.state.isSignIn && (
               <FontAwesomeIcon
                 icon={faBars}
                 className="header_icon-hamburger"
               />
             )}
             <Logo />
-            {this.state.isSingIn && (
+            {this.state.isSignIn && (
               <FontAwesomeIcon
                 icon={faPlus}
                 className="nav_item nav_item--btn"
                 onClick={this.toogleTaskModul}
               />
             )}
-            {this.state.isSingIn && (
+            {this.state.isSignIn && (
               <HeaderWSpase
                 onLogOut={this.onLogOut}
                 onSearch={this.onSearch}
@@ -157,22 +222,27 @@ class App extends Component {
           </div>
           <Slider />
         </header>
-        {this.state.isSingIn ? (
+        {this.state.isSignIn ? (
           <main className="appPage">
             <MainContent
               search={this.state.search}
               tickets={this.state.tickets}
+              replaceTicket={this.replaceTicket}
+              offset={this.state.offset}
+              totalTickets={this.state.totalTickets}
+              changePagination={this.changePagination}
             />
           </main>
         ) : (
           <main className="loginPage">
-            <SingUpPage
-              toggleIsSingUp={this.toggleIsSingUp}
-              isSingUp={this.state.isSingUp}
+            <SignUpPage
+              toggleIsSignUp={this.toggleIsSignUp}
+              isSignUp={this.state.isSignUp}
             />
-            <SingInPage
-              toggleIsSingIn={this.toggleIsSingIn}
+            <SignInPage
+              toggleIsSignIn={this.toggleIsSignIn}
               saveUser={this.saveUser}
+              updateTickets={this.updateTickets}
             />
           </main>
         )}
@@ -184,6 +254,9 @@ class App extends Component {
             toogleTaskModul={this.toogleTaskModul}
             addTicket={this.addTicket}
             user={this.state.user}
+            user_id={this.state.user["_id"]}
+            updateTickets={this.updateTickets}
+            offset={this.state.offset}
           />
         )}
       </React.Fragment>

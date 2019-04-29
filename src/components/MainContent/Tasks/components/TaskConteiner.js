@@ -28,22 +28,22 @@ class TaskConteiner extends React.Component {
         }
       }),
       () => {
-        this.toggleStatus();
+        this.toggleStatus(true);
       }
     );
   };
-  toggleStatus = () => {
+  toggleStatus = bool => {
     this.setState({
-      saveStatus: !this.state.saveStatus
+      saveStatus: bool || !this.state.saveStatus
     });
   };
 
   saveStatus = () => {
-    this.props.updateTicket(this.state.ticket.id, this.state.ticket);
+    this.props.replaceTicket(this.state.ticket.id, this.state.ticket);
     this.toggleStatus();
   };
   resetStatus = () => {
-    this.toggleStatus();
+    this.toggleStatus(false);
   };
   render() {
     const { priority, title, desc, image, status } = this.state.ticket;
@@ -82,7 +82,7 @@ class TaskConteiner extends React.Component {
                 labelText="статус"
                 onChange={this.onChangeTicketStaus}
                 options={status_options}
-                defaultStatus={status}
+                defaultValue={status}
               />
               {this.state.saveStatus && (
                 <div className="saveStatus">

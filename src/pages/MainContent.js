@@ -21,6 +21,7 @@ class MainContent extends Component {
                 tickets={this.props.tickets}
                 {...props} //props of route
                 {...this.props} //other props
+                pagination={true}
               />
             )}
           />

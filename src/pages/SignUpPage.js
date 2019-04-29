@@ -3,34 +3,36 @@ import UIField from "../components/UiComponents/UIField";
 import UIRadioBtn from "../components/UiComponents/UIRadioBtn";
 import {
   addNewUserToLocalStorage,
-  createNewUser,
   validateFuield
 } from "../data/UserRepository";
-import "../styles/singUpPageStyles.css";
+import "../styles/signUpPageStyles.css";
 import PropTypes from "prop-types";
 
-class SingUpPage extends Component {
+const regExpMail = new RegExp("^.+@[^.].*.[a-z]{2,}$");
+const regExpMobile = new RegExp("[0-9()+]{9,}");
+
+class SignUpPage extends Component {
   constructor() {
     super();
     this.state = {
       values: {
-        firstname: "Kate",
-        lastname: "Turalnikova",
-        password: "password",
-        repeatPassword: "password",
+        firstname: "",
+        lastname: "",
+        password: "",
+        repeatPassword: "",
         gender: "муж",
         email: "",
-        mobile: "0931527094"
+        mobile: "",
+        _id: Math.floor(Math.random(0, 1) * 100000000)
       },
       errors: {
-        firstname: false,
-        lastname: false,
-        password: false,
-        repeatPassword: false,
-        email: false,
-        mobile: false
-      },
-      submitting: false
+        firstname: null,
+        lastname: null,
+        password: null,
+        repeatPassword: null,
+        email: null,
+        mobile: null
+      }
     };
   }
 
@@ -45,50 +47,93 @@ class SingUpPage extends Component {
       }
     }));
   };
-
   handleBlur = input => {
     const inputName = input.target.id;
     let self = this;
-    // if everything correct
-    if (validateFuield(self, inputName)) {
-      this.setState({
-        submitting: true
-      });
-    }
+    validateFuield(self, inputName);
   };
 
+  updateError = (inputName, err) => {
+    this.setState(prevState => ({
+      errors: {
+        ...prevState.errors,
+        [inputName]: err
+      }
+    }));
+  };
+  validateAllFields = () => {
+    const errors = {};
+    if (this.state.values.firstname <= 4) {
+      this.state.values.firstname === ""
+        ? (errors.firstname = "Not empty")
+        : (errors.firstname = "Must be more then 4 charecters");
+    }
+    if (this.state.values.lastname <= 4) {
+      this.state.values.lastname === ""
+        ? (errors.lastname = "Not empty")
+        : (errors.lastname = "Must be more then 4 charecters");
+    }
+    if (this.state.values.password <= 5) {
+      this.state.values.password === ""
+        ? (errors.password = "Not empty")
+        : (errors.password = "Must be more then 5 charecters");
+    }
+
+    if (this.state.values.repeatPassword !== this.state.values.password) {
+      errors.repeatPassword = "Password must be the same";
+    }
+
+    if (!regExpMobile.test(this.state.values.mobile)) {
+      errors.mobile = "Invalid mobile";
+    }
+    if (this.state.values.mobile.length <= 4) {
+      this.state.values.mobile === ""
+        ? (errors.mobile = "Not empty")
+        : (errors.mobile = "Must be more then 4 charecters");
+    }
+
+    if (!regExpMail.test(this.state.values.email)) {
+      errors.email = "Invalid email address";
+    }
+    if (this.state.values.email.length <= 4) {
+      this.state.values.email === ""
+        ? (errors.email = "Not empty")
+        : (errors.email = "Must be more then 4 charecters");
+    }
+    return errors;
+  };
   onSubmit = () => {
-    let user = createNewUser(this.state.values);
-    addNewUserToLocalStorage(user);
-    this.props.toggleIsSingUp();
+    addNewUserToLocalStorage(this.state.values);
+    this.props.toggleIsSignUp();
   };
 
   onLogin = e => {
     e.preventDefault();
-    let arrOfErrors = Object.values(this.state.errors);
-    if (
-      arrOfErrors.some(item => {
-        return item;
-      })
-    ) {
-      alert("err");
+    const errors = this.validateAllFields();
+    if (Object.keys(errors).length > 0) {
+      this.setState(prevState => ({
+        errors: {
+          ...prevState.errors,
+          ...errors
+        }
+      }));
     } else {
       this.onSubmit();
     }
   };
 
   render() {
-    const { values, errors, submitting } = this.state;
-    if (this.props.isSingUp) {
+    const { values, errors } = this.state;
+    if (this.props.isSignUp) {
       return (
-        <div className="sing-up-page">
+        <div className="sign-up-page">
           <p>Пользователь зарегестрирован. Войдите в систему!</p>
         </div>
       );
     } else {
       return (
-        <div className="sing-up-page">
-          <form className="sing-up-form">
+        <div className="sign-up-page">
+          <form className="sign-up-form">
             <h3 className="form-title">Создать аккаунт</h3>
             <UIField
               id="firstname"
@@ -99,8 +144,8 @@ class SingUpPage extends Component {
               onChange={this.onChange}
               handleBlur={this.handleBlur}
               error={errors.firstname}
-              classNameWrap="sing-up-group"
-              classNameInput="sing-up-field"
+              classNameWrap="sign-up-group"
+              classNameInput="sign-up-field"
             />
             <UIField
               id="lastname"
@@ -111,8 +156,8 @@ class SingUpPage extends Component {
               onChange={this.onChange}
               handleBlur={this.handleBlur}
               error={errors.lastname}
-              classNameWrap="sing-up-group"
-              classNameInput="sing-up-field"
+              classNameWrap="sign-up-group"
+              classNameInput="sign-up-field"
             />
 
             <fieldset className="form-group">
@@ -143,8 +188,8 @@ class SingUpPage extends Component {
               onChange={this.onChange}
               handleBlur={this.handleBlur}
               error={errors.email}
-              classNameWrap="sing-up-group"
-              classNameInput="sing-up-field"
+              classNameWrap="sign-up-group"
+              classNameInput="sign-up-field"
             />
             <UIField
               id="mobile"
@@ -155,8 +200,8 @@ class SingUpPage extends Component {
               onChange={this.onChange}
               handleBlur={this.handleBlur}
               error={errors.mobile}
-              classNameWrap="sing-up-group"
-              classNameInput="sing-up-field"
+              classNameWrap="sign-up-group"
+              classNameInput="sign-up-field"
             />
 
             <UIField
@@ -168,8 +213,8 @@ class SingUpPage extends Component {
               onChange={this.onChange}
               handleBlur={this.handleBlur}
               error={errors.password}
-              classNameWrap="sing-up-group"
-              classNameInput="sing-up-field"
+              classNameWrap="sign-up-group"
+              classNameInput="sign-up-field"
             />
             <UIField
               id="repeatPassword"
@@ -180,12 +225,11 @@ class SingUpPage extends Component {
               onChange={this.onChange}
               handleBlur={this.handleBlur}
               error={errors.repeatPassword}
-              classNameWrap="sing-up-group"
-              classNameInput="sing-up-field"
+              classNameWrap="sign-up-group"
+              classNameInput="sign-up-field"
             />
 
             <button
-              disabled={!submitting}
               type="submit"
               name="Reset"
               className="form-btn"
@@ -199,9 +243,9 @@ class SingUpPage extends Component {
     }
   }
 }
-export default SingUpPage;
+export default SignUpPage;
 
-SingUpPage.propTypes = {
-  toggleIsSingUp: PropTypes.func.isRequired,
-  isSingUp: PropTypes.bool.isRequired
+SignUpPage.propTypes = {
+  toggleIsSignUp: PropTypes.func.isRequired,
+  isSignUp: PropTypes.bool.isRequired
 };

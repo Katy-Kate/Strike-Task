@@ -180,3 +180,12 @@
 .saveStatus_title {
   margin: 17px 0 7px;
 }
+
+/* pagination */
+.pagination_btn--wrap {
+  text-align: center;
+}
+.pagination_btn {
+  background: #1c364c;
+  min-width: 60px;
+}

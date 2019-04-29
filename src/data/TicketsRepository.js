@@ -1,19 +1,40 @@
-const TAKE_TICKETS = 10;
+import tickets_data from "./tickets_data.json";
+import { TAKE_TICKETS } from "./app_data";
 
-export const getTickets = () => {
-  let user = JSON.parse(localStorage.getItem("user"));
-  console.log("---------", user);
-  let tickets = user ? user.tickets : [];
-  return tickets;
+export const getTicketsFromLocalStorage = () => {
+  let tickets = JSON.parse(localStorage.getItem("tickets"));
+  return tickets || [];
+};
+export const setTicketsToLocalStorage = data => {
+  localStorage.setItem("tickets", JSON.stringify(data));
 };
 
-export const paginationTickets = offset => {
-  let tickets = getTickets();
+export const paginationTickets = (offset, userId) => {
+  let tickets = getTicketsByUserId(userId);
   let totalCount = tickets.length;
   tickets.sort((a, b) => {
     return a.id - b.id;
   });
-  let renderTickets = tickets.slice(offset, TAKE_TICKETS);
-  console.log(renderTickets);
-  return { totalCount, renderTickets };
+  if (offset !== 0) {
+    offset *= TAKE_TICKETS;
+  }
+  console.log("offset", offset);
+  let userTickets = tickets.splice(offset, TAKE_TICKETS);
+  console.log(userTickets);
+  return { totalCount, userTickets };
+};
+
+export const getTicketsByUserId = id => {
+  let allTickets = getTicketsFromLocalStorage();
+  let userTickets = [];
+  userTickets = allTickets.filter(item => {
+    return Number(item.user_id) === Number(id);
+  });
+  return userTickets;
+};
+
+export const addNewTicketToLocalStorage = ticket => {
+  let tickets = getTicketsFromLocalStorage();
+  tickets.push(ticket);
+  setTicketsToLocalStorage(tickets);
 };

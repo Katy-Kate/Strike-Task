@@ -3,11 +3,11 @@ import PropTypes from "prop-types";
 import { EmptyFolderIcon } from "../../images/iconsSVG";
 import ZeroResultOfSearch from "../Search/ZeroResultOfSearch";
 
-const TasksHOC = (Container, data) => {
+const TasksHOC = Container => {
   return class extends React.Component {
     render() {
       const { tickets, idStatus, priorityId } = this.props;
-      let renderTickets; //it is array of tickets was filtered
+      let renderTickets = []; //it is array of tickets will be filtered
       let renderTicketsBySearch = [];
       let renderBy; //name of filter
 
@@ -28,28 +28,26 @@ const TasksHOC = (Container, data) => {
           return regExp.test(item.title) || regExp.test(item.desc);
         });
       }
-
-      renderTickets = renderTicketsBySearch.length
-        ? renderTicketsBySearch
-        : renderTickets;
+      if (renderTicketsBySearch.length) renderTickets = renderTicketsBySearch;
 
       if (!renderTickets.length && !renderTicketsBySearch.length) {
         return <EmptyFolderIcon />;
       } else if (search && !renderTicketsBySearch.length) {
         return <ZeroResultOfSearch />;
       } else {
-        return <Container renderTickets={renderTickets} />;
+        return <Container {...this.props} renderTickets={renderTickets} />;
       }
     }
   };
 };
 TasksHOC.defaultProps = {
   tickets: [],
-  search: { query: [] }
+  search: { query: "" }
 };
 TasksHOC.propTypes = {
   tickets: PropTypes.array.isRequired,
   idStatus: PropTypes.number,
-  priorityId: PropTypes.number
+  priorityId: PropTypes.number,
+  replaceTicket: PropTypes.func.isRequired
 };
 export default TasksHOC;

@@ -3,21 +3,27 @@ import UIField from "../../../UiComponents/UIField";
 import UITextarea from "../../../UiComponents/UITextarea";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faTimesCircle, faPlus } from "@fortawesome/free-solid-svg-icons";
-import { saveUserInLocalStorage } from "../../../../data/UserRepository";
+import {
+  addNewTicketToLocalStorage,
+  paginationTickets
+} from "../../../../data/TicketsRepository";
 import { priority_options } from "../../../../data/app_data";
 import UISelect from "../../../UiComponents/UISelect";
 import PropTypes from "prop-types";
 
 class CreateNewTask extends React.PureComponent {
-  constructor() {
-    super();
+  constructor(props) {
+    super(props);
     this.state = {
+      id: Date.parse(new Date()),
+      date: new Date(),
       title: "",
       desc: "",
       file: null,
       status: "1", //----new !
       priority: "1",
-      id: Math.floor(Math.random(0, 1) * 100000000)
+
+      user_id: props.user_id
     };
   }
   onChange = e => {
@@ -58,10 +64,14 @@ class CreateNewTask extends React.PureComponent {
     if (this.state.title) {
       let isStateEmpty = this.checkIsStateEmpty();
       if (isStateEmpty) {
-        let user = JSON.parse(localStorage.getItem("user"));
-        user.tickets.push(this.state);
-        this.props.addTicket(this.state);
-        saveUserInLocalStorage(user);
+        console.log("user_id", this.state);
+        //this.props.addTicket(this.state);
+        addNewTicketToLocalStorage(this.state);
+        let ticketsResult = paginationTickets(
+          this.props.offset,
+          this.props.user_id
+        );
+        this.props.updateTickets(ticketsResult);
         this.resetState();
         this.props.toogleTaskModul();
       } else {
@@ -78,7 +88,7 @@ class CreateNewTask extends React.PureComponent {
       file: null,
       status: [],
       priority: "1",
-      id: Math.floor(Math.random(0, 1) * 100000000)
+      id: Date.parse(new Date())
     });
   };
 
