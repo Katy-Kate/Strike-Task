@@ -1,4 +1,5 @@
 import React from "react";
+import PropTypes from "prop-types";
 import TaskConteiner from "./TaskConteiner";
 import TasksHOC from "../../../HOC/TasksHOC";
 import Pagination from "./Pagination";
@@ -18,15 +19,14 @@ class RenderTasks extends React.PureComponent {
               />
             );
           })}
-          {this.props.pagination &&
-            (this.props.totalTickets > TAKE_TICKETS && (
-              <Pagination
-                offset={this.props.offset}
-                totalTickets={this.props.totalTickets}
-                changePagination={this.props.changePagination}
-                TAKE_TICKETS={TAKE_TICKETS}
-              />
-            ))}
+          {this.props.totalCount > TAKE_TICKETS && (
+            <Pagination
+              offset={this.props.offset}
+              totalCount={this.props.totalCount}
+              changePagination={this.props.changePagination}
+              TAKE_TICKETS={TAKE_TICKETS}
+            />
+          )}
         </div>
       </div>
     );
@@ -35,6 +35,12 @@ class RenderTasks extends React.PureComponent {
 
 RenderTasks.defaultProps = {
   renderTickets: []
+};
+RenderTasks.propTypes = {
+  renderTickets: PropTypes.array.isRequired,
+  offset: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
+  totalCount: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
+  changePagination: PropTypes.func.isRequired
 };
 
 export default TasksHOC(RenderTasks);

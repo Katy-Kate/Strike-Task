@@ -38,3 +38,31 @@ export const addNewTicketToLocalStorage = ticket => {
   tickets.push(ticket);
   setTicketsToLocalStorage(tickets);
 };
+
+export const getTicketsByFilter = (filterName, filterValue, userId, offset) => {
+  let tickets = getTicketsByUserId(userId);
+  let totalCount;
+  let filterTickets;
+  if (filterName) {
+    filterTickets = tickets.filter(item => {
+      return Number(item[filterName]) === Number(filterValue);
+    });
+  } else {
+    filterTickets = tickets;
+  }
+  totalCount = filterTickets.length;
+  filterTickets.sort((a, b) => {
+    return a.id - b.id;
+  });
+  if (offset !== 0) {
+    offset *= TAKE_TICKETS;
+  }
+  console.log("offset", offset);
+  let userTickets = filterTickets.splice(offset, TAKE_TICKETS);
+  return { totalCount, userTickets };
+};
+export const sortTicketsByParam = (tickets, param) => {
+  tickets.sort((a, b) => {
+    return a.param - b.param;
+  });
+};

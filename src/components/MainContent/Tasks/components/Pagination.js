@@ -1,13 +1,11 @@
 import React from "react";
+import PropTypes from "prop-types";
 
 class Pagination extends React.Component {
   render() {
     const countOfPages = Math.ceil(
-      this.props.totalTickets / this.props.TAKE_TICKETS
+      this.props.totalCount / this.props.TAKE_TICKETS
     );
-    console.log("countOfPages", countOfPages);
-    console.log("totalTickets", this.props.totalTickets);
-    console.log(" this.props.TAKE_TICKETS", this.props.TAKE_TICKETS);
     return (
       <div className="pagination">
         <div className="pagination_btn--wrap">
@@ -36,3 +34,8 @@ class Pagination extends React.Component {
   }
 }
 export default Pagination;
+Pagination.propTypes = {
+  offset: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
+  totalCount: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
+  changePagination: PropTypes.func.isRequired
+};

@@ -4,7 +4,7 @@ import RenderTasks from "../Tasks/components/RenderTasks";
 
 class Dashboard extends React.Component {
   render() {
-    const { tickets, search } = this.props;
+    const { search } = this.props;
     if (search) {
       console.log("yyyy");
     }
@@ -24,8 +24,8 @@ class Dashboard extends React.Component {
                 </div>
                 <div className="dashboard_item__content">
                   <RenderTasks
-                    priorityId={item.id}
-                    tickets={tickets}
+                    filterName="priority"
+                    filterValue={item.id}
                     {...this.props}
                   />
                 </div>
@@ -37,4 +37,5 @@ class Dashboard extends React.Component {
     );
   }
 }
+
 export default Dashboard;

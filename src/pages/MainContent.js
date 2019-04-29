@@ -18,31 +18,24 @@ class MainContent extends Component {
             exact
             render={props => (
               <RenderTasks
-                tickets={this.props.tickets}
                 {...props} //props of route
                 {...this.props} //other props
-                pagination={true}
               />
             )}
           />
           <Route
             path="/dashboard"
             exact
-            render={props => (
-              <Dashboard
-                tickets={this.props.tickets}
-                {...props}
-                {...this.props}
-              />
-            )}
+            render={props => <Dashboard {...props} {...this.props} />}
           />
+
           <Route
             path="/dashboard/tasks-new"
             exact
             render={props => (
               <RenderTasks
-                idStatus={1}
-                tickets={this.props.tickets}
+                filterName="status"
+                filterValue="1"
                 {...props}
                 {...this.props}
               />
@@ -53,8 +46,8 @@ class MainContent extends Component {
             exact
             render={props => (
               <RenderTasks
-                tickets={this.props.tickets}
-                idStatus={3}
+                filterName="status"
+                filterValue="3"
                 {...props}
                 {...this.props}
               />
@@ -65,8 +58,8 @@ class MainContent extends Component {
             exact
             render={props => (
               <RenderTasks
-                tickets={this.props.tickets}
-                idStatus={4}
+                filterName="status"
+                filterValue="4"
                 {...props}
                 {...this.props}
               />
@@ -77,8 +70,8 @@ class MainContent extends Component {
             exact
             render={props => (
               <RenderTasks
-                tickets={this.props.tickets}
-                idStatus={2}
+                filterName="status"
+                filterValue="2"
                 {...props}
                 {...this.props}
               />
@@ -89,8 +82,8 @@ class MainContent extends Component {
             exact
             render={props => (
               <RenderTasks
-                tickets={this.props.tickets}
-                priorityId={4}
+                filterName="priority"
+                filterValue="4"
                 {...props}
                 {...this.props}
               />

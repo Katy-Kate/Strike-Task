@@ -66,12 +66,10 @@ class CreateNewTask extends React.PureComponent {
       if (isStateEmpty) {
         console.log("user_id", this.state);
         //this.props.addTicket(this.state);
+
         addNewTicketToLocalStorage(this.state);
-        let ticketsResult = paginationTickets(
-          this.props.offset,
-          this.props.user_id
-        );
-        this.props.updateTickets(ticketsResult);
+        this.props.toogleWillUpdateTickets(true);
+        // this.props.upadateTicketsWithNewTicket()
         this.resetState();
         this.props.toogleTaskModul();
       } else {
@@ -180,6 +178,8 @@ export default CreateNewTask;
 
 CreateNewTask.propTypes = {
   toogleTaskModul: PropTypes.func.isRequired,
-  addTicket: PropTypes.func.isRequired,
-  user: PropTypes.object.isRequired
+  user_id: PropTypes.oneOfType([
+    PropTypes.string.isRequired,
+    PropTypes.number.isRequired
+  ])
 };

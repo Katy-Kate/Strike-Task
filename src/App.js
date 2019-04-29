@@ -12,7 +12,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faBars, faPlus } from "@fortawesome/free-solid-svg-icons";
 import users_data from "./data/users_data.json";
 import tickets_data from "./data/tickets_data.json";
-import { paginationTickets } from "./data/TicketsRepository";
+
 import { getUserFromLocalStorage } from "./data/UserRepository";
 
 class App extends Component {
@@ -20,16 +20,14 @@ class App extends Component {
     super();
     this.state = {
       isSignUp: false,
-      offset: 0,
       isSignIn: false,
       user: false,
-      tickets: [],
-      totalTickets: 0,
       IsOpenTaskModule: false,
       search: {
         error: null,
         query: ""
-      }
+      },
+      willUpdateTickets: false
     };
   }
   componentDidMount() {
@@ -42,76 +40,13 @@ class App extends Component {
     //if user was alredy signed in app
     if (Object.keys(user).length) {
       this.saveUser(user);
-      let ticketsResult = paginationTickets(this.state.offset, user["_id"]);
-      this.updateTickets(ticketsResult);
       this.toggleIsSignIn();
     }
   }
-  // componentDidUpdate(prevState) {
-  //   if (this.state.tickets.length != prevState.ticket.length) {
-
-  //   }
-  // }
-  updateTickets = data => {
-    const { userTickets, totalCount } = data;
-    this.updateCountOfTotalTickets(totalCount);
-    this.updateUserTickets(userTickets);
-  };
-  changePagination = event => {
-    let count = event.target.value === "next" ? 1 : -1;
-    let res = this.state.offset + count;
-    this.updateOffset(res);
-  };
-  updateOffset = offset => {
-    this.setState(
-      {
-        offset
-      },
-      () => {
-        let resultUserTickets = paginationTickets(
-          this.state.offset,
-          this.state.user["_id"]
-        );
-
-        const { userTickets, totalCount } = resultUserTickets;
-        console.log("totalCount", totalCount);
-        this.updateUserTickets(userTickets);
-        this.updateCountOfTotalTickets(totalCount);
-      }
-    );
-  };
-  replaceTicket = (ticketId, newData) => {
-    let tickets = [];
-    this.state.tickets.forEach((item, i) => {
-      Number(item.id) === Number(ticketId)
-        ? tickets.push(newData)
-        : tickets.push(item);
-    });
-    this.updateUserTickets(tickets);
-  };
-
-  updateCountOfTotalTickets = totalTickets => {
+  toogleWillUpdateTickets = bool => {
     this.setState({
-      totalTickets
+      willUpdateTickets: bool || !this.state.willUpdateTickets
     });
-  };
-
-  updateUserTickets = tickets => {
-    this.setState({
-      tickets
-    });
-  };
-  addTicket = ticket => {
-    this.setState(prevState => ({
-      tickets: [...prevState.tickets, ticket]
-    }));
-    let userTickets = paginationTickets(
-      this.state.offset,
-      this.state.user["_id"]
-    );
-    const { totalCount } = userTickets;
-    console.log("totalCount", totalCount);
-    this.updateCountOfTotalTickets(totalCount);
   };
   onSearch = () => {
     if (this.state.search.query) {
@@ -173,16 +108,9 @@ class App extends Component {
     }));
   };
   saveUser = user => {
-    this.setState(
-      {
-        user
-      }
-      // () => {
-      //   let ticketsResult = paginationTickets(this.state.offset, user["_id"]);
-      //   console.log("loginUser ticketsResult = ", ticketsResult);
-      //   this.updateTickets(ticketsResult);
-      // }
-    );
+    this.setState({
+      user
+    });
   };
   onLogOut = () => {
     this.setState({
@@ -224,14 +152,14 @@ class App extends Component {
         </header>
         {this.state.isSignIn ? (
           <main className="appPage">
-            <MainContent
-              search={this.state.search}
-              tickets={this.state.tickets}
-              replaceTicket={this.replaceTicket}
-              offset={this.state.offset}
-              totalTickets={this.state.totalTickets}
-              changePagination={this.changePagination}
-            />
+            <main className="appPage">
+              <MainContent
+                user={this.state.user}
+                search={this.state.search}
+                willUpdateTickets={this.state.willUpdateTickets}
+                toogleWillUpdateTickets={this.toogleWillUpdateTickets}
+              />
+            </main>
           </main>
         ) : (
           <main className="loginPage">
@@ -242,21 +170,18 @@ class App extends Component {
             <SignInPage
               toggleIsSignIn={this.toggleIsSignIn}
               saveUser={this.saveUser}
-              updateTickets={this.updateTickets}
+              //updateTickets={this.updateTickets}
             />
           </main>
         )}
         <Footer />
-
         <LeftPanel className="left-panel" />
         {this.state.IsOpenTaskModule && (
           <CreateNewTask
             toogleTaskModul={this.toogleTaskModul}
             addTicket={this.addTicket}
-            user={this.state.user}
             user_id={this.state.user["_id"]}
-            updateTickets={this.updateTickets}
-            offset={this.state.offset}
+            toogleWillUpdateTickets={this.toogleWillUpdateTickets}
           />
         )}
       </React.Fragment>
