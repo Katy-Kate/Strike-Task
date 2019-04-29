@@ -33,13 +33,16 @@ const TasksHOC = Container => {
         this.updateTicketWIthLocalStorage();
         this.props.toogleWillUpdateTickets(false);
       }
+      if (this.props.search.query !== prevProps.search.query)
+        this.updateTicketWIthLocalStorage();
     }
     updateTicketWIthLocalStorage = () => {
       let resultUserTickets = getTicketsByFilter(
         this.props.filterName,
         this.props.filterValue,
         this.props.user["_id"],
-        this.state.offset
+        this.state.offset,
+        this.props.search.query
       );
       this.updateTicketsData(resultUserTickets);
     };
@@ -89,27 +92,18 @@ const TasksHOC = Container => {
     };
     render() {
       const { search } = this.props;
-      let renderTickets = [];
-      if (search.query) {
-        let regExp = new RegExp(search.query);
-        renderTickets = this.state.userTickets.filter(item => {
-          return regExp.test(item.title) || regExp.test(item.desc);
-        });
-      } else {
-        renderTickets = this.state.userTickets;
-      }
 
-      if (renderTickets) {
+      if (this.state.userTickets.length) {
         return (
           <Container
             {...this.props}
-            renderTickets={renderTickets}
+            renderTickets={this.state.userTickets}
             offset={this.state.offset}
             totalCount={this.state.totalCount}
             changePagination={this.changePagination}
           />
         );
-      } else if (!renderTickets.length && search.query) {
+      } else if (!this.state.userTickets.length && search.query) {
         return <ZeroResultOfSearch />;
       } else {
         return <EmptyFolderIcon />;

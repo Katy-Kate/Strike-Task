@@ -39,10 +39,18 @@ export const addNewTicketToLocalStorage = ticket => {
   setTicketsToLocalStorage(tickets);
 };
 
-export const getTicketsByFilter = (filterName, filterValue, userId, offset) => {
+export const getTicketsByFilter = (
+  filterName,
+  filterValue,
+  userId,
+  offset,
+  searchQuery
+) => {
   let tickets = getTicketsByUserId(userId);
   let totalCount;
   let filterTickets;
+  let filterTicketsBySearch;
+
   if (filterName) {
     filterTickets = tickets.filter(item => {
       return Number(item[filterName]) === Number(filterValue);
@@ -50,6 +58,16 @@ export const getTicketsByFilter = (filterName, filterValue, userId, offset) => {
   } else {
     filterTickets = tickets;
   }
+  if (searchQuery) {
+    filterTicketsBySearch = filterTickets.filter(item => {
+      return (
+        item.title.toLowerCase().includes(searchQuery) ||
+        item.desc.toLowerCase().includes(searchQuery)
+      );
+    });
+    filterTickets = filterTicketsBySearch;
+  }
+
   totalCount = filterTickets.length;
   filterTickets.sort((a, b) => {
     return a.id - b.id;
