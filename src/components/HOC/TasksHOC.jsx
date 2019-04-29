@@ -99,7 +99,7 @@ const TasksHOC = Container => {
         renderTickets = this.state.userTickets;
       }
 
-      if (renderTickets && !search.query) {
+      if (renderTickets) {
         return (
           <Container
             {...this.props}
@@ -109,7 +109,7 @@ const TasksHOC = Container => {
             changePagination={this.changePagination}
           />
         );
-      } else if (search.query) {
+      } else if (!renderTickets.length && search.query) {
         return <ZeroResultOfSearch />;
       } else {
         return <EmptyFolderIcon />;
