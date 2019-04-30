@@ -16,7 +16,9 @@ const TasksHOC = Container => {
       this.state = {
         userTickets: [],
         totalCount: 0,
-        offset: 0
+        offset: 0,
+        filtersBystatus: "all",
+        filtersBypriority: "all"
       };
     }
     componentDidMount() {
@@ -38,10 +40,13 @@ const TasksHOC = Container => {
       if (this.props.search.query !== prevProps.search.query)
         this.updateTicketWIthLocalStorage();
     }
-    updateTicketWIthLocalStorage = () => {
+    updateTicketWIthLocalStorage = (filterName, filterValue) => {
+      filterName || (filterName = this.props.filterName);
+      filterValue || (filterValue = this.props.filterValue);
+
       let resultUserTickets = getTicketsByFilter(
-        this.props.filterName,
-        this.props.filterValue,
+        filterName,
+        filterValue,
         this.props.user["_id"],
         this.state.offset,
         this.props.search.query
@@ -105,19 +110,48 @@ const TasksHOC = Container => {
       );
       this.updateTicketsData(tickets);
     };
+    handleInputChange = event => {
+      let filterType = event.target.id;
+      let res = filterType.split("-"); //return ["status":"1"]
+      let filterName = `filtersBy${res[0]}`;
+      let anotherFilter =
+        filterName === "filtersBystatus"
+          ? "filtersBypriority"
+          : "filtersBystatus";
+      this.setState(
+        {
+          [filterName]: res[1],
+          [anotherFilter]: "all"
+        },
+        () => {
+          res[1] === "all"
+            ? this.updateTicketWIthLocalStorage()
+            : this.updateTicketWIthLocalStorage(res[0], res[1]);
+        }
+      );
+    };
+
     render() {
       const { search } = this.props;
 
       if (this.state.userTickets.length) {
         return (
           <React.Fragment>
-            <Filters filterByDate={this.filterByDate} />
+            <Filters
+              filterByDate={this.filterByDate}
+              filtersBystatus={this.state.filtersBystatus}
+              handleInputChange={this.handleInputChange}
+              filtersBypriority={this.state.filtersBypriority}
+              showFilterByStatus={this.props.showFilterByStatus}
+              showFilterByPriority={this.props.showFilterByPriority}
+            />
             <Container
               {...this.props}
               renderTickets={this.state.userTickets}
               offset={this.state.offset}
               totalCount={this.state.totalCount}
               changePagination={this.changePagination}
+              replaceTicket={this.replaceTicket}
             />
           </React.Fragment>
         );
@@ -129,7 +163,8 @@ const TasksHOC = Container => {
     }
   };
 };
+
+export default TasksHOC;
 TasksHOC.propTypes = {
   user_id: PropTypes.oneOfType([PropTypes.number, PropTypes.string])
 };
-export default TasksHOC;

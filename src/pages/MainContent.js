@@ -19,15 +19,16 @@ class MainContent extends Component {
             render={props => (
               <RenderTasks
                 filters={true}
-                //{...props} //props of route
-                {...this.props} //other props
+                {...this.props}
+                showFilterByPriority={true}
+                showFilterByStatus={true}
               />
             )}
           />
           <Route
             path="/dashboard"
             exact
-            render={props => <Dashboard {...props} {...this.props} />}
+            render={props => <Dashboard {...this.props} />}
           />
 
           <Route
@@ -37,7 +38,6 @@ class MainContent extends Component {
               <RenderTasks
                 filterName="status"
                 filterValue="1"
-                {...props}
                 {...this.props}
               />
             )}
@@ -49,7 +49,6 @@ class MainContent extends Component {
               <RenderTasks
                 filterName="status"
                 filterValue="3"
-                {...props}
                 {...this.props}
               />
             )}
@@ -61,7 +60,6 @@ class MainContent extends Component {
               <RenderTasks
                 filterName="status"
                 filterValue="4"
-                {...props}
                 {...this.props}
               />
             )}
@@ -73,7 +71,6 @@ class MainContent extends Component {
               <RenderTasks
                 filterName="status"
                 filterValue="2"
-                {...props}
                 {...this.props}
               />
             )}
@@ -85,7 +82,6 @@ class MainContent extends Component {
               <RenderTasks
                 filterName="priority"
                 filterValue="4"
-                {...props}
                 {...this.props}
               />
             )}

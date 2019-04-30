@@ -192,20 +192,55 @@
 
 /* filters */
 .filters-wrap {
-  background: #fff;
+  background: #fff0;
   width: 100%;
   padding: 20px;
+  margin: 20px 20px -20px 20px;
+  color: white;
 }
-.filter_item {
+.filters {
   display: flex;
   flex-direction: row;
-  align-items: center;
+  justify-content: flex-end;
+  align-items: flex-end;
 }
-.filter_item__icon {
+.filters_item {
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+}
+
+.filters_item__icon {
   cursor: pointer;
-  font-size: 22px;
+  font-size: 16px;
   padding: 5px;
   border: 1px solid gray;
   border-radius: 4px;
   margin: 0 10px;
+}
+.filters_item--by-status {
+  width: 140px;
+  text-align: left;
+}
+.filters_item--by-status lable {
+  display: block;
+  width: 100%;
+}
+.filters_item--by-status input {
+  float: left;
+}
+
+.filters_item--by-priority {
+  width: 140px;
+  text-align: left;
+}
+.filters_item--by-priority lable {
+  display: block;
+  width: 100%;
+}
+.filters_item--by-priority input {
+  float: left;
 }

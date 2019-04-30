@@ -1,4 +1,5 @@
 import React from "react";
+import PropTypes from "prop-types";
 import UISelect from "../../../UiComponents/UISelect";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faBookmark, faCaretDown } from "@fortawesome/free-solid-svg-icons";
@@ -115,3 +116,7 @@ class TaskConteiner extends React.Component {
   }
 }
 export default TaskConteiner;
+TaskConteiner.propTypes = {
+  item: PropTypes.object.isRequired,
+  replaceTicket: PropTypes.func.isRequired
+};
