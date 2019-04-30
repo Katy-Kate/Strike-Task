@@ -189,3 +189,23 @@
   background: #1c364c;
   min-width: 60px;
 }
+
+/* filters */
+.filters-wrap {
+  background: #fff;
+  width: 100%;
+  padding: 20px;
+}
+.filter_item {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+.filter_item__icon {
+  cursor: pointer;
+  font-size: 22px;
+  padding: 5px;
+  border: 1px solid gray;
+  border-radius: 4px;
+  margin: 0 10px;
+}

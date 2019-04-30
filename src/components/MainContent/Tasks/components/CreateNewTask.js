@@ -15,8 +15,7 @@ class CreateNewTask extends React.PureComponent {
   constructor(props) {
     super(props);
     this.state = {
-      id: Date.parse(new Date()),
-      date: new Date(),
+      id: +new Date(),
       title: "",
       desc: "",
       file: null,
@@ -26,6 +25,10 @@ class CreateNewTask extends React.PureComponent {
       user_id: props.user_id
     };
   }
+  getDate = () => {
+    let d = +new Date();
+    return d;
+  };
   onChange = e => {
     const name = e.target.name;
     const value = e.target.value;
@@ -53,6 +56,7 @@ class CreateNewTask extends React.PureComponent {
   checkIsStateEmpty = () => {
     let isStateEmpty = false;
     for (let key in this.state) {
+      if (key === "date") continue;
       if (this.state[key]) {
         isStateEmpty = true;
       }
@@ -64,12 +68,8 @@ class CreateNewTask extends React.PureComponent {
     if (this.state.title) {
       let isStateEmpty = this.checkIsStateEmpty();
       if (isStateEmpty) {
-        console.log("user_id", this.state);
-        //this.props.addTicket(this.state);
-
-        addNewTicketToLocalStorage(this.state);
+        addNewTicketToLocalStorage({ date: this.getDate(), ...this.state });
         this.props.toogleWillUpdateTickets(true);
-        // this.props.upadateTicketsWithNewTicket()
         this.resetState();
         this.props.toogleTaskModul();
       } else {
@@ -81,12 +81,12 @@ class CreateNewTask extends React.PureComponent {
   };
   resetState = () => {
     this.setState({
+      id: +new Date(),
       title: null,
       desc: null,
       file: null,
       status: [],
-      priority: "1",
-      id: Date.parse(new Date())
+      priority: "1"
     });
   };
 

@@ -1,11 +1,13 @@
 import React from "react";
 import PropTypes from "prop-types";
+import Filters from "../MainContent/Tasks/components/Filters";
 import { EmptyFolderIcon } from "../../images/iconsSVG";
 import ZeroResultOfSearch from "../Search/ZeroResultOfSearch";
 import {
   getTicketsByFilter,
   getTicketsFromLocalStorage,
   setTicketsToLocalStorage
+  // filterTickets
 } from "../../data/TicketsRepository";
 const TasksHOC = Container => {
   return class extends React.Component {
@@ -90,18 +92,34 @@ const TasksHOC = Container => {
       setTicketsToLocalStorage(tickets);
       this.updateTicketWIthLocalStorage();
     };
+    filterByDate = (param, direction) => {
+      console.log(param, direction);
+      let tickets = getTicketsByFilter(
+        this.props.filterName,
+        this.props.filterValue,
+        this.props.user["_id"],
+        this.state.offset,
+        this.props.search.query,
+        param,
+        direction
+      );
+      this.updateTicketsData(tickets);
+    };
     render() {
       const { search } = this.props;
 
       if (this.state.userTickets.length) {
         return (
-          <Container
-            {...this.props}
-            renderTickets={this.state.userTickets}
-            offset={this.state.offset}
-            totalCount={this.state.totalCount}
-            changePagination={this.changePagination}
-          />
+          <React.Fragment>
+            <Filters filterByDate={this.filterByDate} />
+            <Container
+              {...this.props}
+              renderTickets={this.state.userTickets}
+              offset={this.state.offset}
+              totalCount={this.state.totalCount}
+              changePagination={this.changePagination}
+            />
+          </React.Fragment>
         );
       } else if (!this.state.userTickets.length && search.query) {
         return <ZeroResultOfSearch />;
@@ -111,5 +129,7 @@ const TasksHOC = Container => {
     }
   };
 };
-TasksHOC.propTypes = {};
+TasksHOC.propTypes = {
+  user_id: PropTypes.oneOfType([PropTypes.number, PropTypes.string])
+};
 export default TasksHOC;

@@ -1,5 +1,5 @@
 import React from "react";
-import { paginationTickets } from "../../data/TicketsRepository";
+
 class Footer extends React.Component {
   //   vkontakte = (purl, ptitle, pimg, text) => {
   //     let url = "http://vkontakte.ru/share.php?";
@@ -44,7 +44,6 @@ class Footer extends React.Component {
   //     window.open(url, "", "toolbar=0,status=0,width=626,height=436");
   //   };
   render() {
-    paginationTickets();
     return <footer>footer</footer>;
   }
 }

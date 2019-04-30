@@ -57,10 +57,6 @@ class SignInPage extends Component {
 
     return errors;
   };
-  onSubmit = () => {
-    this.props.toggleIsSignIn();
-  };
-
   onLogin = e => {
     e.preventDefault();
     const errors = this.validateAllFields();
@@ -77,12 +73,7 @@ class SignInPage extends Component {
           if (user) {
             this.props.saveUser(user);
             saveUserInLocalStorage(user);
-            let ticketsResult = paginationTickets(0, user["_id"]);
-            console.log("loginUser ticketsResult = ", ticketsResult);
-            this.props.updateTickets(ticketsResult);
-            // console.log("loginUser tickets = ", userTickets);
-            // console.log("loginUser totalCount = ", totalCount);
-            this.onSubmit();
+            this.props.toggleIsSignIn();
           } else {
             this.onChangeuserErr(
               "пользоваьеля с такой почтой или паролем не существует"

@@ -18,7 +18,8 @@ class MainContent extends Component {
             exact
             render={props => (
               <RenderTasks
-                {...props} //props of route
+                filters={true}
+                //{...props} //props of route
                 {...this.props} //other props
               />
             )}

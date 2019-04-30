@@ -170,7 +170,6 @@ class App extends Component {
             <SignInPage
               toggleIsSignIn={this.toggleIsSignIn}
               saveUser={this.saveUser}
-              //updateTickets={this.updateTickets}
             />
           </main>
         )}
