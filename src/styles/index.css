@@ -123,7 +123,6 @@ button.arrowBtn svg {
 }
 /* header */
 header {
-  height: 390px;
   display: flex;
   flex-direction: column;
 }
@@ -245,15 +244,14 @@ main {
   position: relative;
   flex: 1;
   display: flex;
-  height: calc(100vh - 490px);
-  overflow-y: overlay;
 }
+
 .main-content {
-  display: flex;
-  align-items: flex-start;
-  justify-content: center;
-  flex-direction: row;
+  flex-direction: column;
+  justify-content: flex-start;
   flex-wrap: wrap;
+  /* height: calc(100vh - 490px); */
+  overflow-y: overlay;
 }
 .loginPage {
   flex-direction: row-reverse;
@@ -301,10 +299,7 @@ main {
 .dashboard_item__head---priority-4 {
   background: #f44336;
 }
-/* .dashboard_item__content {
-  max-height: 252px;
-  overflow: hidden;
-} */
+
 /* left-panel */
 .left-panel {
   display: flex;
@@ -398,6 +393,7 @@ svg {
 }
 /* slider */
 .silder {
+  height: 40vw;
   position: relative;
   flex: 1;
 }
@@ -455,7 +451,7 @@ footer {
 /* Gallery */
 .gallery {
   display: flex;
-  justify-content: space-evenly;
+  justify-content: space-between;
   flex-wrap: wrap;
   margin: 20px 0;
 }
@@ -466,9 +462,15 @@ footer {
   height: 300px;
   overflow: hidden;
   margin: 10px;
-  background: #fff;
+  background: #ffffff38;
   padding: 20px;
   cursor: pointer;
+  border-radius: 4px;
+}
+.gallery_item__name {
+  font-size: 20px;
+  color: #0c273c;
+  font-weight: lighter;
 }
 .gallery_item__image-wrap {
   width: 100%;
@@ -483,8 +485,9 @@ footer {
 }
 .gallery_item__content {
   position: absolute;
-  bottom: -100px;
-  background: #fff;
+  left: 0px;
+  bottom: -150px;
+  background: #ffffffb5;
   width: 100%;
   padding: 20px;
   transition: all 0.3s ease-in;

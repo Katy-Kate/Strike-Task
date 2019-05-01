@@ -4,6 +4,7 @@ import SignUpPage from "./pages/SignUpPage";
 import SignInPage from "./pages/SignInPage";
 import Logo from "./components/Logo";
 import Slider from "./components/Slider";
+import StartPage from "./components/MainContent/StartPage/StartPage";
 import CreateNewTask from "./components/MainContent/Tasks/components/CreateNewTask";
 import LeftPanel from "./components/HeaderWSpase/LeftPanel";
 import HeaderWSpase from "./components/HeaderWSpase/HeaderWSpase";
@@ -21,6 +22,8 @@ class App extends Component {
     this.state = {
       isSignUp: false,
       isSignIn: false,
+      isOpenignUp: false,
+      isOpenSignIn: false,
       user: false,
       IsOpenTaskModule: false,
       search: {
@@ -46,6 +49,16 @@ class App extends Component {
   toogleWillUpdateTickets = bool => {
     this.setState({
       willUpdateTickets: bool || !this.state.willUpdateTickets
+    });
+  };
+  toogleModulWindowForSignIn = bool => {
+    this.setState({
+      isOpenSignIn: bool || !this.state.isOpenSignIn
+    });
+  };
+  toogleModulWindowForSignUp = bool => {
+    this.setState({
+      isOpenSignUp: bool || !this.state.isOpenSignUp
     });
   };
   onSearch = () => {
@@ -148,29 +161,20 @@ class App extends Component {
               />
             )}
           </div>
-          <Slider />
+          {!this.state.isSignIn && <Slider />}
         </header>
         {this.state.isSignIn ? (
           <main className="appPage">
-            <main className="appPage">
-              <MainContent
-                user={this.state.user}
-                search={this.state.search}
-                willUpdateTickets={this.state.willUpdateTickets}
-                toogleWillUpdateTickets={this.toogleWillUpdateTickets}
-              />
-            </main>
+            <MainContent
+              user={this.state.user}
+              search={this.state.search}
+              willUpdateTickets={this.state.willUpdateTickets}
+              toogleWillUpdateTickets={this.toogleWillUpdateTickets}
+            />
           </main>
         ) : (
           <main className="loginPage">
-            <SignUpPage
-              toggleIsSignUp={this.toggleIsSignUp}
-              isSignUp={this.state.isSignUp}
-            />
-            <SignInPage
-              toggleIsSignIn={this.toggleIsSignIn}
-              saveUser={this.saveUser}
-            />
+            <StartPage />
           </main>
         )}
         <Footer />
@@ -181,6 +185,18 @@ class App extends Component {
             addTicket={this.addTicket}
             user_id={this.state.user["_id"]}
             toogleWillUpdateTickets={this.toogleWillUpdateTickets}
+          />
+        )}
+        {this.state.isOpenSignIn && (
+          <SignInPage
+            toggleIsSignIn={this.toggleIsSignIn}
+            saveUser={this.saveUser}
+          />
+        )}
+        {this.state.isOpenignUp && (
+          <SignUpPage
+            toggleIsSignUp={this.toggleIsSignUp}
+            isSignUp={this.state.isSignUp}
           />
         )}
       </React.Fragment>

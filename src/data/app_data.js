@@ -19,3 +19,10 @@ export const options_data_format = {
   minute: "numeric",
   second: "numeric"
 };
+export const map_options = {
+  center: { lat: 7.7186518, lng: 81.7189023 },
+  zoom: 8,
+  backgroundColor: "#3f6789"
+};
+
+export const API_KEY_GOOGLE_MAP = "AIzaSyD0r74TOiNpVeA4EgREonzyNuAr6l0mW5E";
