@@ -7,9 +7,9 @@ class StartPage extends React.Component {
   render() {
     return (
       <div className="startPage">
-        <div id="aboutCompany">
+        <div id="about-us">
           <h2 className="startPage_title">О нас</h2>
-          <div className="aboutCompany_content">
+          <div className="about-us_content">
             <p>
               Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
               eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut

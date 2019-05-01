@@ -8,12 +8,6 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 import { API_KEY_GOOGLE_MAP, map_options } from "../../data/app_data";
 
-const mapStyle = {
-  width: "100%",
-  height: 300,
-  minWidth: 350,
-  flex: "auto"
-};
 class Contacts extends Component {
   constructor() {
     super();
@@ -26,6 +20,7 @@ class Contacts extends Component {
     script.src = `https://maps.googleapis.com/maps/api/js?key=${API_KEY_GOOGLE_MAP}&callback=initMap`;
     script.async = true;
     script.defer = true;
+    script.crossorigin = "anonymous";
     script.addEventListener("load", () => {
       console.log("ppp");
       this.setState({
@@ -73,7 +68,7 @@ class Contacts extends Component {
             Navalady Rd, 30000, Шри-Ланка
           </div>
         </div>
-        <div id="map" ref="map" style={mapStyle} />
+        <div id="map" ref="map" />
       </div>
     );
   }

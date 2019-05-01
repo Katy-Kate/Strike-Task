@@ -133,6 +133,12 @@ class SignUpPage extends Component {
     } else {
       return (
         <div className="sign-up-page">
+          <button
+            className="btn-colse-window"
+            onClick={() => this.props.toogleModulWindowForSignUp(false)}
+          >
+            x
+          </button>
           <form className="sign-up-form">
             <h3 className="form-title">Создать аккаунт</h3>
             <UIField

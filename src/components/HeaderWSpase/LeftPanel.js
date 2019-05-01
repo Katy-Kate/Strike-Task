@@ -53,12 +53,6 @@ class LeftPanel extends Component {
               </Link>
             </div>
           </div>
-          <Link to="/contacts/" className="left-nav_item">
-            Контакты
-          </Link>
-          <Link to="/team/" className="left-nav_item">
-            Команда
-          </Link>
         </div>
       </div>
     );

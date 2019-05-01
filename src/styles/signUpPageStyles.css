@@ -1,8 +1,11 @@
 .sign-up-page,
 .sign-in-page {
-  width: 50%;
-  box-sizing: border-box;
-  min-height: 635px;
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  right: 0;
+  left: 0;
+  z-index: 3;
   background: #1d364c;
   color: rgba(255, 255, 255, 0.9);
   display: flex;
@@ -36,7 +39,14 @@
   display: inherit;
   min-width: 160px;
 }
-
+.btn-colse-window {
+  font-size: 22px;
+  position: absolute;
+  top: 0;
+  right: 0;
+  border-radius: 0;
+  padding: 0;
+}
 .form-title {
   text-align: center;
 }

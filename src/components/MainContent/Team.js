@@ -1,4 +1,7 @@
 import React, { Component } from "react";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faEnvelope } from "@fortawesome/free-solid-svg-icons";
+import Gallery from "../Gallery";
 
 let teamGallery = [
   {
@@ -26,34 +29,40 @@ let teamGallery = [
     email: "Brend-eich@gmail.com"
   }
 ];
-// <img src={item.src} alt={`gallery - ${item.name}`} />
+
 class Team extends Component {
   render() {
     return (
-      <div>
-        <div className="gallery">
-          {teamGallery.map((item, index) => {
-            return (
-              <div className="gallery_item" key={index}>
-                <div
-                  className="gallery_item__image-wrap"
-                  style={{ backgroundImage: `url(${item.src})` }}
-                />
-                <div className="gallery_item__content">
-                  <p className="gallery_item__name">{item.name}</p>
-                  <a
-                    href={`mailto:${item.email}`}
-                    className="gallery_item__email"
-                  >
-                    {item.email}
-                  </a>
-                </div>
-              </div>
-            );
-          })}
-        </div>
+      <div className="team">
+        <Gallery dataGalery={teamGallery} />
       </div>
     );
   }
 }
 export default Team;
+
+// <div className="gallery">
+//   {teamGallery.map((item, index) => {
+//     return (
+//       <div className="gallery_item" key={index}>
+//         <div
+//           className="gallery_item__image-wrap"
+//           style={{ backgroundImage: `url(${item.src})` }}
+//         />
+//         <div className="gallery_item__content">
+//           <p className="gallery_item__name">{item.name}</p>
+//           <FontAwesomeIcon
+//             icon={faEnvelope}
+//             className="gallery_item__icon"
+//           />
+//           <a
+//             href={`mailto:${item.email}`}
+//             className="gallery_item__email"
+//           >
+//             {item.email}
+//           </a>
+//         </div>
+//       </div>
+//     );
+//   })}
+// </div>

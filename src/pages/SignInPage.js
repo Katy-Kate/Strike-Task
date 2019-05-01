@@ -95,6 +95,12 @@ class SignInPage extends Component {
     const { values, errors } = this.state;
     return (
       <div className="sign-in-page">
+        <button
+          className="btn-colse-window"
+          onClick={() => this.props.toogleModulWindowForSignIn(false)}
+        >
+          x
+        </button>
         <form className="sign-in-form">
           <h3 className="form-title">Войти</h3>
           <UIField

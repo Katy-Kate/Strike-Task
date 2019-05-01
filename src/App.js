@@ -15,6 +15,7 @@ import users_data from "./data/users_data.json";
 import tickets_data from "./data/tickets_data.json";
 
 import { getUserFromLocalStorage } from "./data/UserRepository";
+import HeaderStartPage from "./components/HeaderWSpase/HeaderStartPage";
 
 class App extends Component {
   constructor() {
@@ -22,7 +23,7 @@ class App extends Component {
     this.state = {
       isSignUp: false,
       isSignIn: false,
-      isOpenignUp: false,
+      isOpenSignUp: false,
       isOpenSignIn: false,
       user: false,
       IsOpenTaskModule: false,
@@ -44,6 +45,8 @@ class App extends Component {
     if (Object.keys(user).length) {
       this.saveUser(user);
       this.toggleIsSignIn();
+    } else {
+      this.addEventListenerOnMobileMenu();
     }
   }
   toogleWillUpdateTickets = bool => {
@@ -87,7 +90,7 @@ class App extends Component {
       IsOpenTaskModule: !this.state.IsOpenTaskModule
     });
   };
-  onAddEventListenerOnMenu() {
+  onAddEventListenerOnMenu = () => {
     let hamburger = document.querySelector(".header_icon-hamburger");
     let leftPanel = document.querySelector(".left-panel");
 
@@ -104,7 +107,14 @@ class App extends Component {
         this.toggleMenu(leftPanel);
       }
     });
-  }
+  };
+  addEventListenerOnMobileMenu = () => {
+    let icon = document.getElementsByClassName("header_icon-mobil-menu")[0];
+    let mobileMenu = document.getElementsByClassName("nav")[0];
+    icon.addEventListener("click", () => {
+      mobileMenu.classList.toggle("menu-open");
+    });
+  };
   toggleIsSignIn = () => {
     this.setState(
       prevState => ({
@@ -138,31 +148,44 @@ class App extends Component {
       <React.Fragment>
         <header>
           <div className="header">
-            {this.state.isSignIn && (
+            {this.state.isSignIn ? (
               <FontAwesomeIcon
                 icon={faBars}
                 className="header_icon-hamburger"
               />
-            )}
-            <Logo />
-            {this.state.isSignIn && (
+            ) : (
               <FontAwesomeIcon
-                icon={faPlus}
-                className="nav_item nav_item--btn"
-                onClick={this.toogleTaskModul}
+                icon={faBars}
+                className="header_icon-mobil-menu"
               />
             )}
-            {this.state.isSignIn && (
-              <HeaderWSpase
-                onLogOut={this.onLogOut}
-                onSearch={this.onSearch}
-                onChangeSearch={this.onChangeSearch}
-                search={this.state.search}
+
+            <Logo />
+
+            {this.state.isSignIn ? (
+              <React.Fragment>
+                <FontAwesomeIcon
+                  icon={faPlus}
+                  className="nav_item nav_item--btn"
+                  onClick={this.toogleTaskModul}
+                />
+                <HeaderWSpase
+                  onLogOut={this.onLogOut}
+                  onSearch={this.onSearch}
+                  onChangeSearch={this.onChangeSearch}
+                  search={this.state.search}
+                />
+              </React.Fragment>
+            ) : (
+              <HeaderStartPage
+                toogleModulWindowForSignUp={this.toogleModulWindowForSignUp}
+                toogleModulWindowForSignIn={this.toogleModulWindowForSignIn}
               />
             )}
           </div>
           {!this.state.isSignIn && <Slider />}
         </header>
+
         {this.state.isSignIn ? (
           <main className="appPage">
             <MainContent
@@ -177,8 +200,10 @@ class App extends Component {
             <StartPage />
           </main>
         )}
+
         <Footer />
         <LeftPanel className="left-panel" />
+
         {this.state.IsOpenTaskModule && (
           <CreateNewTask
             toogleTaskModul={this.toogleTaskModul}
@@ -191,12 +216,14 @@ class App extends Component {
           <SignInPage
             toggleIsSignIn={this.toggleIsSignIn}
             saveUser={this.saveUser}
+            toogleModulWindowForSignIn={this.toogleModulWindowForSignIn}
           />
         )}
-        {this.state.isOpenignUp && (
+        {this.state.isOpenSignUp && (
           <SignUpPage
             toggleIsSignUp={this.toggleIsSignUp}
             isSignUp={this.state.isSignUp}
+            toogleModulWindowForSignUp={this.toogleModulWindowForSignUp}
           />
         )}
       </React.Fragment>
