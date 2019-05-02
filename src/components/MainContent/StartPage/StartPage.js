@@ -1,5 +1,6 @@
 import React from "react";
 import "../../../styles/startPage.css";
+import "../../../styles/startPage@media.css";
 import Team from "../Team";
 import Сontacts from "../Contacts";
 

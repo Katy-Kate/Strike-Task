@@ -74,6 +74,7 @@ class SignInPage extends Component {
             this.props.saveUser(user);
             saveUserInLocalStorage(user);
             this.props.toggleIsSignIn();
+            this.props.toogleModulWindowForSignIn(false);
           } else {
             this.onChangeuserErr(
               "пользоваьеля с такой почтой или паролем не существует"

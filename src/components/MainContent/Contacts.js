@@ -7,46 +7,31 @@ import {
   faGlobe
 } from "@fortawesome/free-solid-svg-icons";
 import { API_KEY_GOOGLE_MAP, map_options } from "../../data/app_data";
-
+let map;
 class Contacts extends Component {
-  constructor() {
-    super();
-    this.state = {
-      mapIsReady: false
-    };
-  }
+  initMap = () => {
+    let el = document.getElementById("map");
+    if (el) {
+      map = new window.google.maps.Map(el, map_options);
+      let marker = new window.google.maps.Marker({
+        position: new window.google.maps.LatLng(7.7186518, 81.7189023),
+        map: map
+      });
+    }
+  };
   componentDidMount = () => {
     const script = document.createElement("script");
-    script.src = `https://maps.googleapis.com/maps/api/js?key=${API_KEY_GOOGLE_MAP}&callback=initMap`;
+    script.src = `https://maps.googleapis.com/maps/api/js?key=${API_KEY_GOOGLE_MAP}`;
     script.async = true;
     script.defer = true;
-    script.crossorigin = "anonymous";
+    script.setAttribute = ("name", "map");
     script.addEventListener("load", () => {
-      console.log("ppp");
-      this.setState({
-        mapIsReady: true
-      });
+      this.initMap();
     });
 
     document.body.appendChild(script);
   };
-  componentDidUpdate = () => {
-    if (this.state.mapIsReady) {
-      this.map = new window.google.maps.Map(
-        document.getElementById("map"),
-        //   {
-        //   center: { lat: -34.397, lng: 150.644 },
-        //   zoom: 12,
-        //   mapTypeId: "roadmap"
-        // }
-        map_options
-      );
-      let marker = new window.google.maps.Marker({
-        position: new window.google.maps.LatLng(7.7186518, 81.7189023),
-        map: this.map
-      });
-    }
-  };
+
   render() {
     return (
       <div className="contacts-wrap">
@@ -68,7 +53,7 @@ class Contacts extends Component {
             Navalady Rd, 30000, Шри-Ланка
           </div>
         </div>
-        <div id="map" ref="map" />
+        <div id="map" />
       </div>
     );
   }

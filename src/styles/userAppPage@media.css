@@ -1,0 +1,43 @@
+@media (max-width: 600px) {
+  /* header */
+  .search {
+    display: none;
+  }
+  .user-profile {
+    margin-left: auto;
+  }
+  .user-profile_avatar {
+    width: 25px;
+    height: 25px;
+  }
+  #root {
+    height: auto;
+  }
+  /* filters */
+  .filters-wrap_icon-mobil-menu {
+    display: block;
+    padding: 20px;
+  }
+  .filters {
+    height: 0;
+    overflow: hidden;
+    padding: 0;
+    flex-direction: column;
+    align-items: center;
+  }
+  .filters.filters-open {
+    height: auto;
+    overflow: hidden;
+    padding: 20px;
+  }
+  .filters_item {
+    border: 1px solid;
+    padding: 10px;
+    margin: 5px;
+  }
+  /* tasks */
+  .task-container_header {
+    flex-direction: column;
+    align-items: flex-end;
+  }
+}

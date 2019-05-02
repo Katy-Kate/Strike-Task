@@ -49,6 +49,9 @@ class App extends Component {
       this.addEventListenerOnMobileMenu();
     }
   }
+  componentWillUnmount() {
+    //remove event liseners
+  }
   toogleWillUpdateTickets = bool => {
     this.setState({
       willUpdateTickets: bool || !this.state.willUpdateTickets
@@ -90,6 +93,7 @@ class App extends Component {
       IsOpenTaskModule: !this.state.IsOpenTaskModule
     });
   };
+
   onAddEventListenerOnMenu = () => {
     let hamburger = document.querySelector(".header_icon-hamburger");
     let leftPanel = document.querySelector(".left-panel");

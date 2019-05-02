@@ -2,7 +2,6 @@
 .sign-in-page {
   position: absolute;
   top: 0;
-  bottom: 0;
   right: 0;
   left: 0;
   z-index: 3;
@@ -13,9 +12,7 @@
   justify-content: center;
   align-items: center;
   padding: 20px;
-}
-.sign-up-page {
-  float: right;
+  min-height: 100vh;
 }
 .sign-up-form,
 .sign-in-form {

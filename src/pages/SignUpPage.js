@@ -128,6 +128,9 @@ class SignUpPage extends Component {
       return (
         <div className="sign-up-page">
           <p>Пользователь зарегестрирован. Войдите в систему!</p>
+          <button onClick={() => this.props.toogleModulWindowForSignUp(false)}>
+            Ok
+          </button>
         </div>
       );
     } else {

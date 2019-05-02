@@ -3,10 +3,24 @@ import PropTypes from "prop-types";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faLongArrowAltUp,
-  faLongArrowAltDown
+  faLongArrowAltDown,
+  faFilter
 } from "@fortawesome/free-solid-svg-icons";
 
 class Filters extends React.Component {
+  addEventListenerOnFilterMenu = () => {
+    let icon = document.getElementsByClassName(
+      "filters-wrap_icon-mobil-menu"
+    )[0];
+    let mobileMenu = document.getElementsByClassName("nav")[0];
+    let filtersBlock = document.getElementsByClassName("filters")[0];
+    icon.addEventListener("click", () => {
+      filtersBlock.classList.toggle("filters-open");
+    });
+  };
+  componentDidMount() {
+    this.addEventListenerOnFilterMenu();
+  }
   render() {
     const {
       filtersBystatus,
@@ -16,10 +30,14 @@ class Filters extends React.Component {
     } = this.props;
     return (
       <div className="filters-wrap">
+        <FontAwesomeIcon
+          icon={faFilter}
+          className="filters-wrap_icon-mobil-menu"
+        />
         <div className="filters">
           <div className="filters_item">
-            <p className="filters_item__title">
-              отсортировать <br /> по дате
+            <p className="filters_item__title filters_item__title--by-date">
+              по дате
             </p>
             <FontAwesomeIcon
               icon={faLongArrowAltUp}
@@ -37,7 +55,7 @@ class Filters extends React.Component {
             <div className="filters_item filters_item--by-status">
               <p className="filters_item__title">статус</p>
               <br />
-              <lable htmlFor="status-1">
+              <span>
                 новые:
                 <input
                   type="radio"
@@ -45,8 +63,8 @@ class Filters extends React.Component {
                   checked={filtersBystatus === "1"}
                   onChange={this.props.handleInputChange}
                 />
-              </lable>
-              <lable htmlFor="status-2">
+              </span>
+              <span>
                 в ожидании:
                 <input
                   type="radio"
@@ -54,9 +72,9 @@ class Filters extends React.Component {
                   checked={filtersBystatus === "2"}
                   onChange={this.props.handleInputChange}
                 />
-              </lable>
+              </span>
 
-              <lable htmlFor="status-3">
+              <span>
                 выполненные:
                 <input
                   type="radio"
@@ -64,9 +82,9 @@ class Filters extends React.Component {
                   checked={filtersBystatus === "3"}
                   onChange={this.props.handleInputChange}
                 />
-              </lable>
+              </span>
 
-              <lable htmlFor="status-4">
+              <span>
                 в работе:
                 <input
                   type="radio"
@@ -74,8 +92,8 @@ class Filters extends React.Component {
                   checked={filtersBystatus === "4"}
                   onChange={this.props.handleInputChange}
                 />
-              </lable>
-              <lable htmlFor="status-all">
+              </span>
+              <span>
                 все:
                 <input
                   type="radio"
@@ -83,14 +101,14 @@ class Filters extends React.Component {
                   checked={filtersBystatus === "all"}
                   onChange={this.props.handleInputChange}
                 />
-              </lable>
+              </span>
             </div>
           )}
           {showFilterByPriority && (
             <div className="filters_item filters_item--by-priority">
               <p className="filters_item__title">приоритет</p>
               <br />
-              <lable htmlFor="priority-1">
+              <span>
                 низкий
                 <input
                   type="radio"
@@ -98,8 +116,8 @@ class Filters extends React.Component {
                   checked={filtersBypriority === "1"}
                   onChange={this.props.handleInputChange}
                 />
-              </lable>
-              <lable htmlFor="priority-2">
+              </span>
+              <span>
                 средний
                 <input
                   type="radio"
@@ -107,9 +125,9 @@ class Filters extends React.Component {
                   checked={filtersBypriority === "2"}
                   onChange={this.props.handleInputChange}
                 />
-              </lable>
+              </span>
 
-              <lable htmlFor="priority-3">
+              <span>
                 высокий
                 <input
                   type="radio"
@@ -117,9 +135,9 @@ class Filters extends React.Component {
                   checked={filtersBypriority === "3"}
                   onChange={this.props.handleInputChange}
                 />
-              </lable>
+              </span>
 
-              <lable htmlFor="priority-4">
+              <span>
                 срочный
                 <input
                   type="radio"
@@ -127,8 +145,8 @@ class Filters extends React.Component {
                   checked={filtersBypriority === "4"}
                   onChange={this.props.handleInputChange}
                 />
-              </lable>
-              <lable htmlFor="priority-all">
+              </span>
+              <span>
                 все:
                 <input
                   type="radio"
@@ -136,7 +154,7 @@ class Filters extends React.Component {
                   checked={filtersBypriority === "all"}
                   onChange={this.props.handleInputChange}
                 />
-              </lable>
+              </span>
             </div>
           )}
         </div>

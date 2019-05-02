@@ -1,3 +1,6 @@
+#root {
+  height: 100vh;
+}
 /* SVG */
 .priority-1 {
   color: #4caf50;
@@ -15,6 +18,9 @@
 .priority-3,
 .priority-2,
 .priority-1 {
+  position: absolute;
+  top: -42px;
+  left: -24px;
   font-size: 25px;
   margin-right: 15px;
 }
@@ -145,20 +151,34 @@
   background: #fff;
 }
 .task-container_header {
+  position: relative;
   display: flex;
+  flex-wrap: wrap;
   flex-direction: row;
   justify-content: space-between;
 }
 .task-container_header__title {
+  width: 100%;
   flex: 1;
-  margin-top: 21px;
+  font-size: 22px;
+  margin: 0;
+  color: #0c2131;
+}
+.task-container_header__date {
+  color: #605f5f;
+  font-size: 14px;
+  text-align: right;
+  flex: 1;
 }
 .task-container_header__caret {
-  padding: 20px;
+  padding: 10px;
   color: #1c364c;
   cursor: pointer;
   font-size: 20px;
   transition: all 0.2s ease-out;
+}
+.task-container_main-content__desc {
+  font-weight: 100;
 }
 .task-container_header__caret.open {
   transform: rotate(180deg);
@@ -194,25 +214,33 @@
 .filters-wrap {
   background: #fff0;
   width: 100%;
-  padding: 20px;
-  margin: 20px 20px -20px 20px;
+  margin: 0;
   color: white;
+  box-sizing: border-box;
 }
 .filters {
   display: flex;
   flex-direction: row;
   justify-content: flex-end;
   align-items: flex-end;
+  padding: 20px;
+  flex-wrap: wrap;
 }
 .filters_item {
   display: flex;
   flex-wrap: wrap;
   flex-direction: row;
-  justify-content: center;
+  justify-content: flex-start;
   align-items: center;
   text-align: center;
 }
-
+.filters-wrap_icon-mobil-menu {
+  display: none;
+}
+.filters_item__title {
+  width: 100%;
+  margin: 0;
+}
 .filters_item__icon {
   cursor: pointer;
   font-size: 16px;
@@ -224,6 +252,9 @@
 .filters_item--by-status {
   width: 140px;
   text-align: left;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
 }
 .filters_item--by-status lable {
   display: block;
@@ -236,6 +267,9 @@
 .filters_item--by-priority {
   width: 140px;
   text-align: left;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
 }
 .filters_item--by-priority lable {
   display: block;
@@ -243,4 +277,7 @@
 }
 .filters_item--by-priority input {
   float: left;
+}
+.filters_item__title--by-date {
+  width: auto;
 }

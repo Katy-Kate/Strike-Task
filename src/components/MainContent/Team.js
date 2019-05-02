@@ -1,6 +1,4 @@
 import React, { Component } from "react";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faEnvelope } from "@fortawesome/free-solid-svg-icons";
 import Gallery from "../Gallery";
 
 let teamGallery = [
@@ -40,29 +38,3 @@ class Team extends Component {
   }
 }
 export default Team;
-
-// <div className="gallery">
-//   {teamGallery.map((item, index) => {
-//     return (
-//       <div className="gallery_item" key={index}>
-//         <div
-//           className="gallery_item__image-wrap"
-//           style={{ backgroundImage: `url(${item.src})` }}
-//         />
-//         <div className="gallery_item__content">
-//           <p className="gallery_item__name">{item.name}</p>
-//           <FontAwesomeIcon
-//             icon={faEnvelope}
-//             className="gallery_item__icon"
-//           />
-//           <a
-//             href={`mailto:${item.email}`}
-//             className="gallery_item__email"
-//           >
-//             {item.email}
-//           </a>
-//         </div>
-//       </div>
-//     );
-//   })}
-// </div>

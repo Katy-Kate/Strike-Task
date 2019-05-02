@@ -43,18 +43,6 @@ class HeaderWSpase extends Component {
           <Link to="/dashboard/urgent" className="nav_item">
             Срочные
           </Link>
-          <Link to="" className="nav_item">
-            Моя работа
-          </Link>
-          <Link to="" className="nav_item">
-            Панели задач
-          </Link>
-          <Link to="" className="nav_item">
-            Отчеты
-          </Link>
-          <Link to="" className="nav_item">
-            Лента новостей
-          </Link>
         </div>
         <Search
           onSearch={this.props.onSearch}

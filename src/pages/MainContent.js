@@ -7,6 +7,7 @@ import Dashboard from "../components/MainContent/Tasks/Dashboard";
 import ResultOfSearch from "../components/Search/ZeroResultOfSearch";
 
 import "../styles/tasks.css";
+import "../styles/userAppPage@media.css";
 
 class MainContent extends Component {
   render() {

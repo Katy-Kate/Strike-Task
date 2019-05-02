@@ -55,13 +55,15 @@ class TaskConteiner extends React.Component {
     );
     return (
       <div className="task-container">
+        {" "}
+        <div className="task-container_header__date">{day}</div>
         <div className="task-container_header">
           <FontAwesomeIcon
             icon={faBookmark}
             className={`priority-${priority}`}
           />
+
           <h4 className="task-container_header__title">{title}</h4>
-          <div className="task-container_header__date">{day}</div>
           <FontAwesomeIcon
             icon={faCaretDown}
             className={

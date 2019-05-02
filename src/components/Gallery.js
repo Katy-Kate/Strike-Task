@@ -16,8 +16,8 @@ class Gallery extends React.Component {
   }
   renderImageContent = (item, index) => {
     return (
-      <div onClick={e => this.openModal(e, index)}>
-        <div className="gallery_item" key={index}>
+      <div key={index} onClick={e => this.openModal(e, index)}>
+        <div className="gallery_item">
           <div
             className="gallery_item__image-wrap"
             style={{ backgroundImage: `url(${item.src})` }}

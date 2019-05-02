@@ -7,17 +7,22 @@ class LeftPanel extends Component {
   toggleMenu = element => {
     element.classList.toggle("open");
   };
-
-  componentDidMount() {
+  removeClassLict = el => {
+    if (el.classList.contains("open")) {
+      this.toggleMenu(el);
+    }
+  };
+  addEventListenerOnDropdownMenu() {
     let carret = document.querySelector(".left-nav_item__btn");
     let dropdownMenu = document.querySelector(".left-nav-2");
-
+    let leftPanel = document.querySelector(".left-panel");
     carret.addEventListener("click", e => {
       e.stopPropagation();
       this.toggleMenu(dropdownMenu);
     });
     document.addEventListener("click", e => {
       let target = e.target;
+      let its_link = target.href;
       let its_dropdownMenu =
         target === dropdownMenu || dropdownMenu.contains(target);
       let its_carret = target === carret;
@@ -26,7 +31,14 @@ class LeftPanel extends Component {
       if (!its_dropdownMenu && !its_carret && dropdownMenu_is_open) {
         this.toggleMenu(dropdownMenu);
       }
+      if (its_link) {
+        this.removeClassLict(leftPanel);
+        this.removeClassLict(dropdownMenu);
+      }
     });
+  }
+  componentDidMount() {
+    this.addEventListenerOnDropdownMenu();
   }
 
   render() {
