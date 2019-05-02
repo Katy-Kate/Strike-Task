@@ -14,7 +14,7 @@ class SignInPage extends Component {
     super();
     this.state = {
       values: {
-        password: "password",
+        password: "0931527094",
         email: "Turalnikova@gmail.com"
       },
       errors: {
