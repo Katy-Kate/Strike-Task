@@ -29,7 +29,7 @@ class MainContent extends Component {
           <Route
             path="/dashboard"
             exact
-            render={props => <Dashboard {...this.props} />}
+            render={props => <Dashboard filters={true} {...this.props} />}
           />
 
           <Route

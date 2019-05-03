@@ -2,7 +2,11 @@ import React from "react";
 import PropTypes from "prop-types";
 import UISelect from "../../../UiComponents/UISelect";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faBookmark, faCaretDown } from "@fortawesome/free-solid-svg-icons";
+import {
+  faBookmark,
+  faCaretDown,
+  faTimesCircle
+} from "@fortawesome/free-solid-svg-icons";
 import { status_options, options_data_format } from "../../../../data/app_data";
 
 class TaskConteiner extends React.Component {
@@ -48,14 +52,27 @@ class TaskConteiner extends React.Component {
   };
 
   render() {
-    const { priority, title, desc, image, status, date } = this.state.ticket;
+    const {
+      priority,
+      title,
+      desc,
+      image,
+      status,
+      date,
+      id
+    } = this.state.ticket;
     let day = new Date(Number(date)).toLocaleDateString(
       "en-US",
       options_data_format
     );
     return (
       <div className="task-container">
-        {" "}
+        <FontAwesomeIcon
+          icon={faTimesCircle}
+          className="task-container_icon-remove"
+          onClick={() => this.props.removeTicket(id)}
+          title="удалить"
+        />
         <div className="task-container_header__date">{day}</div>
         <div className="task-container_header">
           <FontAwesomeIcon

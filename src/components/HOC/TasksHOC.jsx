@@ -6,8 +6,8 @@ import ZeroResultOfSearch from "../Search/ZeroResultOfSearch";
 import {
   getTicketsByFilter,
   getTicketsFromLocalStorage,
-  setTicketsToLocalStorage
-  // filterTickets
+  setTicketsToLocalStorage,
+  removeTicketFromLocalStorage
 } from "../../data/TicketsRepository";
 const TasksHOC = Container => {
   return class extends React.Component {
@@ -111,6 +111,11 @@ const TasksHOC = Container => {
       this.updateTicketsData(tickets);
     };
     handleInputChange = event => {
+      if (this.state.offset > 0) {
+        this.setState({
+          offset: 0
+        });
+      }
       let filterType = event.target.id;
       let res = filterType.split("-"); //return ["status":"1"]
       let filterName = `filtersBy${res[0]}`;
@@ -130,7 +135,10 @@ const TasksHOC = Container => {
         }
       );
     };
-
+    removeTicket = id => {
+      removeTicketFromLocalStorage(id);
+      this.updateTicketWIthLocalStorage();
+    };
     render() {
       const { search } = this.props;
 
@@ -152,6 +160,7 @@ const TasksHOC = Container => {
               totalCount={this.state.totalCount}
               changePagination={this.changePagination}
               replaceTicket={this.replaceTicket}
+              removeTicket={this.removeTicket}
             />
           </React.Fragment>
         );

@@ -8,19 +8,11 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 
 class Filters extends React.Component {
-  addEventListenerOnFilterMenu = () => {
-    let icon = document.getElementsByClassName(
-      "filters-wrap_icon-mobil-menu"
-    )[0];
-    let mobileMenu = document.getElementsByClassName("nav")[0];
-    let filtersBlock = document.getElementsByClassName("filters")[0];
-    icon.addEventListener("click", () => {
-      filtersBlock.classList.toggle("filters-open");
-    });
+  toggleFiltersMenu = e => {
+    let parent = e.target.closest(".filters-wrap");
+    let el = parent.querySelector(".filters");
+    el.classList.toggle("filters-open");
   };
-  componentDidMount() {
-    this.addEventListenerOnFilterMenu();
-  }
   render() {
     const {
       filtersBystatus,
@@ -33,6 +25,7 @@ class Filters extends React.Component {
         <FontAwesomeIcon
           icon={faFilter}
           className="filters-wrap_icon-mobil-menu"
+          onClick={e => this.toggleFiltersMenu(e)}
         />
         <div className="filters">
           <div className="filters_item">

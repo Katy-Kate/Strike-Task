@@ -4,10 +4,6 @@ import RenderTasks from "../Tasks/components/RenderTasks";
 
 class Dashboard extends React.Component {
   render() {
-    const { search } = this.props;
-    if (search) {
-      console.log("yyyy");
-    }
     return (
       <div className="dashboard--wrap">
         <h2 className="dashboard_title">Приоритет</h2>

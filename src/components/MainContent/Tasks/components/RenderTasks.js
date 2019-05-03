@@ -16,6 +16,7 @@ class RenderTasks extends React.PureComponent {
                 key={item.id}
                 item={item}
                 replaceTicket={this.props.replaceTicket}
+                removeTicket={this.props.removeTicket}
               />
             );
           })}

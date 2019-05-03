@@ -1,4 +1,3 @@
-import tickets_data from "./tickets_data.json";
 import { TAKE_TICKETS } from "./app_data";
 
 export const getTicketsFromLocalStorage = () => {
@@ -9,21 +8,13 @@ export const setTicketsToLocalStorage = data => {
   localStorage.setItem("tickets", JSON.stringify(data));
 };
 
-// export const paginationTickets = (offset, userId) => {
-//   let tickets = getTicketsByUserId(userId);
-//   let totalCount = tickets.length;
-//   tickets.sort((a, b) => {
-//     return a.id - b.id;
-//   });
-//   if (offset !== 0) {
-//     offset *= TAKE_TICKETS;
-//   }
-//   console.log("offset", offset);
-//   let userTickets = tickets.splice(offset, TAKE_TICKETS);
-//   console.log(userTickets);
-//   return { totalCount, userTickets };
-// };
-
+export const removeTicketFromLocalStorage = ticketId => {
+  let tickets = getTicketsFromLocalStorage();
+  const newTickets = tickets.filter(item => {
+    return Number(item.id) !== Number(ticketId);
+  });
+  setTicketsToLocalStorage(newTickets);
+};
 export const getTicketsByUserId = id => {
   let allTickets = getTicketsFromLocalStorage();
   let userTickets = [];
@@ -38,47 +29,6 @@ export const addNewTicketToLocalStorage = ticket => {
   tickets.push(ticket);
   setTicketsToLocalStorage(tickets);
 };
-
-// export const getTicketsByFilter = (
-//   filterName,
-//   filterValue,
-//   userId,
-//   offset,
-//   searchQuery
-// ) => {
-//   let tickets = getTicketsByUserId(userId);
-//   let totalCount;
-//   let filterTickets;
-//   let filterTicketsBySearch;
-
-//   if (filterName) {
-//     filterTickets = tickets.filter(item => {
-//       return Number(item[filterName]) === Number(filterValue);
-//     });
-//   } else {
-//     filterTickets = tickets;
-//   }
-//   if (searchQuery) {
-//     filterTicketsBySearch = filterTickets.filter(item => {
-//       return (
-//         item.title.toLowerCase().includes(searchQuery) ||
-//         item.desc.toLowerCase().includes(searchQuery)
-//       );
-//     });
-//     filterTickets = filterTicketsBySearch;
-//   }
-
-//   totalCount = filterTickets.length;
-//   filterTickets.sort((a, b) => {
-//     return a.id - b.id;
-//   });
-//   if (offset !== 0) {
-//     offset *= TAKE_TICKETS;
-//   }
-//   console.log("offset", offset);
-//   let userTickets = filterTickets.splice(offset, TAKE_TICKETS);
-//   return { totalCount, userTickets };
-// };
 
 export const getTicketsByFilter = (
   filterName,
