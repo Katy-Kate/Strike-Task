@@ -23,7 +23,6 @@ export const addNewUserToLocalStorage = user => {
 
 export const validateFuield = (context, inputName) => {
   if (context.state.values[inputName] === "") {
-    console.log("empty", context.state.values[inputName]);
     inputErrors(context, inputName, "Not empty");
     return false;
   } else {
@@ -81,18 +80,12 @@ export const validateFuield = (context, inputName) => {
 };
 
 export const inputErrors = (context, inputName, err) => {
-  console.log("before", context, inputName, err);
-  context.setState(
-    prevState => ({
-      errors: {
-        ...prevState.errors,
-        [inputName]: err
-      }
-    }),
-    () => {
-      console.log("after", context, inputName, err);
+  context.setState(prevState => ({
+    errors: {
+      ...prevState.errors,
+      [inputName]: err
     }
-  );
+  }));
 };
 
 export const foundUser = (

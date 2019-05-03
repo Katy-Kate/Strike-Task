@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faEnvelope,
@@ -8,7 +8,8 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 import { API_KEY_GOOGLE_MAP, map_options } from "../../data/app_data";
 let map;
-class Contacts extends Component {
+
+class Contacts extends React.PureComponent {
   initMap = () => {
     let el = document.getElementById("map");
     if (el) {
@@ -20,16 +21,33 @@ class Contacts extends Component {
     }
   };
   componentDidMount = () => {
-    const script = document.createElement("script");
-    script.src = `https://maps.googleapis.com/maps/api/js?key=${API_KEY_GOOGLE_MAP}`;
-    script.async = true;
-    script.defer = true;
-    script.setAttribute = ("name", "map");
-    script.addEventListener("load", () => {
-      this.initMap();
-    });
+    if (
+      !document.querySelector("script[href^='https://maps.googleapis.com']")
+    ) {
+      const script = document.createElement("script");
+      script.src = `https://maps.googleapis.com/maps/api/js?key=${API_KEY_GOOGLE_MAP}`;
+      script.async = true;
+      script.defer = true;
+      script.setAttribute = ("name", "map");
+      script.addEventListener("load", () => {
+        this.initMap();
+      });
 
-    document.body.appendChild(script);
+      document.body.appendChild(script);
+    }
+  };
+  componentWillUnmount = () => {
+    const reExpMap = /(https:\/\/maps)/;
+    let arrOfScriptsOnPage = document.querySelectorAll("script");
+    if (arrOfScriptsOnPage.length) {
+      for (let i = 0; i < arrOfScriptsOnPage.length; i++) {
+        reExpMap.test(arrOfScriptsOnPage[i].src) &&
+          arrOfScriptsOnPage[i].remove();
+      }
+    }
+    let el = document.getElementById("map");
+
+    window.google = {};
   };
 
   render() {

@@ -267,54 +267,6 @@ header {
 .appPage {
   flex-direction: column;
 }
-.dashboard--wrap {
-  width: 100%;
-  padding: 20px;
-  box-sizing: border-box;
-}
-.dashboard {
-  display: flex;
-  flex-wrap: wrap;
-}
-.dashboard_title {
-  font-size: 30px;
-  color: #47b719;
-  text-align: center;
-  text-transform: uppercase;
-}
-.dashboard_item {
-  width: 25%;
-  min-width: 475px;
-  padding: 20px;
-  background: #1c364c;
-  margin: 20px;
-  border-radius: 5px;
-}
-.dashboard_item__head {
-  margin-bottom: -53px;
-  border-radius: 5px 5px 0 0;
-  padding: 20px;
-  margin: 0px 20px -24px;
-  text-transform: uppercase;
-  color: #03121f;
-  font-weight: 900;
-}
-.dashboard_item .filters-wrap {
-  margin-bottom: -20px;
-  margin-top: 20px;
-}
-.dashboard_item__head---priority-1 {
-  background: #4caf4f;
-}
-.dashboard_item__head---priority-2 {
-  background: #ffeb3b;
-}
-.dashboard_item__head---priority-3 {
-  background: #ff9800;
-}
-.dashboard_item__head---priority-4 {
-  background: #f44336;
-}
 
 /* left-panel */
 .left-panel {
@@ -405,7 +357,7 @@ svg {
 .dropdown-menu.open {
   transform: rotateY(0deg);
   opacity: 1;
-  right: -177px;
+  right: -174px;
   height: auto;
 }
 /* slider */

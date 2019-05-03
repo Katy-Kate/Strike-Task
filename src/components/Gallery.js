@@ -104,7 +104,7 @@ class GalleryModal extends React.Component {
     } else {
       return (
         <div className="gallery-modal--overlay">
-          <div isOpen={!!item.src} className="gallery-modal_body">
+          <div className="gallery-modal_body">
             <FontAwesomeIcon
               icon={faTimesCircle}
               className="modal-close"
@@ -128,7 +128,7 @@ class GalleryModal extends React.Component {
                 onKeyDown={this.handleKeyDown}
               />
             )}
-            <img src={item.src} />
+            <img src={item.src} alt="gallery" />
           </div>
         </div>
       );

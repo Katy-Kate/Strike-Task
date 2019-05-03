@@ -45,13 +45,9 @@ class App extends Component {
     if (Object.keys(user).length) {
       this.saveUser(user);
       this.toggleIsSignIn();
-    } else {
-      this.addEventListenerOnMobileMenu();
     }
   }
-  componentWillUnmount() {
-    //remove event liseners
-  }
+
   toogleWillUpdateTickets = bool => {
     this.setState({
       willUpdateTickets: bool || !this.state.willUpdateTickets
@@ -93,39 +89,40 @@ class App extends Component {
       IsOpenTaskModule: !this.state.IsOpenTaskModule
     });
   };
-
-  onAddEventListenerOnMenu = () => {
-    let hamburger = document.querySelector(".header_icon-hamburger");
+  toogleLeftPanel = e => {
     let leftPanel = document.querySelector(".left-panel");
+    let hamburger = document.querySelector(".header_icon-hamburger");
+    let link = leftPanel.querySelector(".left-nav_item");
+    let target = e.target;
+    let its_leftPanel = target === leftPanel || leftPanel.contains(target);
+    let its_hamburger =
+      target === hamburger || target.closest(".header_icon-hamburger");
+    let leftPanel_is_open = leftPanel.classList.contains("open");
 
-    hamburger.addEventListener("click", e => {
-      e.stopPropagation();
+    if (its_hamburger) {
       this.toggleMenu(leftPanel);
-    });
-    document.addEventListener("click", e => {
-      let target = e.target;
-      let its_leftPanel = target === leftPanel || leftPanel.contains(target);
-      let its_hamburger = target === hamburger;
-      let leftPanel_is_open = leftPanel.classList.contains("open");
-      if (!its_leftPanel && !its_hamburger && leftPanel_is_open) {
-        this.toggleMenu(leftPanel);
-      }
-    });
+    } else if (
+      (!its_leftPanel && !its_hamburger && leftPanel_is_open) ||
+      target === link
+    ) {
+      leftPanel.classList.remove("open");
+    }
   };
-  addEventListenerOnMobileMenu = () => {
-    let icon = document.getElementsByClassName("header_icon-mobil-menu")[0];
+
+  toogleDropdawnForMobileMenu = () => {
     let mobileMenu = document.getElementsByClassName("nav")[0];
-    icon.addEventListener("click", () => {
-      mobileMenu.classList.toggle("menu-open");
-    });
+    mobileMenu.classList.toggle("menu-open");
   };
+
   toggleIsSignIn = () => {
     this.setState(
       prevState => ({
         isSignIn: !prevState.isSignIn
       }),
       () => {
-        this.state.isSignIn && this.onAddEventListenerOnMenu();
+        this.state.isSignIn
+          ? document.addEventListener("click", this.toogleLeftPanel)
+          : document.removeEventListener("click", this.toogleLeftPanel);
       }
     );
   };
@@ -147,63 +144,76 @@ class App extends Component {
     });
     localStorage.removeItem("user");
   };
+
+  // Rendering contetn on the page
+  renderHeader = () => {
+    return (
+      <React.Fragment>
+        <div className="header">
+          {this.state.isSignIn ? (
+            <FontAwesomeIcon icon={faBars} className="header_icon-hamburger" />
+          ) : (
+            <FontAwesomeIcon
+              icon={faBars}
+              className="header_icon-mobil-menu"
+              onClick={this.toogleDropdawnForMobileMenu}
+            />
+          )}
+
+          <Logo />
+
+          {this.state.isSignIn ? (
+            <React.Fragment>
+              <FontAwesomeIcon
+                icon={faPlus}
+                className="nav_item nav_item--btn"
+                onClick={this.toogleTaskModul}
+              />
+              <HeaderWSpase
+                onLogOut={this.onLogOut}
+                onSearch={this.onSearch}
+                onChangeSearch={this.onChangeSearch}
+                search={this.state.search}
+              />
+            </React.Fragment>
+          ) : (
+            <HeaderStartPage
+              toogleModulWindowForSignUp={this.toogleModulWindowForSignUp}
+              toogleModulWindowForSignIn={this.toogleModulWindowForSignIn}
+            />
+          )}
+        </div>
+        {!this.state.isSignIn && <Slider />}
+      </React.Fragment>
+    );
+  };
+  
+  renderMainContent = () => {
+    if (this.state.isSignIn) {
+      return (
+        <main className="appPage">
+          <MainContent
+            user={this.state.user}
+            search={this.state.search}
+            willUpdateTickets={this.state.willUpdateTickets}
+            toogleWillUpdateTickets={this.toogleWillUpdateTickets}
+          />
+        </main>
+      );
+    } else {
+      return (
+        <main className="loginPage">
+          <StartPage />
+        </main>
+      );
+    }
+  };
+
   render() {
     return (
       <React.Fragment>
-        <header>
-          <div className="header">
-            {this.state.isSignIn ? (
-              <FontAwesomeIcon
-                icon={faBars}
-                className="header_icon-hamburger"
-              />
-            ) : (
-              <FontAwesomeIcon
-                icon={faBars}
-                className="header_icon-mobil-menu"
-              />
-            )}
-
-            <Logo />
-
-            {this.state.isSignIn ? (
-              <React.Fragment>
-                <FontAwesomeIcon
-                  icon={faPlus}
-                  className="nav_item nav_item--btn"
-                  onClick={this.toogleTaskModul}
-                />
-                <HeaderWSpase
-                  onLogOut={this.onLogOut}
-                  onSearch={this.onSearch}
-                  onChangeSearch={this.onChangeSearch}
-                  search={this.state.search}
-                />
-              </React.Fragment>
-            ) : (
-              <HeaderStartPage
-                toogleModulWindowForSignUp={this.toogleModulWindowForSignUp}
-                toogleModulWindowForSignIn={this.toogleModulWindowForSignIn}
-              />
-            )}
-          </div>
-          {!this.state.isSignIn && <Slider />}
-        </header>
-
-        {this.state.isSignIn ? (
-          <main className="appPage">
-            <MainContent
-              user={this.state.user}
-              search={this.state.search}
-              willUpdateTickets={this.state.willUpdateTickets}
-              toogleWillUpdateTickets={this.toogleWillUpdateTickets}
-            />
-          </main>
-        ) : (
-          <main className="loginPage">
-            <StartPage />
-          </main>
-        )}
+        <header> {this.renderHeader()}</header>
+        {this.renderMainContent()}
 
         <Footer />
         <LeftPanel className="left-panel" />

@@ -5,37 +5,41 @@ import defaultAvatar from "../../images/default-avatar.png";
 import PropTypes from "prop-types";
 
 class HeaderWSpase extends Component {
-  toggleMenu = element => {
-    element.classList.toggle("open");
-  };
-  onAddEventListenerOnUserMenu = () => {
+  closeUserMenu = e => {
     let userIcon = document.querySelector(".user-profile_avatar");
     let userDropdownMenu = document.querySelector(
       ".user-profile_dropdown-menu "
     );
+    let target = e.target;
+    let its_userDropdownMenu =
+      target === userDropdownMenu || userDropdownMenu.contains(target);
+    let its_userIcon = target === userIcon;
+    let userDropdownMenu_is_open = userDropdownMenu.classList.contains("open");
 
-    userIcon.addEventListener("click", e => {
-      e.stopPropagation();
-      this.toggleMenu(userDropdownMenu);
-    });
-    document.addEventListener("click", e => {
-      let target = e.target;
-      let its_userDropdownMenu =
-        target === userDropdownMenu || userDropdownMenu.contains(target);
-      let its_userIcon = target === userIcon;
-      let userDropdownMenu_is_open = userDropdownMenu.classList.contains(
-        "open"
-      );
-
-      if (!its_userDropdownMenu && !its_userIcon && userDropdownMenu_is_open) {
-        this.toggleMenu(userDropdownMenu);
-      }
-    });
+    if (!its_userDropdownMenu && !its_userIcon && userDropdownMenu_is_open) {
+      userDropdownMenu.classList.toggle("open");
+    }
   };
+
+  toggleUserMenu = e => {
+    e.stopPropagation();
+    let userDropdownMenu = document.querySelector(
+      ".user-profile_dropdown-menu "
+    );
+    userDropdownMenu.classList.toggle("open");
+  };
+
   componentDidMount() {
-    this.onAddEventListenerOnUserMenu();
+    let userIcon = document.querySelector(".user-profile_avatar");
+    userIcon.addEventListener("click", this.toggleUserMenu);
+    document.addEventListener("click", this.closeUserMenu);
   }
 
+  componentWillUnmount() {
+    let userIcon = document.querySelector(".user-profile_avatar");
+    userIcon.removeEventListener("click", this.toggleUserMenu);
+    document.removeEventListener("click", this.closeUserMenu);
+  }
   render() {
     return (
       <div className="header_wspase">

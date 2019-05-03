@@ -9,11 +9,11 @@ class HeaderStartPage extends Component {
           <a href="#about-us" className="nav_item">
             О нас
           </a>
-          <a href="#contacts" className="nav_item">
-            Контакты
-          </a>
           <a href="#team" className="nav_item">
             Команда
+          </a>
+          <a href="#contacts" className="nav_item">
+            Контакты
           </a>
 
           <div className="wrap-btns">
@@ -38,5 +38,6 @@ class HeaderStartPage extends Component {
 export default HeaderStartPage;
 
 HeaderStartPage.propTypes = {
-  //onLogOut: PropTypes.func.isRequired
+  toogleModulWindowForSignUp: PropTypes.func.isRequired,
+  toogleModulWindowForSignIn: PropTypes.func.isRequired
 };

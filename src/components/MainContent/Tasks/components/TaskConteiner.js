@@ -52,15 +52,7 @@ class TaskConteiner extends React.Component {
   };
 
   render() {
-    const {
-      priority,
-      title,
-      desc,
-      image,
-      status,
-      date,
-      id
-    } = this.state.ticket;
+    const { priority, title, desc, file, status, date, id } = this.state.ticket;
     let day = new Date(Number(date)).toLocaleDateString(
       "en-US",
       options_data_format
@@ -94,9 +86,9 @@ class TaskConteiner extends React.Component {
         {this.state.isOpenMinBlock && (
           <div className="task-container_main-content">
             <p className="task-container_main-content__desc">{desc}</p>
-            {image && (
+            {file && (
               <img
-                src={image}
+                src={file}
                 className="task-container_main-content__img"
                 alt="task"
               />

@@ -35,6 +35,10 @@
   display: flex;
   flex-wrap: wrap;
 }
+.dashboard .zero-task {
+  margin-top: 50px;
+}
+
 .dashboard_title {
   font-size: 30px;
   color: #47b719;
@@ -251,6 +255,9 @@
 }
 .task-container_header__caret.open {
   transform: rotate(180deg);
+}
+.task-container_main-content__img {
+  max-width: 100%;
 }
 .saveStatus_btn {
   margin-right: 5px;

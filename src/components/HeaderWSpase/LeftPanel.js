@@ -12,35 +12,31 @@ class LeftPanel extends Component {
       this.toggleMenu(el);
     }
   };
-  addEventListenerOnDropdownMenu() {
+  toogleDropdownMenu = e => {
     let carret = document.querySelector(".left-nav_item__btn");
     let dropdownMenu = document.querySelector(".left-nav-2");
     let leftPanel = document.querySelector(".left-panel");
-    carret.addEventListener("click", e => {
-      e.stopPropagation();
+    let target = e.target;
+    let its_link = target.href;
+    let its_dropdownMenu =
+      target === dropdownMenu || dropdownMenu.contains(target);
+    let its_carret = target === carret || target.closest(".left-nav_item__btn");
+
+    if (its_dropdownMenu && !its_link) return;
+    else if (its_carret) {
       this.toggleMenu(dropdownMenu);
-    });
-    document.addEventListener("click", e => {
-      let target = e.target;
-      let its_link = target.href;
-      let its_dropdownMenu =
-        target === dropdownMenu || dropdownMenu.contains(target);
-      let its_carret = target === carret;
-      let dropdownMenu_is_open = dropdownMenu.classList.contains("open");
+    } else {
+      this.removeClassLict(dropdownMenu);
+      this.removeClassLict(leftPanel);
+    }
+  };
 
-      if (!its_dropdownMenu && !its_carret && dropdownMenu_is_open) {
-        this.toggleMenu(dropdownMenu);
-      }
-      if (its_link) {
-        this.removeClassLict(leftPanel);
-        this.removeClassLict(dropdownMenu);
-      }
-    });
-  }
   componentDidMount() {
-    this.addEventListenerOnDropdownMenu();
+    document.addEventListener("click", this.toogleDropdownMenu);
   }
-
+  componentWillUnmount() {
+    document.removeEventListener("click", this.toogleDropdownMenu);
+  }
   render() {
     return (
       <div className={this.props.className}>
