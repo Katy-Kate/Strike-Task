@@ -4,15 +4,27 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCaretRight } from "@fortawesome/free-solid-svg-icons";
 
 class LeftPanel extends Component {
+  componentDidMount() {
+    document.addEventListener("click", this.toogleDropdownMenu);
+  }
+
+  componentWillUnmount() {
+    document.removeEventListener("click", this.toogleDropdownMenu);
+  }
+
   toggleMenu = element => {
     element.classList.toggle("open");
   };
+
   removeClassLict = el => {
     if (el.classList.contains("open")) {
       this.toggleMenu(el);
     }
   };
+
   toogleDropdownMenu = e => {
+    e.stopPropagation();
+    let hamburger = document.querySelector(".header_icon-hamburger");
     let carret = document.querySelector(".left-nav_item__btn");
     let dropdownMenu = document.querySelector(".left-nav-2");
     let leftPanel = document.querySelector(".left-panel");
@@ -21,22 +33,19 @@ class LeftPanel extends Component {
     let its_dropdownMenu =
       target === dropdownMenu || dropdownMenu.contains(target);
     let its_carret = target === carret || target.closest(".left-nav_item__btn");
+    let its_hamburger =
+      target === hamburger || target.closest(".header_icon-hamburger");
 
     if (its_dropdownMenu && !its_link) return;
     else if (its_carret) {
       this.toggleMenu(dropdownMenu);
+    } else if (its_hamburger) {
     } else {
       this.removeClassLict(dropdownMenu);
       this.removeClassLict(leftPanel);
     }
   };
 
-  componentDidMount() {
-    document.addEventListener("click", this.toogleDropdownMenu);
-  }
-  componentWillUnmount() {
-    document.removeEventListener("click", this.toogleDropdownMenu);
-  }
   render() {
     return (
       <div className={this.props.className}>

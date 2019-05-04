@@ -102,10 +102,11 @@ button.arrowBtn svg {
 .arrowBtn:hover {
   background: #33bb1163;
 }
-#root {
+body #root {
   display: flex;
   flex-direction: column;
   justify-content: stretch;
+  height: auto;
 }
 .modalWrapper {
   position: fixed;
@@ -266,6 +267,7 @@ header {
 }
 .appPage {
   flex-direction: column;
+  overflow-y: auto;
 }
 
 /* left-panel */
@@ -362,7 +364,6 @@ svg {
 }
 /* slider */
 .silder {
-  height: 40vw;
   position: relative;
   flex: 1;
 }
@@ -386,7 +387,7 @@ svg {
 }
 .slider_wraper {
   position: relative;
-  height: 100%;
+  height: 40vw;
   overflow: hidden;
 }
 .slider_bgImage {
@@ -416,7 +417,6 @@ main {
   flex-direction: column;
   justify-content: flex-start;
   flex-wrap: wrap;
-  overflow-y: overlay;
   background: #162f44;
   flex: 1;
 }

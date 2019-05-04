@@ -71,9 +71,10 @@
     line-height: 2;
   }
   .filters_item input {
-    width: 30px;
-    height: 30px;
+    width: 20px;
+    height: 20px;
     margin-right: 20px;
+    transform: translateX(50%) translateY(5%);
   }
 
   /* tasks */

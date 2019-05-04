@@ -46,6 +46,10 @@ class App extends Component {
       this.saveUser(user);
       this.toggleIsSignIn();
     }
+
+    // let rootElement = document.getElementById("root");
+    // rootElement.classList.remove("root-user-app");
+    // rootElement.add("root-start-page");
   }
 
   toogleWillUpdateTickets = bool => {
@@ -143,9 +147,11 @@ class App extends Component {
       isSignIn: false
     });
     localStorage.removeItem("user");
+    let rootElement = document.getElementById("root");
+    rootElement.classList.remove("root-user-app");
   };
 
-  // Rendering contetn on the page
+  // Rendering content on the page
   renderHeader = () => {
     return (
       <React.Fragment>
@@ -187,7 +193,7 @@ class App extends Component {
       </React.Fragment>
     );
   };
-  
+
   renderMainContent = () => {
     if (this.state.isSignIn) {
       return (
@@ -214,7 +220,6 @@ class App extends Component {
       <React.Fragment>
         <header> {this.renderHeader()}</header>
         {this.renderMainContent()}
-
         <Footer />
         <LeftPanel className="left-panel" />
 

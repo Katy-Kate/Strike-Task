@@ -13,6 +13,7 @@ class Filters extends React.Component {
     let el = parent.querySelector(".filters");
     el.classList.toggle("filters-open");
   };
+
   render() {
     const {
       filtersBystatus,
@@ -66,7 +67,6 @@ class Filters extends React.Component {
                   onChange={this.props.handleInputChange}
                 />
               </span>
-
               <span>
                 выполненные:
                 <input
@@ -76,7 +76,6 @@ class Filters extends React.Component {
                   onChange={this.props.handleInputChange}
                 />
               </span>
-
               <span>
                 в работе:
                 <input

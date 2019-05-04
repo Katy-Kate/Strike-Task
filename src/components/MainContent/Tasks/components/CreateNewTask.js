@@ -3,10 +3,7 @@ import UIField from "../../../UiComponents/UIField";
 import UITextarea from "../../../UiComponents/UITextarea";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faTimesCircle, faPlus } from "@fortawesome/free-solid-svg-icons";
-import {
-  addNewTicketToLocalStorage,
-  paginationTickets
-} from "../../../../data/TicketsRepository";
+import { addNewTicketToLocalStorage } from "../../../../data/TicketsRepository";
 import { priority_options } from "../../../../data/app_data";
 import UISelect from "../../../UiComponents/UISelect";
 import PropTypes from "prop-types";
@@ -25,10 +22,7 @@ class CreateNewTask extends React.PureComponent {
       user_id: props.user_id
     };
   }
-  getDate = () => {
-    let d = +new Date();
-    return d;
-  };
+
   onChange = e => {
     const name = e.target.name;
     const value = e.target.value;
@@ -36,6 +30,7 @@ class CreateNewTask extends React.PureComponent {
       [name]: value
     });
   };
+
   onChangeCustomFile = event => {
     const file = event.target.files[0];
     if (file) {
@@ -48,11 +43,13 @@ class CreateNewTask extends React.PureComponent {
       reader.readAsDataURL(file);
     }
   };
+
   removeCustomFile = () => {
     this.setState({
       file: null
     });
   };
+
   checkIsStateEmpty = () => {
     let isStateEmpty = false;
     for (let key in this.state) {
@@ -68,7 +65,7 @@ class CreateNewTask extends React.PureComponent {
     if (this.state.title) {
       let isStateEmpty = this.checkIsStateEmpty();
       if (isStateEmpty) {
-        addNewTicketToLocalStorage({ date: this.getDate(), ...this.state });
+        addNewTicketToLocalStorage({ date: +new Date(), ...this.state });
         this.props.toogleWillUpdateTickets(true);
         this.resetState();
         this.props.toogleTaskModul();
@@ -79,6 +76,7 @@ class CreateNewTask extends React.PureComponent {
       alert("введите заглавие!");
     }
   };
+
   resetState = () => {
     this.setState({
       id: +new Date(),
@@ -129,7 +127,6 @@ class CreateNewTask extends React.PureComponent {
             options={priority_options}
             value={this.priority}
           />
-
           <div className="custom-file--wrap">
             {this.state.file && (
               <div className="custom-file_image">
@@ -181,5 +178,6 @@ CreateNewTask.propTypes = {
   user_id: PropTypes.oneOfType([
     PropTypes.string.isRequired,
     PropTypes.number.isRequired
-  ])
+  ]),
+  toogleWillUpdateTickets: PropTypes.func.isRequired
 };

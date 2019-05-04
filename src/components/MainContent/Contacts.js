@@ -45,8 +45,6 @@ class Contacts extends React.PureComponent {
           arrOfScriptsOnPage[i].remove();
       }
     }
-    let el = document.getElementById("map");
-
     window.google = {};
   };
 

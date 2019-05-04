@@ -21,9 +21,11 @@ const TasksHOC = Container => {
         filtersBypriority: "all"
       };
     }
+
     componentDidMount() {
       this.updateTicketWIthLocalStorage();
     }
+
     componentDidUpdate(prevProps) {
       if (
         this.props.filterName !== prevProps.filterName ||
@@ -40,6 +42,7 @@ const TasksHOC = Container => {
       if (this.props.search.query !== prevProps.search.query)
         this.updateTicketWIthLocalStorage();
     }
+
     updateTicketWIthLocalStorage = (filterName, filterValue) => {
       filterName || (filterName = this.props.filterName);
       filterValue || (filterValue = this.props.filterValue);
@@ -53,11 +56,13 @@ const TasksHOC = Container => {
       );
       this.updateTicketsData(resultUserTickets);
     };
+
     updateTicketsData = data => {
       const { userTickets, totalCount } = data;
       this.updateTotalCount(totalCount);
       this.updateUserTickets(userTickets);
     };
+
     updateTotalCount = totalCount => {
       this.setState({
         totalCount
@@ -75,6 +80,7 @@ const TasksHOC = Container => {
       let res = this.state.offset + count;
       this.updateOffset(res);
     };
+
     updateOffset = offset => {
       this.setState(
         {
@@ -97,6 +103,7 @@ const TasksHOC = Container => {
       setTicketsToLocalStorage(tickets);
       this.updateTicketWIthLocalStorage();
     };
+
     filterByDate = (param, direction) => {
       console.log(param, direction);
       let tickets = getTicketsByFilter(
@@ -110,6 +117,7 @@ const TasksHOC = Container => {
       );
       this.updateTicketsData(tickets);
     };
+
     handleInputChange = event => {
       if (this.state.offset > 0) {
         this.setState({
@@ -135,10 +143,12 @@ const TasksHOC = Container => {
         }
       );
     };
+
     removeTicket = id => {
       removeTicketFromLocalStorage(id);
       this.updateTicketWIthLocalStorage();
     };
+
     render() {
       const { search } = this.props;
 

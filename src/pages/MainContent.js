@@ -10,6 +10,14 @@ import "../styles/tasks.css";
 import "../styles/userAppPage@media.css";
 
 class MainContent extends Component {
+  componentDidMount() {
+    let rootElement = document.getElementById("root");
+    rootElement.classList.add("root-user-app");
+  }
+  componentDidUnMount() {
+    let rootElement = document.getElementById("root");
+    rootElement.classList.remove("root-user-app");
+  }
   render() {
     return (
       <div className="main-content">

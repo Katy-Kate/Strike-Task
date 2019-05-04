@@ -40,6 +40,30 @@ class HeaderWSpase extends Component {
     userIcon.removeEventListener("click", this.toggleUserMenu);
     document.removeEventListener("click", this.closeUserMenu);
   }
+
+  // Rendering content on the page
+  renderUserProfileBlock = () => {
+    return (
+      <div className="user-profile" onClick={this.toogleDropdownMenu}>
+        <div className="user-profile_avatar">
+          <img
+            src={defaultAvatar}
+            alt="avatar"
+            className="user-profile_avatar__image"
+          />
+        </div>
+        <div className="user-profile_dropdown-menu">
+          <p
+            className="user-profile_dropdown-menu__item"
+            onClick={this.props.onLogOut}
+          >
+            Выйти
+          </p>
+        </div>
+      </div>
+    );
+  };
+
   render() {
     return (
       <div className="header_wspase">
@@ -53,23 +77,7 @@ class HeaderWSpase extends Component {
           onChangeSearch={this.props.onChangeSearch}
           search={this.props.search}
         />
-        <div className="user-profile" onClick={this.toogleDropdownMenu}>
-          <div className="user-profile_avatar">
-            <img
-              src={defaultAvatar}
-              alt="avatar"
-              className="user-profile_avatar__image"
-            />
-          </div>
-          <div className="user-profile_dropdown-menu">
-            <p
-              className="user-profile_dropdown-menu__item"
-              onClick={this.props.onLogOut}
-            >
-              Выйти
-            </p>
-          </div>
-        </div>
+        {this.renderUserProfileBlock()}
       </div>
     );
   }

@@ -2,18 +2,7 @@ import React from "react";
 
 export const EmptyFolderIcon = () => {
   return (
-    <div
-      style={{
-        position: "relative",
-        display: "flex",
-        flexDirection: "column",
-        justifyContent: "center",
-        alignItems: "center",
-        width: "100 %",
-        height: " 100 %"
-      }}
-      className="zero-task"
-    >
+    <div className="zero-task">
       <svg
         height="144"
         viewBox="0 0 144 144"
@@ -43,7 +32,6 @@ export const ZeroSearchIcon = () => {
       width="140"
       xmlns="http://www.w3.org/2000/svg"
       zero-icon=""
-      className="_ngcontent-uqw-239"
     >
       <path
         d="M113.957 108.234L108.23 114l5.726 5.766h19.08L138.76 114l-5.724-5.766zM29.013 11.942l5.726-5.766L29.012.41h-22.9L.39 6.176l5.726 5.766zm105.83 36.686h-26.497l-4.913-4.12V40.39l4.913-4.117h19.65l4.913-4.12v-4.118l-4.915-4.118H84.1l2.742 2.72v6.353h5.908v4.613h-5.803V56.05h5.803v4.613h-5.844l1.62 19.732L90.29 98.05h22.97l4.91-4.12v-4.12l-4.91-4.116h-4.914l-4.913-4.12v-4.117l4.913-4.12h11.76l4.91-4.117V65.1l-4.91-4.118h14.737l4.912-4.118v-4.118zM48.265 36.272h-12.83l-4.912 4.12v4.117l4.913 4.117h4.913l4.91 4.12v4.117l-4.91 4.12H20.483l-4.913 4.118v4.118l-4.91 4.12H5.745L.833 77.456v4.12l4.913 4.117h31.41l4.91 4.12v4.117l-4.91 4.12H27.33l-4.913 4.117v4.12l4.913 4.117h21.833l1.597-15.362 2.71-34.38-5.206-.34V56.05h5.31V37.603h-5.31z"

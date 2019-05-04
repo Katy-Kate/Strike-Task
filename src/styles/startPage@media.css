@@ -45,7 +45,7 @@
     margin: 5px;
   }
   /* slider */
-  #root .silder {
+  .silder .slider_wraper {
     height: 70vw;
   }
   .silder_btn:not(:disabled) {
