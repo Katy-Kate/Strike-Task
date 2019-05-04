@@ -276,7 +276,7 @@ header {
   top: 90px;
   bottom: 150px;
   height: auto;
-  left: -100%;
+  left: 0;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -287,9 +287,6 @@ header {
   z-index: 1;
   transition: all 0.5s ease;
   box-shadow: 4px 0 22px -3px #000000a6;
-}
-.left-panel.open {
-  left: 0%;
 }
 
 /* left panel navigation */

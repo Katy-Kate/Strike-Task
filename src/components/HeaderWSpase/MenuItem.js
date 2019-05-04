@@ -22,7 +22,10 @@ class MenuItem extends React.Component {
       document.removeEventListener("click", this.hideDropdownMenu);
     });
   };
-
+  componentWillUnmount = () => {
+    this.state.isOpenMenu &&
+      document.removeEventListener("click", this.hideDropdownMenu);
+  };
   renderDropdawnMwnu = () => {
     return (
       <div className="dropdown-menu left-nav-2 ">
@@ -30,7 +33,7 @@ class MenuItem extends React.Component {
           return (
             <Link
               key={i}
-              to={`${this.props.item}${item.path}`}
+              to={`${this.props.item.path}${item.path}`}
               className="left-nav-2_item"
             >
               {item.name}

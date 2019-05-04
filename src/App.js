@@ -25,6 +25,7 @@ class App extends Component {
       isSignIn: false,
       isOpenSignUp: false,
       isOpenSignIn: false,
+      isOpenLeftPanel: false,
       user: false,
       IsOpenTaskModule: false,
       search: {
@@ -46,10 +47,6 @@ class App extends Component {
       this.saveUser(user);
       this.toggleIsSignIn();
     }
-
-    // let rootElement = document.getElementById("root");
-    // rootElement.classList.remove("root-user-app");
-    // rootElement.add("root-start-page");
   }
 
   toogleWillUpdateTickets = bool => {
@@ -93,25 +90,25 @@ class App extends Component {
       IsOpenTaskModule: !this.state.IsOpenTaskModule
     });
   };
-  toogleLeftPanel = e => {
-    let leftPanel = document.querySelector(".left-panel");
-    let hamburger = document.querySelector(".header_icon-hamburger");
-    let link = leftPanel.querySelector(".left-nav_item");
-    let target = e.target;
-    let its_leftPanel = target === leftPanel || leftPanel.contains(target);
-    let its_hamburger =
-      target === hamburger || target.closest(".header_icon-hamburger");
-    let leftPanel_is_open = leftPanel.classList.contains("open");
+  // toogleLeftPanel = e => {
+  //   let leftPanel = document.querySelector(".left-panel");
+  //   let hamburger = document.querySelector(".header_icon-hamburger");
+  //   let link = leftPanel.querySelector(".left-nav_item");
+  //   let target = e.target;
+  //   let its_leftPanel = target === leftPanel || leftPanel.contains(target);
+  //   let its_hamburger =
+  //     target === hamburger || target.closest(".header_icon-hamburger");
+  //   let leftPanel_is_open = leftPanel.classList.contains("open");
 
-    if (its_hamburger) {
-      this.toggleMenu(leftPanel);
-    } else if (
-      (!its_leftPanel && !its_hamburger && leftPanel_is_open) ||
-      target === link
-    ) {
-      leftPanel.classList.remove("open");
-    }
-  };
+  //   if (its_hamburger) {
+  //     this.toggleMenu(leftPanel);
+  //   } else if (
+  //     (!its_leftPanel && !its_hamburger && leftPanel_is_open) ||
+  //     target === link
+  //   ) {
+  //     leftPanel.classList.remove("open");
+  //   }
+  // };
 
   toogleDropdawnForMobileMenu = () => {
     let mobileMenu = document.getElementsByClassName("nav")[0];
@@ -119,16 +116,9 @@ class App extends Component {
   };
 
   toggleIsSignIn = () => {
-    this.setState(
-      prevState => ({
-        isSignIn: !prevState.isSignIn
-      }),
-      () => {
-        this.state.isSignIn
-          ? document.addEventListener("click", this.toogleLeftPanel)
-          : document.removeEventListener("click", this.toogleLeftPanel);
-      }
-    );
+    this.setState(prevState => ({
+      isSignIn: !prevState.isSignIn
+    }));
   };
   toggleIsSignUp = () => {
     this.setState(prevState => ({
@@ -150,14 +140,38 @@ class App extends Component {
     let rootElement = document.getElementById("root");
     rootElement.classList.remove("root-user-app");
   };
-
+  openLeftPanel = event => {
+    event.preventDefault();
+    this.setState({ isOpenLeftPanel: true }, () =>
+      document.addEventListener("click", this.closeLeftPanel)
+    );
+  };
+  closeLeftPanel = event => {
+    let target = event.target;
+    let its_link = target.nodeName === "A";
+    let leftPanel = document.querySelector(".left-panel");
+    let its_leftPanel = target === leftPanel || leftPanel.contains(target);
+    if (its_leftPanel && !its_link) {
+      // still open
+      return;
+    } else {
+      //close menu
+      this.setState({ isOpenLeftPanel: false }, () =>
+        document.removeEventListener("click", this.closeLeftPanel)
+      );
+    }
+  };
   // Rendering content on the page
   renderHeader = () => {
     return (
       <React.Fragment>
         <div className="header">
           {this.state.isSignIn ? (
-            <FontAwesomeIcon icon={faBars} className="header_icon-hamburger" />
+            <FontAwesomeIcon
+              icon={faBars}
+              className="header_icon-hamburger"
+              onClick={this.openLeftPanel}
+            />
           ) : (
             <FontAwesomeIcon
               icon={faBars}
@@ -221,7 +235,7 @@ class App extends Component {
         <header> {this.renderHeader()}</header>
         {this.renderMainContent()}
         <Footer />
-        <LeftPanel className="left-panel" />
+        {this.state.isOpenLeftPanel && <LeftPanel className="left-panel" />}
 
         {this.state.IsOpenTaskModule && (
           <CreateNewTask

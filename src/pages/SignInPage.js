@@ -5,7 +5,6 @@ import {
   loginUser,
   saveUserInLocalStorage
 } from "../data/UserRepository";
-import { paginationTickets } from "../data/TicketsRepository";
 import "../styles/signUpPageStyles.css";
 import PropTypes from "prop-types";
 

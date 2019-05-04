@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { leftUserMenu } from "../../data/app_data";
-import MenuItem from "./DropdownMenu";
+import MenuItem from "./MenuItem";
 
 class LeftPanel extends Component {
   render() {
