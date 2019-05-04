@@ -59,6 +59,7 @@ class SignInPage extends Component {
   };
   onLogin = e => {
     e.preventDefault();
+
     const errors = this.validateAllFields();
     if (Object.keys(errors).length > 0) {
       this.setState(prevState => ({

@@ -272,16 +272,18 @@ header {
 
 /* left-panel */
 .left-panel {
+  position: absolute;
+  top: 90px;
+  bottom: 150px;
+  height: auto;
+  left: -100%;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
   background-color: #1d364c;
-  width: 220px;
-  height: 100%;
-  position: absolute;
-  top: 0;
-  left: -100%;
+  max-width: 220px;
+  width: 100%;
   z-index: 1;
   transition: all 0.5s ease;
   box-shadow: 4px 0 22px -3px #000000a6;
@@ -292,14 +294,18 @@ header {
 
 /* left panel navigation */
 .left-nav {
-  position: relative;
+  overflow-y: auto;
   display: flex;
   align-items: flex-start;
   flex-direction: column;
+  height: 100%;
+  width: 100%;
+  padding: 20px;
+  box-sizing: border-box;
 }
 .left-nav_item {
-  padding: 5px 20px;
   margin: 10px 0;
+  width: 90%;
 }
 
 .left-nav_item,
@@ -322,14 +328,15 @@ header {
   padding: 10px;
   background: rgb(39, 54, 75);
   position: absolute;
-  right: -177px;
   top: 0;
   height: 100%;
   transition: transform 0.4s ease, right 0.7s ease, opacity 0.3s ease;
   box-shadow: inset 23px 0 33px -27px #000000a6;
-  -webkit-transform: rotateY(90deg);
-  transform: rotateY(90deg);
-  opacity: 0;
+  opacity: 1;
+  width: 140px;
+  left: 215px;
+  overflow-y: auto;
+  box-sizing: border-box;
 }
 .left-nav-2_item {
   color: rgba(255, 255, 255, 0.712);
@@ -355,13 +362,9 @@ svg {
   top: 0;
   padding: 0 10px;
   text-align: center;
+  padding: 0 10px;
 }
-.dropdown-menu.open {
-  transform: rotateY(0deg);
-  opacity: 1;
-  right: -174px;
-  height: auto;
-}
+
 /* slider */
 .silder {
   position: relative;

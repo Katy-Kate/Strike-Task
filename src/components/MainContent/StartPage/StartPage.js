@@ -29,7 +29,7 @@ class StartPage extends React.Component {
         </div>
         <div id="contacts">
           <h2 className="startPage_title">Контакты</h2>
-          <Сontacts />
+          <Сontacts isSignIn={this.props.isSignIn} />
         </div>
       </div>
     );

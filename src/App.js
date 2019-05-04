@@ -209,7 +209,7 @@ class App extends Component {
     } else {
       return (
         <main className="loginPage">
-          <StartPage />
+          <StartPage isSignIn={this.state.isSignIn} />
         </main>
       );
     }

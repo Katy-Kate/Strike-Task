@@ -19,13 +19,18 @@
   .left-panel {
     width: 100%;
     font-size: 18px;
+    max-width: none;
   }
   .left-nav-2 {
+    box-sizing: border-box;
     position: relative;
-    margin-top: 10px;
-    width: 100%;
     box-shadow: none;
-    left: -16px;
+    left: 10px;
+    width: 100%;
+    background: transparent;
+  }
+  .left-nav {
+    padding: 20px 50px;
   }
 }
 

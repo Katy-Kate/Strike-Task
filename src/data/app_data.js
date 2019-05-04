@@ -26,3 +26,80 @@ export const map_options = {
 };
 
 export const API_KEY_GOOGLE_MAP = "AIzaSyD0r74TOiNpVeA4EgREonzyNuAr6l0mW5E";
+
+export const leftUserMenu = [
+  {
+    name: "Панели задач",
+    path: "/dashboard",
+    dropdown: [
+      {
+        name: "Новые",
+        path: "/tasks-new"
+      },
+      {
+        name: "В ожидании",
+        path: "/tasks-panding"
+      },
+      {
+        name: "Выполненные",
+        path: "/tasks-done"
+      },
+      {
+        name: "В работе",
+        path: "/tasks-inworking"
+      }
+    ]
+  },
+  {
+    name: "Lorem ispum",
+    path: "/dashboard",
+    dropdown: [
+      {
+        name: "Lorem ispum",
+        path: "/tasks-new"
+      },
+      {
+        name: "Lorem ispum",
+        path: "/tasks-panding"
+      },
+      {
+        name: "Lorem ispum",
+        path: "/tasks-done"
+      },
+      {
+        name: "Lorem ispum",
+        path: "/tasks-inworking"
+      }
+    ]
+  },
+  {
+    name: "Lorem ispum",
+    path: "/dashboard",
+    dropdown: null
+  },
+  {
+    name: "Lorem ispum",
+    path: "/dashboard",
+    dropdown: null
+  },
+  {
+    name: "Lorem ispum",
+    path: "/dashboard",
+    dropdown: null
+  },
+  {
+    name: "Lorem ispum",
+    path: "/dashboard",
+    dropdown: null
+  },
+  {
+    name: "Lorem ispum",
+    path: "/dashboard",
+    dropdown: null
+  },
+  {
+    name: "Lorem ispum",
+    path: "/dashboard",
+    dropdown: null
+  }
+];

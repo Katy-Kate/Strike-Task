@@ -11,19 +11,33 @@ let map;
 
 class Contacts extends React.PureComponent {
   initMap = () => {
-    let el = document.getElementById("map");
-    if (el) {
-      map = new window.google.maps.Map(el, map_options);
-      let marker = new window.google.maps.Marker({
-        position: new window.google.maps.LatLng(7.7186518, 81.7189023),
-        map: map
-      });
+    if (!this.props.isSignIn) {
+      let el = document.getElementById("map");
+      if (el) {
+        map = new window.google.maps.Map(el, map_options);
+        let marker = new window.google.maps.Marker({
+          position: new window.google.maps.LatLng(7.7186518, 81.7189023),
+          map: map
+        });
+      }
     }
   };
-  componentDidMount = () => {
-    if (
-      !document.querySelector("script[href^='https://maps.googleapis.com']")
-    ) {
+  removeMap = () => {
+    const reExpMap = /(https:\/\/maps)/;
+    let arrOfScriptsOnPage = document.querySelectorAll("script");
+    if (arrOfScriptsOnPage.length) {
+      for (let i = 0; i < arrOfScriptsOnPage.length; i++) {
+        reExpMap.test(arrOfScriptsOnPage[i].src) &&
+          arrOfScriptsOnPage[i].remove();
+      }
+    }
+    window.google = {};
+  };
+
+  addMap = () => {
+    let el = document.getElementById("map");
+
+    if (el && el.children.length === 0) {
       const script = document.createElement("script");
       script.src = `https://maps.googleapis.com/maps/api/js?key=${API_KEY_GOOGLE_MAP}`;
       script.async = true;
@@ -36,16 +50,11 @@ class Contacts extends React.PureComponent {
       document.body.appendChild(script);
     }
   };
+  componentDidMount = () => {
+    this.addMap();
+  };
   componentWillUnmount = () => {
-    const reExpMap = /(https:\/\/maps)/;
-    let arrOfScriptsOnPage = document.querySelectorAll("script");
-    if (arrOfScriptsOnPage.length) {
-      for (let i = 0; i < arrOfScriptsOnPage.length; i++) {
-        reExpMap.test(arrOfScriptsOnPage[i].src) &&
-          arrOfScriptsOnPage[i].remove();
-      }
-    }
-    window.google = {};
+    this.removeMap();
   };
 
   render() {
