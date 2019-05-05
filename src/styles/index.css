@@ -322,7 +322,7 @@ header {
 .left-nav-2 {
   display: flex;
   flex-direction: column;
-  padding: 10px;
+  padding: 25px;
   background: rgb(39, 54, 75);
   position: absolute;
   top: 0;
@@ -330,7 +330,7 @@ header {
   transition: transform 0.4s ease, right 0.7s ease, opacity 0.3s ease;
   box-shadow: inset 23px 0 33px -27px #000000a6;
   opacity: 1;
-  width: 140px;
+  width: auto;
   left: 215px;
   overflow-y: auto;
   box-sizing: border-box;
