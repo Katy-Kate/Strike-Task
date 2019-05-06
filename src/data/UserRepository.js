@@ -12,12 +12,16 @@ export const loginUser = async (userPas, userMail) => {
 };
 
 export const addNewUserToLocalStorage = user => {
-  let users = JSON.parse(localStorage.getItem("users"));
-  if (users) {
-    users.push(user);
-    localStorage.setItem("users", JSON.stringify(users));
-  } else {
-    localStorage.setItem("users", JSON.stringify([user]));
+  try {
+    let users = JSON.parse(localStorage.getItem("users"));
+    if (users) {
+      users.push(user);
+      localStorage.setItem("users", JSON.stringify(users));
+    } else {
+      localStorage.setItem("users", JSON.stringify([user]));
+    }
+  } catch (e) {
+    console.log("arror in addNewUserToLocalStorage = ", e.message);
   }
 };
 
@@ -95,16 +99,19 @@ export const foundUser = (
   getIndex = false,
   getItemId = false
 ) => {
-  let user;
-  arrOfUsers.forEach((element, index) => {
-    if (element.email === mail && element.password === password) {
-      user = element;
-      getIndex && (user = index);
-      getItemId && (user = element["_id"]);
-    }
-  });
-
-  return user;
+  try {
+    let user;
+    arrOfUsers.forEach((element, index) => {
+      if (element.email === mail && element.password === password) {
+        user = element;
+        getIndex && (user = index);
+        getItemId && (user = element["_id"]);
+      }
+    });
+    return user;
+  } catch (e) {
+    console.log("user with this data is not in localStorage = ", e.message);
+  }
 };
 
 export const saveUserInLocalStorage = user => {
@@ -112,11 +119,15 @@ export const saveUserInLocalStorage = user => {
 };
 
 export const replaceUserInLocalStorage = user => {
-  localStorage.setItem("user", JSON.stringify(user));
-  let users = JSON.parse(localStorage.getItem("users"));
-  let indexOfUser = foundUser(users, user.password, user.email, true);
-  users[indexOfUser] = user;
-  localStorage.setItem("users", JSON.stringify(users));
+  try {
+    localStorage.setItem("user", JSON.stringify(user));
+    let users = JSON.parse(localStorage.getItem("users"));
+    let indexOfUser = foundUser(users, user.password, user.email, true);
+    users[indexOfUser] = user;
+    localStorage.setItem("users", JSON.stringify(users));
+  } catch (e) {
+    console.log("error in replaceUserInLocalStorage = ", e.message);
+  }
 };
 
 export const setDataToLocalStorage = async (dataObj, path) => {
