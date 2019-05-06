@@ -14,9 +14,10 @@ class Gallery extends React.Component {
     super(props);
     this.state = { currentIndex: null };
   }
+
   renderImageContent = (item, index) => {
     return (
-      <div key={index} onClick={e => this.openModal(e, index)}>
+      <div key={index} onClick={e => this.openModal(index)}>
         <div className="gallery_item">
           <div
             className="gallery_item__image-wrap"
@@ -33,31 +34,27 @@ class Gallery extends React.Component {
       </div>
     );
   };
-  openModal(e, index) {
+
+  openModal(index) {
     this.setState({ currentIndex: index });
   }
-  closeModal = e => {
-    if (e !== undefined) {
-      e.preventDefault();
-    }
+
+  closeModal = () => {
     this.setState({ currentIndex: null });
   };
-  findPrev = e => {
-    if (e !== undefined) {
-      e.preventDefault();
-    }
+
+  findPrev = () => {
     this.setState(prevState => ({
       currentIndex: prevState.currentIndex - 1
     }));
   };
-  findNext = e => {
-    if (e !== undefined) {
-      e.preventDefault();
-    }
+
+  findNext = () => {
     this.setState(prevState => ({
       currentIndex: prevState.currentIndex + 1
     }));
   };
+
   render() {
     const { dataGalery } = this.props;
 
@@ -79,17 +76,6 @@ class Gallery extends React.Component {
 }
 
 class GalleryModal extends React.Component {
-  componentDidMount = () => {
-    document.body.addEventListener("keydown", this.handleKeyDown);
-  };
-  componentWillUnMount = () => {
-    document.body.removeEventListener("keydown", this.handleKeyDown);
-  };
-  handleKeyDow = e => {
-    if (e.keyCode === 27) this.props.closeModal();
-    if (e.keyCode === 37 && this.props.hasPrev) this.props.findPrev();
-    if (e.keyCode === 39 && this.props.hasNext) this.props.findNext();
-  };
   render() {
     const {
       closeModal,
@@ -109,15 +95,12 @@ class GalleryModal extends React.Component {
               icon={faTimesCircle}
               className="modal-close"
               onClick={closeModal}
-              onKeyDown={this.handleKeyDown}
             />
-
             {hasPrev && (
               <FontAwesomeIcon
                 icon={faAngleLeft}
                 className="modal-prev"
                 onClick={findPrev}
-                onKeyDown={this.handleKeyDown}
               />
             )}
             {hasNext && (
@@ -125,7 +108,6 @@ class GalleryModal extends React.Component {
                 icon={faAngleRight}
                 className="modal-next "
                 onClick={findNext}
-                onKeyDown={this.handleKeyDown}
               />
             )}
             <img src={item.src} alt="gallery" />

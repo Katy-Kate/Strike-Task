@@ -6,54 +6,11 @@ import {
   faMapMarker,
   faGlobe
 } from "@fortawesome/free-solid-svg-icons";
-import Background from "../../images/map.png";
+import background from "../../images/map.png";
 import { API_KEY_GOOGLE_MAP, map_options } from "../../data/app_data";
-let map;
-const mapStyles = {
-  flexGrow: 1,
-  height: "230px",
-  minWidth: "300px",
-  backgroundImage: `url(${Background})`,
-  backgroundPosition: "center",
-  backgroundSize: "cover",
-  backgroundRepeat: "no-repeat"
-};
+import Map from "./Map";
+
 class Contacts extends React.PureComponent {
-  initMap = () => {
-    if (!this.props.isSignIn) {
-      let el = document.getElementById("map");
-      if (el) {
-        map = new window.google.maps.Map(el, map_options);
-        new window.google.maps.Marker({
-          position: new window.google.maps.LatLng(7.7186518, 81.7189023),
-          map: map
-        });
-      }
-    }
-  };
-
-  addMap = () => {
-    if (typeof window.google !== "undefined") {
-      this.initMap();
-      return;
-    }
-    let el = document.getElementById("map");
-    if (el && el.children.length === 0) {
-      const script = document.createElement("script");
-      script.src = `https://maps.googleapis.com/maps/api/js?key=${API_KEY_GOOGLE_MAP}`;
-      script.async = true;
-      script.defer = true;
-      script.setAttribute = ("name", "map");
-      script.addEventListener("load", () => {
-        this.initMap();
-      });
-      document.body.appendChild(script);
-    }
-  };
-  componentDidMount = () => {
-    this.addMap();
-  };
-
   render() {
     return (
       <div className="contacts-wrap">
@@ -75,7 +32,11 @@ class Contacts extends React.PureComponent {
             Navalady Rd, 30000, Шри-Ланка
           </div>
         </div>
-        <div id="map" style={mapStyles} />
+        <Map
+          api={API_KEY_GOOGLE_MAP}
+          options={map_options}
+          background={background}
+        />
       </div>
     );
   }

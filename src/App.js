@@ -13,7 +13,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faBars, faPlus } from "@fortawesome/free-solid-svg-icons";
 import users_data from "./data/users_data.json";
 import tickets_data from "./data/tickets_data.json";
-
+import { imagesForSlider } from "./data/app_data";
 import { getUserFromLocalStorage } from "./data/UserRepository";
 import HeaderStartPage from "./components/HeaderWSpase/HeaderStartPage";
 
@@ -90,25 +90,6 @@ class App extends Component {
       IsOpenTaskModule: !this.state.IsOpenTaskModule
     });
   };
-  // toogleLeftPanel = e => {
-  //   let leftPanel = document.querySelector(".left-panel");
-  //   let hamburger = document.querySelector(".header_icon-hamburger");
-  //   let link = leftPanel.querySelector(".left-nav_item");
-  //   let target = e.target;
-  //   let its_leftPanel = target === leftPanel || leftPanel.contains(target);
-  //   let its_hamburger =
-  //     target === hamburger || target.closest(".header_icon-hamburger");
-  //   let leftPanel_is_open = leftPanel.classList.contains("open");
-
-  //   if (its_hamburger) {
-  //     this.toggleMenu(leftPanel);
-  //   } else if (
-  //     (!its_leftPanel && !its_hamburger && leftPanel_is_open) ||
-  //     target === link
-  //   ) {
-  //     leftPanel.classList.remove("open");
-  //   }
-  // };
 
   toogleDropdawnForMobileMenu = () => {
     let mobileMenu = document.getElementsByClassName("nav")[0];
@@ -166,40 +147,44 @@ class App extends Component {
     return (
       <React.Fragment>
         <div className="header">
-          {this.state.isSignIn
-            ? <FontAwesomeIcon
-                icon={faBars}
-                className="header_icon-hamburger"
-                onClick={this.openLeftPanel}
-              />
-            : <FontAwesomeIcon
-                icon={faBars}
-                className="header_icon-mobil-menu"
-                onClick={this.toogleDropdawnForMobileMenu}
-              />}
+          {this.state.isSignIn ? (
+            <FontAwesomeIcon
+              icon={faBars}
+              className="header_icon-hamburger"
+              onClick={this.openLeftPanel}
+            />
+          ) : (
+            <FontAwesomeIcon
+              icon={faBars}
+              className="header_icon-mobil-menu"
+              onClick={this.toogleDropdawnForMobileMenu}
+            />
+          )}
 
           <Logo />
 
-          {this.state.isSignIn
-            ? <React.Fragment>
-                <FontAwesomeIcon
-                  icon={faPlus}
-                  className="nav_item nav_item--btn"
-                  onClick={this.toogleTaskModul}
-                />
-                <HeaderWSpase
-                  onLogOut={this.onLogOut}
-                  onSearch={this.onSearch}
-                  onChangeSearch={this.onChangeSearch}
-                  search={this.state.search}
-                />
-              </React.Fragment>
-            : <HeaderStartPage
-                toogleModulWindowForSignUp={this.toogleModulWindowForSignUp}
-                toogleModulWindowForSignIn={this.toogleModulWindowForSignIn}
-              />}
+          {this.state.isSignIn ? (
+            <React.Fragment>
+              <FontAwesomeIcon
+                icon={faPlus}
+                className="nav_item nav_item--btn"
+                onClick={this.toogleTaskModul}
+              />
+              <HeaderWSpase
+                onLogOut={this.onLogOut}
+                onSearch={this.onSearch}
+                onChangeSearch={this.onChangeSearch}
+                search={this.state.search}
+              />
+            </React.Fragment>
+          ) : (
+            <HeaderStartPage
+              toogleModulWindowForSignUp={this.toogleModulWindowForSignUp}
+              toogleModulWindowForSignIn={this.toogleModulWindowForSignIn}
+            />
+          )}
         </div>
-        {!this.state.isSignIn && <Slider />}
+        {!this.state.isSignIn && <Slider imagesForSlider={imagesForSlider} />}
       </React.Fragment>
     );
   };
@@ -228,32 +213,33 @@ class App extends Component {
   render() {
     return (
       <React.Fragment>
-        <header>
-          {" "}{this.renderHeader()}
-        </header>
+        <header>{this.renderHeader()}</header>
         {this.renderMainContent()}
         <Footer />
         {this.state.isOpenLeftPanel && <LeftPanel className="left-panel" />}
 
-        {this.state.IsOpenTaskModule &&
+        {this.state.IsOpenTaskModule && (
           <CreateNewTask
             toogleTaskModul={this.toogleTaskModul}
             addTicket={this.addTicket}
             user_id={this.state.user["_id"]}
             toogleWillUpdateTickets={this.toogleWillUpdateTickets}
-          />}
-        {this.state.isOpenSignIn &&
+          />
+        )}
+        {this.state.isOpenSignIn && (
           <SignInPage
             toggleIsSignIn={this.toggleIsSignIn}
             saveUser={this.saveUser}
             toogleModulWindowForSignIn={this.toogleModulWindowForSignIn}
-          />}
-        {this.state.isOpenSignUp &&
+          />
+        )}
+        {this.state.isOpenSignUp && (
           <SignUpPage
             toggleIsSignUp={this.toggleIsSignUp}
             isSignUp={this.state.isSignUp}
             toogleModulWindowForSignUp={this.toogleModulWindowForSignUp}
-          />}
+          />
+        )}
       </React.Fragment>
     );
   }

@@ -1,3 +1,35 @@
+import img1 from "../images/slider1.jpg";
+import img2 from "../images/slider2.jpeg";
+import img3 from "../images/slider3.jpg";
+
+export const imagesForSlider = [img1, img2, img3];
+
+export const teamGallery = [
+  {
+    name: "Steve Jobs",
+    src:
+      "https://naqyr37xcg93tizq734pqsx1-wpengine.netdna-ssl.com/wp-content/uploads/2017/11/10-Things-We-Can-Learn-From-the-Incredible-Steve-Jobs.jpg",
+    email: "steveJobs@gmail.com"
+  },
+  {
+    name: "Mark Elliot Zuckerberg",
+    src:
+      "https://img2.freepng.ru/20180324/lte/kisspng-mark-zuckerberg-facebook-founder-harvard-universit-mark-zuckerberg-5ab685dac193b0.9104902415219112587929.jpg",
+    email: "zuckerberg@gmail.com"
+  },
+  {
+    name: "Steve Jobs",
+    src:
+      "https://naqyr37xcg93tizq734pqsx1-wpengine.netdna-ssl.com/wp-content/uploads/2017/11/10-Things-We-Can-Learn-From-the-Incredible-Steve-Jobs.jpg",
+    email: "steveJobs@gmail.com"
+  },
+  {
+    name: "Brendan Eich",
+    src:
+      "https://upload.wikimedia.org/wikipedia/commons/thumb/d/d1/Brendan_Eich_Mozilla_Foundation_official_photo.jpg/600px-Brendan_Eich_Mozilla_Foundation_official_photo.jpg",
+    email: "Brend-eich@gmail.com"
+  }
+];
 export const status_options = [
   { id: 1, name: "новый" },
   { id: 2, name: "в ожидании" },

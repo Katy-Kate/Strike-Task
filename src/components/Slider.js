@@ -1,11 +1,7 @@
 import React from "react";
+import PropTypes from "prop-types";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faAngleLeft, faAngleRight } from "@fortawesome/free-solid-svg-icons";
-import img1 from "../images/slider1.jpg";
-import img2 from "../images/slider2.jpeg";
-import img3 from "../images/slider3.jpg";
-
-const imagesForSlider = [img1, img2, img3];
 
 class Slider extends React.Component {
   constructor() {
@@ -15,7 +11,7 @@ class Slider extends React.Component {
     };
   }
   onChangeSlider = data => {
-    if (this.state.indexOfSliderImage < imagesForSlider.length - 1) {
+    if (this.state.indexOfSliderImage < this.props.imagesForSlider.length - 1) {
       this.setState(prevState => ({
         indexOfSliderImage: prevState.indexOfSliderImage + data
       }));
@@ -26,6 +22,7 @@ class Slider extends React.Component {
     }
   };
   render() {
+    const { imagesForSlider } = this.props;
     return (
       <div className="silder">
         <div className="slider_wraper">
@@ -65,3 +62,6 @@ class Slider extends React.Component {
   }
 }
 export default Slider;
+Slider.propTypes = {
+  imagesForSlider: PropTypes.array.isRequired
+};
