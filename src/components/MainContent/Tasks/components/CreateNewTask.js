@@ -50,28 +50,12 @@ class CreateNewTask extends React.PureComponent {
     });
   };
 
-  checkIsStateEmpty = () => {
-    let isStateEmpty = false;
-    for (let key in this.state) {
-      if (key === "date") continue;
-      if (this.state[key]) {
-        isStateEmpty = true;
-      }
-    }
-    return isStateEmpty;
-  };
-
   saveNewTask = () => {
     if (this.state.title) {
-      let isStateEmpty = this.checkIsStateEmpty();
-      if (isStateEmpty) {
-        addNewTicketToLocalStorage({ date: +new Date(), ...this.state });
-        this.props.toogleWillUpdateTickets(true);
-        this.resetState();
-        this.props.toogleTaskModul();
-      } else {
-        alert("вы не заполнили ни одного поля ");
-      }
+      addNewTicketToLocalStorage({ date: +new Date(), ...this.state });
+      this.props.toogleWillUpdateTickets(true);
+      this.resetState();
+      this.props.toogleTaskModul();
     } else {
       alert("введите заглавие!");
     }

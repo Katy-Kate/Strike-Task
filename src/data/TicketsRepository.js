@@ -36,7 +36,7 @@ export const getTicketsByFilter = (
   userId,
   offset,
   searchQuery,
-  param,
+  paramSort,
   direction
 ) => {
   let tickets = getTicketsByUserId(userId);
@@ -53,12 +53,12 @@ export const getTicketsByFilter = (
     ticketsBySearch = getTicketsBySearch(filterTickets, searchQuery);
     filterTickets = ticketsBySearch;
   }
-  if (param) {
+  if (paramSort) {
     let sortTickets;
-    if (param === "date") {
+    if (paramSort === "date") {
       sortTickets = sortByDate(filterTickets, direction);
     } else {
-      sortTickets = sortTicketsByParam(filterTickets, param, direction);
+      sortTickets = sortTicketsByParam(filterTickets, paramSort, direction);
     }
     filterTickets = sortTickets;
   }
