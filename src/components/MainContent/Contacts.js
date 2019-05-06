@@ -6,9 +6,18 @@ import {
   faMapMarker,
   faGlobe
 } from "@fortawesome/free-solid-svg-icons";
+import Background from "../../images/map.png";
 import { API_KEY_GOOGLE_MAP, map_options } from "../../data/app_data";
 let map;
-
+const mapStyles = {
+  flexGrow: 1,
+  height: "230px",
+  minWidth: "300px",
+  backgroundImage: `url(${Background})`,
+  backgroundPosition: "center",
+  backgroundSize: "cover",
+  backgroundRepeat: "no-repeat"
+};
 class Contacts extends React.PureComponent {
   initMap = () => {
     if (!this.props.isSignIn) {
@@ -66,7 +75,7 @@ class Contacts extends React.PureComponent {
             Navalady Rd, 30000, Шри-Ланка
           </div>
         </div>
-        <div id="map" />
+        <div id="map" style={mapStyles} />
       </div>
     );
   }

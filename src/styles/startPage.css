@@ -48,8 +48,3 @@
   margin-right: 10px;
   font-size: 25px;
 }
-#map {
-  flex-grow: 1;
-  height: 230px;
-  min-width: 300px;
-}
