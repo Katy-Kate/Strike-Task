@@ -15,7 +15,7 @@ class Contacts extends React.PureComponent {
       let el = document.getElementById("map");
       if (el) {
         map = new window.google.maps.Map(el, map_options);
-        let marker = new window.google.maps.Marker({
+        new window.google.maps.Marker({
           position: new window.google.maps.LatLng(7.7186518, 81.7189023),
           map: map
         });
