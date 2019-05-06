@@ -1,6 +1,8 @@
 import React from "react";
 import PropTypes from "prop-types";
 import UISelect from "../../../UiComponents/UISelect";
+import ProgressBar from "./ProgressBar";
+import CirculBar from "./CirculBar";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faBookmark,
@@ -19,10 +21,20 @@ class TaskConteiner extends React.Component {
     };
   }
   toggleMainBlock = () => {
-    this.setState({
-      isOpenMinBlock: !this.state.isOpenMinBlock
-    });
+    this.setState(
+      {
+        isOpenMinBlock: !this.state.isOpenMinBlock
+      },
+      () => {
+        if (!this.state.isOpenMinBlock) {
+          this.setState({
+            ticket: { ...this.props.item }
+          });
+        }
+      }
+    );
   };
+
   onChangeTicketStaus = event => {
     let value = event.target.value;
     this.setState(
@@ -49,10 +61,38 @@ class TaskConteiner extends React.Component {
   };
   resetStatus = () => {
     this.toggleStatus(false);
+    this.setState(PrevState => ({
+      ticket: {
+        ...PrevState.ticket,
+        status: this.props.item.status
+      }
+    }));
+  };
+
+  saveProgres = () => {
+    this.props.replaceTicket(this.state.ticket.id, this.state.ticket);
+  };
+  changeProgress = event => {
+    let percentage = event.target.value;
+    this.setState(PrevState => ({
+      ticket: {
+        ...PrevState.ticket,
+        percentage
+      }
+    }));
   };
 
   render() {
-    const { priority, title, desc, file, status, date, id } = this.state.ticket;
+    const {
+      priority,
+      title,
+      desc,
+      file,
+      status,
+      date,
+      id,
+      percentage
+    } = this.state.ticket;
     let day = new Date(Number(date)).toLocaleDateString(
       "en-US",
       options_data_format
@@ -65,6 +105,7 @@ class TaskConteiner extends React.Component {
           onClick={() => this.props.removeTicket(id)}
           title="удалить"
         />
+        <CirculBar percentage={percentage || 0} />
         <div className="task-container_header__date">{day}</div>
         <div className="task-container_header">
           <FontAwesomeIcon
@@ -100,7 +141,7 @@ class TaskConteiner extends React.Component {
                 labelText="статус"
                 onChange={this.onChangeTicketStaus}
                 options={status_options}
-                defaultValue={status}
+                value={status}
               />
               {this.state.saveStatus && (
                 <div className="saveStatus">
@@ -120,6 +161,11 @@ class TaskConteiner extends React.Component {
                 </div>
               )}
             </div>
+            <ProgressBar
+              percentage={percentage || 0}
+              changeProgress={this.changeProgress}
+              saveProgres={this.saveProgres}
+            />
           </div>
         )}
       </div>
