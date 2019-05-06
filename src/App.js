@@ -166,42 +166,38 @@ class App extends Component {
     return (
       <React.Fragment>
         <div className="header">
-          {this.state.isSignIn ? (
-            <FontAwesomeIcon
-              icon={faBars}
-              className="header_icon-hamburger"
-              onClick={this.openLeftPanel}
-            />
-          ) : (
-            <FontAwesomeIcon
-              icon={faBars}
-              className="header_icon-mobil-menu"
-              onClick={this.toogleDropdawnForMobileMenu}
-            />
-          )}
+          {this.state.isSignIn
+            ? <FontAwesomeIcon
+                icon={faBars}
+                className="header_icon-hamburger"
+                onClick={this.openLeftPanel}
+              />
+            : <FontAwesomeIcon
+                icon={faBars}
+                className="header_icon-mobil-menu"
+                onClick={this.toogleDropdawnForMobileMenu}
+              />}
 
           <Logo />
 
-          {this.state.isSignIn ? (
-            <React.Fragment>
-              <FontAwesomeIcon
-                icon={faPlus}
-                className="nav_item nav_item--btn"
-                onClick={this.toogleTaskModul}
-              />
-              <HeaderWSpase
-                onLogOut={this.onLogOut}
-                onSearch={this.onSearch}
-                onChangeSearch={this.onChangeSearch}
-                search={this.state.search}
-              />
-            </React.Fragment>
-          ) : (
-            <HeaderStartPage
-              toogleModulWindowForSignUp={this.toogleModulWindowForSignUp}
-              toogleModulWindowForSignIn={this.toogleModulWindowForSignIn}
-            />
-          )}
+          {this.state.isSignIn
+            ? <React.Fragment>
+                <FontAwesomeIcon
+                  icon={faPlus}
+                  className="nav_item nav_item--btn"
+                  onClick={this.toogleTaskModul}
+                />
+                <HeaderWSpase
+                  onLogOut={this.onLogOut}
+                  onSearch={this.onSearch}
+                  onChangeSearch={this.onChangeSearch}
+                  search={this.state.search}
+                />
+              </React.Fragment>
+            : <HeaderStartPage
+                toogleModulWindowForSignUp={this.toogleModulWindowForSignUp}
+                toogleModulWindowForSignIn={this.toogleModulWindowForSignIn}
+              />}
         </div>
         {!this.state.isSignIn && <Slider />}
       </React.Fragment>
@@ -211,20 +207,20 @@ class App extends Component {
   renderMainContent = () => {
     if (this.state.isSignIn) {
       return (
-        <main className="appPage">
+        <div id="main" className="appPage">
           <MainContent
             user={this.state.user}
             search={this.state.search}
             willUpdateTickets={this.state.willUpdateTickets}
             toogleWillUpdateTickets={this.toogleWillUpdateTickets}
           />
-        </main>
+        </div>
       );
     } else {
       return (
-        <main className="loginPage">
+        <div id="main" className="loginPage">
           <StartPage isSignIn={this.state.isSignIn} />
-        </main>
+        </div>
       );
     }
   };
@@ -232,33 +228,32 @@ class App extends Component {
   render() {
     return (
       <React.Fragment>
-        <header> {this.renderHeader()}</header>
+        <header>
+          {" "}{this.renderHeader()}
+        </header>
         {this.renderMainContent()}
         <Footer />
         {this.state.isOpenLeftPanel && <LeftPanel className="left-panel" />}
 
-        {this.state.IsOpenTaskModule && (
+        {this.state.IsOpenTaskModule &&
           <CreateNewTask
             toogleTaskModul={this.toogleTaskModul}
             addTicket={this.addTicket}
             user_id={this.state.user["_id"]}
             toogleWillUpdateTickets={this.toogleWillUpdateTickets}
-          />
-        )}
-        {this.state.isOpenSignIn && (
+          />}
+        {this.state.isOpenSignIn &&
           <SignInPage
             toggleIsSignIn={this.toggleIsSignIn}
             saveUser={this.saveUser}
             toogleModulWindowForSignIn={this.toogleModulWindowForSignIn}
-          />
-        )}
-        {this.state.isOpenSignUp && (
+          />}
+        {this.state.isOpenSignUp &&
           <SignUpPage
             toggleIsSignUp={this.toggleIsSignUp}
             isSignUp={this.state.isSignUp}
             toogleModulWindowForSignUp={this.toogleModulWindowForSignUp}
-          />
-        )}
+          />}
       </React.Fragment>
     );
   }

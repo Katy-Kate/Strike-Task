@@ -22,21 +22,13 @@ class Contacts extends React.PureComponent {
       }
     }
   };
-  removeMap = () => {
-    const reExpMap = /(https:\/\/maps)/;
-    let arrOfScriptsOnPage = document.querySelectorAll("script");
-    if (arrOfScriptsOnPage.length) {
-      for (let i = 0; i < arrOfScriptsOnPage.length; i++) {
-        reExpMap.test(arrOfScriptsOnPage[i].src) &&
-          arrOfScriptsOnPage[i].remove();
-      }
-    }
-    window.google = {};
-  };
 
   addMap = () => {
+    if (typeof window.google !== "undefined") {
+      this.initMap();
+      return;
+    }
     let el = document.getElementById("map");
-
     if (el && el.children.length === 0) {
       const script = document.createElement("script");
       script.src = `https://maps.googleapis.com/maps/api/js?key=${API_KEY_GOOGLE_MAP}`;
@@ -46,15 +38,11 @@ class Contacts extends React.PureComponent {
       script.addEventListener("load", () => {
         this.initMap();
       });
-
       document.body.appendChild(script);
     }
   };
   componentDidMount = () => {
     this.addMap();
-  };
-  componentWillUnmount = () => {
-    this.removeMap();
   };
 
   render() {

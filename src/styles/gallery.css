@@ -37,7 +37,7 @@
   position: absolute;
   left: 0px;
   bottom: -150px;
-  background: #ffffffb5;
+  background: rgba(255, 255, 255, 0.5);
   width: 100%;
   padding: 20px;
   transition: all 0.3s ease-in;
@@ -97,7 +97,8 @@
   height: 50px;
   line-height: 40px;
   font-size: 60px;
-  color: #ffffffc4;
+  color: rgba(255, 255, 255, 0.5);
+  cursor: pointer;
 }
 
 .modal-prev {

@@ -28,13 +28,6 @@ class Slider extends React.Component {
   render() {
     return (
       <div className="silder">
-        <button
-          className="arrowBtn silder_btn silder_btn--left"
-          onClick={() => this.onChangeSlider(-1)}
-          disabled={this.state.indexOfSliderImage === 0}
-        >
-          <FontAwesomeIcon icon={faAngleLeft} />
-        </button>
         <div className="slider_wraper">
           {imagesForSlider
             .map((item, i) => {
@@ -54,7 +47,13 @@ class Slider extends React.Component {
             })
             .reverse()}
         </div>
-
+        <button
+          className="arrowBtn silder_btn silder_btn--left"
+          onClick={() => this.onChangeSlider(-1)}
+          disabled={this.state.indexOfSliderImage === 0}
+        >
+          <FontAwesomeIcon icon={faAngleLeft} />
+        </button>
         <button
           className="arrowBtn silder_btn silder_btn--right"
           onClick={() => this.onChangeSlider(+1)}

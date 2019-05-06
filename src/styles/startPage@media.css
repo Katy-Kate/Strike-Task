@@ -26,6 +26,7 @@
   }
   .nav.menu-open {
     top: 0px;
+    z-index: 1;
   }
   .nav_item:not(.nav_item--btn) {
     border: none;
